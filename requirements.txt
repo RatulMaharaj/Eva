@@ -4,6 +4,3 @@ numpy==1.18.1
 pyvan==0.0.5
 pandas==1.0.1
 PyPDF2==1.26.0
-.\combine.py
-.\search.py
-.\update.py
