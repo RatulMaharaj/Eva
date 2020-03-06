@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  {% extends "template.html" %}
+  <head>
+    <meta charset="utf-8">
+    {% block title %}Search Results{% endblock %}
+  </head>
+  <body class = resultsbody>
+        
+    {% block content_header %}   
+      <div class="searchresults_heading">
+        <h2>SEARCH RESULT(S)</h2>
+      </div>          
+      <div class="results_searchbar">
+        <form action="{{ url_for('results') }}" method="post">
+          <input placeholder="Search again" type="text" name="searchcriteria">
+        </form>
+      </div>
+    {% endblock %}
+
+    {% block content %}
+  
+    {% for id in results['name'] %}
+    <div class="search-content-section">
+        
+      <div class="search_result">
+        <div class="search_name">
+            {{results['name'][id]}}
+        </div>
+        <div class="search_path">
+          <a href = "{{ results['path'][id]}}"> {{results['path'][id]}} </a>
+        </div>
+      </div>
+ 
+    </div>
+    {% endfor%}
+    
+    {% endblock %}
+
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  {% extends "template.html" %}
+  <head>
+    <meta charset="utf-8">
+    {% block title %}Search{% endblock %}
+  </head>
+  <body class="searchbody">
+    
+    {% block content %}
+
+    <div class="searchlogo">
+          <center><h1>Ask Eva</h1></center>
+    </div>
+
+    <form class="searchbar" action="{{ url_for('results') }}" method="post">
+      <center>
+        <input placeholder="to find the location of the file named..." type="text" name="searchcriteria">
+      </center>
+    </form> 
+  
+  {% endblock %}
+  </body>
+</html>

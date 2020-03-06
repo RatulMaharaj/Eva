@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  {% extends "template.html" %}
+  <head>
+    <meta charset="utf-8">
+    {% block title %}Combine PDF{% endblock %}
+  </head>
+  <body >
+    {% block content_header %}             
+      <h2>COMBINE PDF FILES</h2>
+    {% endblock %}
+
+    {% block content %}
+    <p>This tool can be used to merge multiple pdf files.</p> 
+    <br>
+    <p>The files will be combined in alphabetical / numerical order. 
+      Rename the files if they need to be combined in a required order.</p>
+    <br>
+    <form action="/combine" method="POST" enctype = "multipart/form-data">
+      <label for="files">Please select the files to be combined:</label>
+      <br><br>
+      <input type="file" id="files" accept="application/pdf" name="files" multiple> <br> <br>
+      <div class="button_container">
+        <center>
+          <input class = "button" type="submit" value="COMBINE">
+        </center>
+      </div>
+    </form>
+    {% endblock %}
+
+  </body>
+</html>

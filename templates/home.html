@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  {% extends "template.html" %}
+  <head>
+    <meta charset="utf-8">
+    {% block title %}Home{% endblock %}
+  </head>
+  <body class = homebody>
+    {% block content %}
+    
+    <div class="home_grid">
+      <div class="home_intro">
+      
+        <center>
+          <h2>Hi, I'm Eva!</h2>
+          <br>
+          <p> Choose one of the options below to get started!</p>
+        </center>
+      
+      </div>
+
+      <div class="home_apps">
+        <a href="{{ url_for('search') }}">
+          <div>
+            <center>
+              <h3>Ask Eva</h3>
+              <br>
+              <p>Search shared drives</p>
+            </center>
+          </div>
+        </a>
+
+        <a href="{{ url_for('combine') }}">
+          <div>
+            <center>
+              <h3>Combine</h3>
+              <br>
+              <p>Merge multiple pdf files</p>
+            </center>
+          </div>
+        </a>
+        <a href="{{ url_for('about') }}">
+          <div>
+            <center>
+              <h3>About</h3>
+              <br>
+              <p>Learn more about Eva</p>
+            </center>
+          </div>
+        </a>
+
+      </div>
+
+    </div>  
+    {% endblock %}
+
+
+    
+  </body>
+</html>
