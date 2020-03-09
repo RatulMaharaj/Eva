@@ -16,17 +16,27 @@ def searchcsv(SearchString):
     This function can be used to search for files saved in the OMART folders.
     '''
     data_lower = data['name'].str.lower() 
-    
-    data['Index'] = data_lower.str.find(SearchString.lower())  # creating and passsing search results to new column 
-    results = data[data["Index"] != -1] # Storing results as a dataframe
+    SearchWords = SearchString.split()
 
+    data['Index'] = data_lower.str.find(SearchWords[0].lower())
+    results = data[data["Index"] != -1] # Storing results as a dataframe
+    results = results.drop(columns="Index")
+    try:
+        for i in range(1,len(SearchWords)):
+            results_lower = results['name'].str.lower() 
+            results['Index'] = results_lower.str.find(SearchWords[i].lower())
+            results = results[results["Index"] != -1]
+            results = results.drop(columns="Index")
+    except:
+        pass
+    
     if results.empty:
         results = "No files found!"
         return results
     else:
         pd.set_option('display.max_rows', None)
         return results[['name','path']]
-        
+            
 
 def getmodtime():
     modified = os.path.getmtime(database_location)
