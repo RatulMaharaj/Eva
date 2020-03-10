@@ -34,7 +34,7 @@ def results():
     else:    
         results = results.to_json()
         results = json.loads(results)
-    return render_template('results.html', results=results)
+    return render_template('results.html', results=results, searchcriteria=searchcriteria)
 
 @app.route('/about')
 def about():

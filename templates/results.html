@@ -13,7 +13,7 @@
       </div>          
       <div class="results_searchbar">
         <form action="{{ url_for('results') }}" method="post">
-          <input placeholder="Search again" type="text" name="searchcriteria">
+          <input placeholder="Search again" type="text" name="searchcriteria" value="{{ searchcriteria }}">
         </form>
       </div>
     {% endblock %}
@@ -28,14 +28,14 @@
             {{results['name'][id]}}
         </div>
         <div class="search_path">
-          <a href = "{{ results['path'][id]}}"> {{results['path'][id]}} </a>
-        </div>
+          <a href = "{{ results['path'][id]}}" id = 'filepath'> {{results['path'][id]}} </a>
+        </div>      
       </div>
- 
     </div>
     {% endfor%}
     
     {% endblock %}
+      
 
   </body>
 </html>
