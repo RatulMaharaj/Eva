@@ -27,15 +27,18 @@ def searchcsv(SearchString):
             results['Index'] = results_lower.str.find(SearchWords[i].lower())
             results = results[results["Index"] != -1]
             results = results.drop(columns="Index")
+            
     except:
         pass
     
+    hits = len(results)
+
     if results.empty:
         results = "No files found!"
-        return results
+        return results, hits
     else:
         pd.set_option('display.max_rows', None)
-        return results[['name','path']]
+        return results[['name','path']], hits
             
 
 def getmodtime():

@@ -142,9 +142,10 @@ def update():
     df = pd.concat(frames)
 
     df = df[df['folder'] == False] # remove folders from list
-    df = df[df['name'] != None] # remove all files with no names
+    df = df[df['name'] != ""] # remove all files with no names
     df = df.drop(df.columns[[0,4,7,8,9,10,11]],axis=1) # drop columns we aren't using
     df['name'] = df['name'] + '.' + df['extension'] # adding file extensions to the name
+    df = df.dropna(axis=0) # remove null rows
     df = df.drop(df.columns[2],axis=1) # drop column we aren't using
     df['id'] = np.arange(len(df)) # We give each file an id
 

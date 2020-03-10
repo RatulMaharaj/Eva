@@ -28,13 +28,13 @@ def search():
 @app.route('/search-results',methods = ['GET','POST'])    
 def results():
     searchcriteria = request.form['searchcriteria']
-    results = searchcsv(searchcriteria)
+    results, hits = searchcsv(searchcriteria)
     if type(results) == str:
         results = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
     else:    
         results = results.to_json()
         results = json.loads(results)
-    return render_template('results.html', results=results, searchcriteria=searchcriteria)
+    return render_template('results.html', results=results, searchcriteria=searchcriteria, hits=hits)
 
 @app.route('/about')
 def about():
