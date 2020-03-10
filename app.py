@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, send_file
-from update import update
+from update import update, read_folders, write_folders
 from search import getmodtime, searchcsv
 from combine import merge_pdfs
 import pandas as pd
@@ -8,7 +8,7 @@ import os, glob
 from waitress import serve
 # from flaskwebgui import FlaskUI 
 
-version = '0.01'
+version = '0.02'
 
 UPLOAD_FOLDER = ".\\CombineUploads"
 
@@ -42,10 +42,19 @@ def about():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def update_data():
+    folder_1, folder_2, folder_3 = read_folders()
+    
     if request.method == 'POST':
+        folder_1 = request.form['folder_1']
+        folder_2 = request.form['folder_2']
+        folder_3 = request.form['folder_3']
+       
+        write_folders(folder_1,folder_2,folder_3)
         update()
+
     modtime = getmodtime()
-    return render_template('update.html',modtime = modtime, version = version)
+    return render_template('update.html',modtime = modtime, version = version, folder_1 = folder_1, folder_2 = folder_2, folder_3 = folder_3 )
+
 
 def clear_uploads():
     files = glob.glob(UPLOAD_FOLDER+'\\*')
@@ -75,9 +84,9 @@ def combine():
 
 if __name__ == '__main__':
     # app.secret_key = 'mysecret'
-    # app.run(debug=True)
+    app.run(debug=True)
     # ui.run()
-    serve(app, host='127.0.0.1', port=5000)
+    # serve(app, host='127.0.0.1', port=5000)
 
 
     

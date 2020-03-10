@@ -17,17 +17,30 @@
     <h4>UPDATE DATABASE</h4><br>
 
     <p> This application uses a static database to look up the locations of files. </p><br>
-    <p>The database was last updated on: <strong>{{ modtime }}</strong></p><br>
-    <p> Click the button below to update the database now.</p>
-    <div class="button_container">
-      <center>
-        <form action="/settings" method="POST">
-          <input class = "button" type="submit" value="UPDATE">
-        </form>
-      </center>
-    </div>
+    <p>The database was last updated on: <strong>{{ modtime }}</strong></p><br><br>
+    <p> Please enter the paths of the folders you would like to be indexed:</p><br>
+    
+    <form action="{{ url_for('update_data') }}" method="POST">
+      <div class="IndexTheseFolders">
+          <div>
+            <input type="text" name="folder_1" value="{{folder_1}}">
+          </div><br>
+          <div>
+            <input type="text" name="folder_2" value="{{folder_2}}">
+          </div><br>
+          <div>
+            <input type="text" name="folder_3" value="{{folder_3}}">
+          </div>
+          <br>
+      </div>
+      <div class="button_container">
+        <center>
+          <input class="button" type="submit" value="UPDATE">
+        </center>
+      </div>
+    </form>
+    
     <br><br><br>
-
 
     {% endblock %}
   </body>
