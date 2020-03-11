@@ -14,10 +14,12 @@
     <p>You are currently using Eva version {{ version }}</p><br><br>
 
     <h3>ASK EVA</h3><br>
-    <h4>UPDATE DATABASE</h4><br>
+    <h4>LAST UPDATED</h4><br>
 
     <p> This application uses a static database to look up the locations of files. </p><br>
     <p>The database was last updated on: <strong>{{ modtime }}</strong></p><br><br>
+
+    <h4>UPDATE NOW</h4><br>
     <p> Please enter the paths of the folders you would like to be indexed:</p><br>
     
     <form action="{{ url_for('update_data') }}" method="POST">
