@@ -8,7 +8,7 @@ import os, glob
 from waitress import serve
 # from flaskwebgui import FlaskUI 
 
-version = '0.02'
+version = '0.0.2'
 
 UPLOAD_FOLDER = ".\\CombineUploads"
 
