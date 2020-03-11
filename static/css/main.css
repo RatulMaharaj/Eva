@@ -269,7 +269,7 @@ h2,h3,h4{
     width: 60%;
     padding: 2px 23px 2px 30px;
     outline: 0;
-    background-color: #ffffff;
+    background-color: black;
 }
 
 @keyframes transitionIn{
