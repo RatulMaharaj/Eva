@@ -12,6 +12,6 @@ Below is a list of the current applications available on Eva:
  
  Eva is continuously being tweaked and improved. More applications will be added in the future.
  
- ## CREATED BY
+ ## Created By
  
  Ratul Maharaj, 20 February 2020.
