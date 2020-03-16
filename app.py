@@ -42,14 +42,14 @@ def about():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def update_data():
-    folder_1, folder_2, folder_3 = read_folders()
+    folder_1, folder_2, folder_3, *rest = read_folders()
     
     if request.method == 'POST':
         folder_1 = request.form['folder_1']
         folder_2 = request.form['folder_2']
         folder_3 = request.form['folder_3']
        
-        write_folders(folder_1,folder_2,folder_3)
+        write_folders([folder_1,folder_2,folder_3])
         update()
 
     modtime = getmodtime()
