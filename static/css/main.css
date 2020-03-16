@@ -288,3 +288,10 @@ h2,h3,h4{
     animation: transitionIn 0.75s;
 }
 
+.folder-list {
+    padding: 0.5rem;
+    min-height: 6rem;
+    width: 100%;
+    line-height: 150%;
+    font-size: 0.9rem;
+}

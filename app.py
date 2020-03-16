@@ -42,18 +42,16 @@ def about():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def update_data():
-    folder_1, folder_2, folder_3, *rest = read_folders()
+    folders = read_folders()
+    folders_str = '\n'.join(folders)
     
     if request.method == 'POST':
-        folder_1 = request.form['folder_1']
-        folder_2 = request.form['folder_2']
-        folder_3 = request.form['folder_3']
-       
-        write_folders([folder_1,folder_2,folder_3])
+        folders = request.form['folders'].splitlines()
+        write_folders(folders)
         update()
 
     modtime = getmodtime()
-    return render_template('update.html',modtime = modtime, version = version, folder_1 = folder_1, folder_2 = folder_2, folder_3 = folder_3 )
+    return render_template('update.html',modtime = modtime, version = version, folders=folders_str)
 
 
 def clear_uploads():

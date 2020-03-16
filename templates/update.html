@@ -20,20 +20,11 @@
     <p>The database was last updated on: <strong>{{ modtime }}</strong></p><br><br>
 
     <h4>UPDATE NOW</h4><br>
-    <p> Please enter the paths of the folders you would like to be indexed:</p><br>
+    <p>Please enter the paths of the folders you would like to be indexed. Each path should be on a new line.</p><br>
     
     <form action="{{ url_for('update_data') }}" method="POST">
       <div class="IndexTheseFolders">
-          <div>
-            <input type="text" name="folder_1" value="{{folder_1}}">
-          </div><br>
-          <div>
-            <input type="text" name="folder_2" value="{{folder_2}}">
-          </div><br>
-          <div>
-            <input type="text" name="folder_3" value="{{folder_3}}">
-          </div>
-          <br>
+          <textarea class="folder-list" name="folders">{{folders}}</textarea>
       </div>
       <div class="button_container">
         <center>
