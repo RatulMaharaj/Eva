@@ -3,13 +3,21 @@ import numpy as np
 import pandas as pd
 import os
 import time
-from update import database_location
 
 
-# Import Database
-fields = ['name','path'] # The fields we want from the datafile
-data = pd.read_csv(database_location, usecols = fields, low_memory = False) # Read the data into a pandas dataframe
+COLUMNS = ['name','path'] # The fields we want from the datafile
 
+database_location = ""
+data = pd.DataFrame(columns = COLUMNS) #initialise an empty dataframe
+
+def update_data():
+    # Import Database
+    global data
+    try:
+        data = pd.read_csv(database_location, usecols = COLUMNS, low_memory = False) # Read the data into a pandas dataframe
+    except:
+        pass # fail silently
+    
 # Search function
 def searchcsv(SearchString):
     '''
