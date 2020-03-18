@@ -6,7 +6,7 @@ FILE_NAME = "ASSA_Encrypted.pdf"
 
 def encrypt_file(filename, password, mode = "encrypt"):
     """
-    This function can be used to encrypt '.pdf' files
+    This function can be used to encrypt pdf files
     """
 
     fullpath = FILE_PATH + filename
@@ -44,4 +44,3 @@ def encrypt_file(filename, password, mode = "encrypt"):
         with open(output, 'wb') as pdf_file_decrypted:
             pdf_writer.write(pdf_file_decrypted)
 
-encrypt_file("ASSA_Encrypted.pdf","Ratul@01",mode="decrypt")
