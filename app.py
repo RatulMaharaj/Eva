@@ -10,7 +10,7 @@ from waitress import serve
 
 version = '0.1.0'
 
-UPLOAD_FOLDER = ".\\CombineUploads"
+UPLOAD_FOLDER = ".\\uploads"
 DATABASE_LOCATION = "..\\Eva - Dependencies\\database.csv"
 FOLDERS_LOCATION = "..\\Eva - Dependencies\\folders.txt"
 
