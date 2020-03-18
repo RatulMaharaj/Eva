@@ -1,5 +1,5 @@
 # Project Specific ignores
-CombineUploads/
+uploads/
 
 # My Editor
 .vscode
