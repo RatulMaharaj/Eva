@@ -226,6 +226,10 @@ h2,h3,h4{
     z-index: 4;
 }
 
+.results_searchbar input:focus{
+    outline: none;
+ }
+
 .home_intro {
     margin-bottom: 50px;
 }
@@ -262,16 +266,6 @@ h2,h3,h4{
     transition: 0.2s;
 }
 
-.IndexTheseFolders input{
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 2px;
-    height: 30px;
-    width: 60%;
-    padding: 2px 23px 2px 30px;
-    outline: 0;
-    background-color: #ffffff;
-}
-
 @keyframes transitionIn{
     from {
         opacity: 0;
@@ -294,4 +288,10 @@ h2,h3,h4{
     width: 100%;
     line-height: 150%;
     font-size: 0.9rem;
+    border: none;
+    border-radius: 2px;
 }
+
+.folder-list:focus {
+    outline: none;
+ }
