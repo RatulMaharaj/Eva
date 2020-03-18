@@ -2,24 +2,22 @@ import numpy as np
 import pandas as pd
 from src.folderstats import folderstats
 
-database_location = "..\\Eva - Dependencies\\database.csv"
-folders_location = "..\\Eva - Dependencies\\folders.txt"
 
-def read_folders():
+def read_folders(folders_location):
     with open(folders_location, 'r') as f:
         text = f.read()
     folders = text.split('\n')
     return folders
 
-def write_folders(folders):
+def write_folders(folders, folders_location):
     text = '\n'.join(folders)
     with open(folders_location, 'w') as f:
         f.write(text)
 
-def update():
+def update(database_location, folders_location):
      # These are the folders we crawl through to collect information
-    source_folders = read_folders()
-    all_files_to_csv(source_folders, database_location)
+    source_folders = read_folders(folders_location)
+    return all_files_to_csv(source_folders, database_location)
 
 # Update function
 def all_files_to_csv(source_folders, csv_file):

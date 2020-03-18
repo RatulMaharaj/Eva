@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, send_file
 from update import update, read_folders, write_folders
-from search import getmodtime, searchcsv
+import search as Search
 from combine import merge_pdfs
 import pandas as pd
 import json
@@ -11,11 +11,16 @@ from waitress import serve
 version = '0.1.0'
 
 UPLOAD_FOLDER = ".\\CombineUploads"
+DATABASE_LOCATION = "..\\Eva - Dependencies\\database.csv"
+FOLDERS_LOCATION = "..\\Eva - Dependencies\\folders.txt"
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # ui = FlaskUI(app=app,maximized=True)
+
+Search.database_location = DATABASE_LOCATION
+Search.update_data()
 
 @app.route('/')
 def home():
@@ -28,7 +33,7 @@ def search():
 @app.route('/search-results',methods = ['GET','POST'])    
 def results():
     searchcriteria = request.form['searchcriteria']
-    results, hits = searchcsv(searchcriteria)
+    results, hits = Search.searchcsv(searchcriteria)
     if type(results) == str:
         results = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
     else:    
@@ -42,15 +47,17 @@ def about():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def update_data():
-    folders = read_folders()
-    folders_str = '\n'.join(folders)
+    folders = read_folders(FOLDERS_LOCATION)
+    
     
     if request.method == 'POST':
         folders = request.form['folders'].splitlines()
-        write_folders(folders)
-        update()
+        write_folders(folders, FOLDERS_LOCATION)
+        update(DATABASE_LOCATION, FOLDERS_LOCATION)
+        Search.update_data()
 
-    modtime = getmodtime()
+    folders_str = '\n'.join(folders)
+    modtime = Search.getmodtime()
     return render_template('update.html',modtime = modtime, version = version, folders=folders_str)
 
 
