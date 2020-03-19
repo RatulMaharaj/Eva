@@ -33,8 +33,9 @@ def search():
 @app.route('/search-results',methods = ['GET','POST'])    
 def results():
     searchcriteria = request.form['searchcriteria']
-    results, hits = Search.searchcsv(searchcriteria)
-    if type(results) == str:
+    results = Search.searchcsv(searchcriteria)
+    hits = len(results)
+    if hits == 0:
         results = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
     else:    
         results = results.to_json()
