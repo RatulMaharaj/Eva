@@ -28,19 +28,17 @@ def home():
 
 @app.route('/search')
 def search():
-    return render_template('search.html')
-
-@app.route('/search-results',methods = ['GET','POST'])    
-def results():
-    searchcriteria = request.form['searchcriteria']
-    results = Search.searchcsv(searchcriteria)
-    hits = len(results)
-    if hits == 0:
-        results = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
-    else:    
-        results = results.to_json()
-        results = json.loads(results)
-    return render_template('results.html', results=results, searchcriteria=searchcriteria, hits=hits)
+    query = request.args.get('q') or ""
+    if query:
+        results = Search.searchcsv(query)
+        hits = len(results)
+        if hits == 0:
+            results_dict = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
+        else:   
+            results_dict = results.to_dict()
+        return render_template('results.html', results=results_dict, searchcriteria=query, hits=hits)
+    else:
+        return render_template('search.html')
 
 @app.route('/about')
 def about():

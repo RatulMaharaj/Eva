@@ -13,9 +13,9 @@
           <center><h1>Ask Eva</h1></center>
     </div>
 
-    <form class="searchbar" action="{{ url_for('results') }}" method="post">
+    <form class="searchbar" action="{{ url_for('search') }}" method="get">
       <center>
-        <input placeholder="to find the location of the file named..." type="text" name="searchcriteria">
+        <input placeholder="to find the location of the file named..." type="text" name="q">
       </center>
     </form> 
   
