@@ -13,18 +13,23 @@
         <h2>{{hits}} SEARCH RESULT(S)</h2>
       </div>          
       <div class="results_searchbar">
-        <form action="{{ url_for('search') }}" method="get">
-          <input autofocus placeholder="Search again" type="search" name="q" value="{{ searchcriteria }}">
+        <form id="search-form" action="{{ url_for('search') }}" method="get">
+          <input id="search-box" autofocus placeholder="Search again" type="search" name="q" value="{{ searchcriteria }}">
         </form>
       </div>
     {% endblock %}
 
     {% block content %}
-    {{ results_list(results, searchcriteria, hits) }}
+    <div id="search-results">
+      {{ results_list(results, searchcriteria, hits) }}
+    </div>
     
     
+    <script src='https://unpkg.com/lodash'></script>
+    <script src="static/js/search.js"></script>  
     {% endblock %}
       
+  
 
   </body>
 </html>
