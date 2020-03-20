@@ -1,0 +1,19 @@
+{% macro results_list(results) -%}
+  {% for result in results %}
+    <div class="search-content-section">
+        
+      <div class="search_result">
+        <div class="search_name">
+            {{result['name']}}
+        </div>
+        <div class="search_path">
+          <a href = "{{ result['path']}}" id = 'filepath'> {{result['path']}} </a>
+        </div>      
+      </div>
+    </div>
+    {% endfor%}
+{%- endmacro %}
+
+{% macro hello() -%}
+  <h1>Hello</h1>
+{%- endmacro %}

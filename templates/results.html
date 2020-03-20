@@ -1,3 +1,4 @@
+{% from 'macros/results_list.html' import results_list %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   {% extends "template.html" %}
@@ -9,7 +10,7 @@
         
     {% block content_header %}   
       <div class="searchresults_heading">
-        <h2>{{hits}} SEARCH RESULT(S) bla</h2>
+        <h2>{{hits}} SEARCH RESULT(S)</h2>
       </div>          
       <div class="results_searchbar">
         <form action="{{ url_for('search') }}" method="get">
@@ -19,19 +20,8 @@
     {% endblock %}
 
     {% block content %}
-    {% for result in results %}
-    <div class="search-content-section">
-        
-      <div class="search_result">
-        <div class="search_name">
-            {{result['name']}}
-        </div>
-        <div class="search_path">
-          <a href = "{{ result['path']}}" id = 'filepath'> {{result['path']}} </a>
-        </div>      
-      </div>
-    </div>
-    {% endfor%}
+    {{ results_list(results) }}
+    
     
     {% endblock %}
       
