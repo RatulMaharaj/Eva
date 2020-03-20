@@ -11,7 +11,12 @@ function handleChange(e) {
     e.preventDefault()
     const term = searchBox.value
     if (term) {
-        cachedEva(term).then(text => searchBox.value === term? resultsNode.innerHTML = text : '')
+        cachedEva(term).then(text => {
+            if (searchBox.value === term) {
+                resultsNode.innerHTML = text
+                window.history.replaceState({},'',`/search?q=${term}`)
+            }
+        })
     } else {
         resultsNode.innerHTML = ''
     }
