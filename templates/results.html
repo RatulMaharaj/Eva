@@ -9,7 +9,7 @@
         
     {% block content_header %}   
       <div class="searchresults_heading">
-        <h2>{{hits}} SEARCH RESULT(S)</h2>
+        <h2>{{hits}} SEARCH RESULT(S) bla</h2>
       </div>          
       <div class="results_searchbar">
         <form action="{{ url_for('search') }}" method="get">
@@ -19,16 +19,15 @@
     {% endblock %}
 
     {% block content %}
-  
-    {% for id in results['name'] %}
+    {% for result in results %}
     <div class="search-content-section">
         
       <div class="search_result">
         <div class="search_name">
-            {{results['name'][id]}}
+            {{result['name']}}
         </div>
         <div class="search_path">
-          <a href = "{{ results['path'][id]}}" id = 'filepath'> {{results['path'][id]}} </a>
+          <a href = "{{ result['path']}}" id = 'filepath'> {{result['path']}} </a>
         </div>      
       </div>
     </div>

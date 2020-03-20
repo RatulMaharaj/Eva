@@ -33,9 +33,9 @@ def search():
         results = Search.searchcsv(query)
         hits = len(results)
         if hits == 0:
-            results_dict = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
+            results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
         else:   
-            results_dict = results.to_dict()
+            results_dict = results.to_dict('records')
         return render_template('results.html', results=results_dict, searchcriteria=query, hits=hits)
     else:
         return render_template('search.html')
