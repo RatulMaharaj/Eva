@@ -29,6 +29,7 @@ def home():
 @app.route('/search')
 def search():
     query = request.args.get('q') or ""
+    raw = (request.args.get('raw') or "") != ""
     if query:
         results = Search.searchcsv(query)
         hits = len(results)
@@ -36,7 +37,8 @@ def search():
             results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
         else:   
             results_dict = results.to_dict('records')
-        return render_template('results.html', results=results_dict, searchcriteria=query, hits=hits)
+        template = 'results.html' if not raw else 'results_raw.html'
+        return render_template(template, results=results_dict, searchcriteria=query, hits=hits)
     else:
         return render_template('search.html')
 
