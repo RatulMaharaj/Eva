@@ -1,5 +1,6 @@
 # Project Specific ignores
-CombineUploads/
+uploads/*
+!uploads/.gitkeep
 
 # My Editor
 .vscode

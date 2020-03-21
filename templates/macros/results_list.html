@@ -1,5 +1,5 @@
 {% macro results_list(results, searchcriteria, hits) -%}
-<div class="search-results-count">Showing results for {{searchcriteria}} ({{hits}} hits)</div>
+<div style="margin-bottom: 20px;" class="search-results-count">Showing results for {{searchcriteria}} ({{hits}} hits)</div>
 {% for result in results %}
     {{results_item(result)}}
 {% endfor%}
