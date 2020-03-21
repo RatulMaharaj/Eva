@@ -1,0 +1,19 @@
+{% macro results_list(results, searchcriteria, hits) -%}
+<div class="search-results-count">Showing results for {{searchcriteria}} ({{hits}} hits)</div>
+{% for result in results %}
+    {{results_item(result)}}
+{% endfor%}
+{%- endmacro %}
+
+{% macro results_item(result) -%}
+    <div class="search-content-section">    
+      <div class="search_result">
+        <div class="search_name">
+            {{result.name}}
+        </div>
+        <div class="search_path">
+          <a href = "{{result.path}}" id = 'filepath'>{{result.path}}</a>
+        </div>      
+      </div>
+    </div>
+{%- endmacro %}

@@ -1,3 +1,4 @@
+{% from 'macros/results_list.html' import results_list %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   {% extends "template.html" %}
@@ -9,33 +10,26 @@
         
     {% block content_header %}   
       <div class="searchresults_heading">
-        <h2>{{hits}} SEARCH RESULT(S)</h2>
+        <h2>SEARCH RESULTS</h2>
       </div>          
       <div class="results_searchbar">
-        <form action="{{ url_for('results') }}" method="post">
-          <input placeholder="Search again" type="text" name="searchcriteria" value="{{ searchcriteria }}">
+        <form id="search-form" action="{{ url_for('search') }}" method="get">
+          <input id="search-box" autofocus placeholder="Search again" type="search" name="q" value="{{ searchcriteria }}">
         </form>
       </div>
     {% endblock %}
 
     {% block content %}
-  
-    {% for id in results['name'] %}
-    <div class="search-content-section">
-        
-      <div class="search_result">
-        <div class="search_name">
-            {{results['name'][id]}}
-        </div>
-        <div class="search_path">
-          <a href = "{{ results['path'][id]}}" id = 'filepath'> {{results['path'][id]}} </a>
-        </div>      
-      </div>
+    <div id="search-results">
+      {{ results_list(results, searchcriteria, hits) }}
     </div>
-    {% endfor%}
     
+    
+    <script src='https://unpkg.com/lodash'></script>
+    <script src="static/js/search.js"></script>  
     {% endblock %}
       
+  
 
   </body>
 </html>

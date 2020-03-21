@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 import time
+from shlex import split
 
 
 COLUMNS = ['name','path'] # The fields we want from the datafile
@@ -19,35 +20,21 @@ def update_data():
         pass # fail silently
     
 # Search function
-def searchcsv(SearchString):
+def searchcsv(search_string):
     '''
     This function can be used to search for files saved in the OMART folders.
     '''
-    data_lower = data['name'].str.lower() 
-    SearchWords = SearchString.split()
-
-    data['Index'] = data_lower.str.find(SearchWords[0].lower())
-    results = data[data["Index"] != -1] # Storing results as a dataframe
-    results = results.drop(columns="Index")
     try:
-        for i in range(1,len(SearchWords)):
-            results_lower = results['name'].str.lower() 
-            results['Index'] = results_lower.str.find(SearchWords[i].lower())
-            results = results[results["Index"] != -1]
-            results = results.drop(columns="Index")
-            
-    except:
-        pass
-    
-    hits = len(results)
+        search_words = split(search_string)
+    except: # if shlex split fails (can happen if there's unclosed quotes)
+        search_words = search_string.split(' ')
 
-    if results.empty:
-        results = "No files found!"
-        return results, hits
-    else:
-        pd.set_option('display.max_rows', None)
-        return results[['name','path']], hits
-            
+    filtered = data
+    for search_word in search_words:
+        filtered = filtered[filtered['name'].str.contains(search_word, case=False)]
+    
+    results = filtered
+    return results[['name','path']]            
 
 def getmodtime():
     modified = os.path.getmtime(database_location)
