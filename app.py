@@ -6,7 +6,6 @@ import pandas as pd
 import json
 import os, glob
 from waitress import serve
-# from flaskwebgui import FlaskUI 
 
 version = '0.1.0'
 
@@ -89,9 +88,15 @@ def combine():
         return render_template('combine.html')
 
 if __name__ == '__main__':
-    # app.secret_key = 'mysecret'
+    if not os.path.isfile(DATABASE_LOCATION):
+        f = pd.DataFrame(columns = Search.COLUMNS)
+        f.to_csv(DATABASE_LOCATION)
+
+    if not os.path.isfile(FOLDERS_LOCATION):
+        f = open(FOLDERS_LOCATION, "w+")
+        f.close()
+
     app.run(debug=True)
-    # ui.run()
     # serve(app, host='127.0.0.1', port=5000)
 
 
