@@ -6,7 +6,6 @@ import pandas as pd
 import json
 import os, glob
 from waitress import serve
-# from flaskwebgui import FlaskUI 
 
 version = '0.1.0'
 
@@ -28,18 +27,19 @@ def home():
 
 @app.route('/search')
 def search():
-    return render_template('search.html')
-
-@app.route('/search-results',methods = ['GET','POST'])    
-def results():
-    searchcriteria = request.form['searchcriteria']
-    results, hits = Search.searchcsv(searchcriteria)
-    if type(results) == str:
-        results = {'name':{0:'No files were found!'},'path':{0:'Please adjust your search criteria and try again.'}}
-    else:    
-        results = results.to_json()
-        results = json.loads(results)
-    return render_template('results.html', results=results, searchcriteria=searchcriteria, hits=hits)
+    query = request.args.get('q') or ""
+    raw = (request.args.get('raw') or "") != ""
+    if query:
+        results = Search.searchcsv(query)
+        hits = len(results)
+        if hits == 0:
+            results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
+        else:   
+            results_dict = results.to_dict('records')
+        template = 'results.html' if not raw else 'results_raw.html'
+        return render_template(template, results=results_dict, searchcriteria=query, hits=hits)
+    else:
+        return render_template('search.html')
 
 @app.route('/about')
 def about():
@@ -48,7 +48,6 @@ def about():
 @app.route('/settings', methods=['GET', 'POST'])
 def update_data():
     folders = read_folders(FOLDERS_LOCATION)
-    
     
     if request.method == 'POST':
         folders = request.form['folders'].splitlines()
@@ -88,10 +87,17 @@ def combine():
         return render_template('combine.html')
 
 if __name__ == '__main__':
-    # app.secret_key = 'mysecret'
+    # Create dependencies that don't exist if needed
+    if not os.path.isfile(DATABASE_LOCATION):
+        f = pd.DataFrame(columns = Search.COLUMNS)
+        f.to_csv(DATABASE_LOCATION)
+
+    if not os.path.isfile(FOLDERS_LOCATION):
+        f = open(FOLDERS_LOCATION, "w+")
+        f.close()
+
     app.run(debug=True)
-    # ui.run()
     # serve(app, host='127.0.0.1', port=5000)
 
-
+ 
     
