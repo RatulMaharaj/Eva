@@ -32,7 +32,7 @@ body{
     height: 100%;
     width: 85px;
     position: fixed;
-    z-index: 1;
+    z-index: 99;
     top: 0;
     left: 0;
     background-color: #282828;
@@ -300,4 +300,18 @@ h2,h3,h4{
     display: block;
     padding-left: 5px;
     color: #333;
+}
+
+
+#pwd{
+    border-radius: 2px;
+    border: none;
+    width: 20%;
+    height: 30px;
+    padding: 2px 30px 2px 10px;
+    background-color: #ffffff;
+}
+
+#pwd:focus{
+    outline: none;
 }
