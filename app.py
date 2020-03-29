@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file
 from update import update, read_folders, write_folders
+from encrypt import encrypt_file
 import search as Search
 from combine import merge_pdfs
 import pandas as pd
@@ -71,8 +72,9 @@ def combine():
         clear_uploads()
         try:
             files = request.files.getlist("files")
+            password = request.form.get('password')
             names = []
-
+            print("The password is:",password)
             for file in files: # save files to folder
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
                 names.append(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
@@ -80,6 +82,11 @@ def combine():
             names.sort()
 
             merge_pdfs(names, output=os.path.join(app.config['UPLOAD_FOLDER'],'merged.pdf'))
+
+            if password != "":
+                print('The password is not blank')
+                encrypt_file(os.path.join(app.config['UPLOAD_FOLDER'],'merged.pdf'), password, mode = "encrypt")
+                return send_file(os.path.join(app.config['UPLOAD_FOLDER'],'merged_encrypted.pdf'), as_attachment=True)
             return send_file(os.path.join(app.config['UPLOAD_FOLDER'],'merged.pdf'), as_attachment=True)
         except:
             return render_template('combine.html')

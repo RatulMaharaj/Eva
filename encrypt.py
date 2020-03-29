@@ -1,34 +1,28 @@
 from PyPDF2 import PdfFileWriter, PdfFileReader, utils
-from app import UPLOAD_FOLDER
-
-FILE_PATH = UPLOAD_FOLDER + "\\"
-FILE_NAME = "ASSA_Encrypted.pdf"
 
 def encrypt_file(filename, password, mode = "encrypt"):
     """
     This function can be used to encrypt pdf files
     """
 
-    fullpath = FILE_PATH + filename
-
     if mode == 'encrypt':
 
         pdf_writer = PdfFileWriter()
-        pdf_reader = PdfFileReader(fullpath)
+        pdf_reader = PdfFileReader(filename)
 
         for page in range(pdf_reader.getNumPages()):
             pdf_writer.addPage(pdf_reader.getPage(page))
 
         pdf_writer.encrypt(user_pwd=password, owner_pwd=None, use_128bit=True)
         
-        output = "." + fullpath.strip(".pdf") + "_Encrypted.pdf"
-        
+        output = filename.rstrip("pdf").rstrip(".") + "_encrypted.pdf"
+        print(output)
         with open(output, 'wb+') as pdf_file_encrypted:
             pdf_writer.write(pdf_file_encrypted)
     
     if mode == 'decrypt':
 
-        pdf_reader = PdfFileReader(fullpath)
+        pdf_reader = PdfFileReader(filename)
         pdf_reader.decrypt(password)
         pdf_writer = PdfFileWriter()
 
@@ -39,7 +33,7 @@ def encrypt_file(filename, password, mode = "encrypt"):
         except utils.PdfReadError:
             return("The file could not be decrypted")
 
-        output = "." + fullpath.strip(".pdf") + "_Decrypted.pdf"
+        output = filename.rstrip("pdf").rstrip(".") + "_decrypted.pdf"
 
         with open(output, 'wb') as pdf_file_decrypted:
             pdf_writer.write(pdf_file_decrypted)
