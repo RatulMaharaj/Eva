@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file
 from update import update, read_folders, write_folders
+from encrypt import encrypt_file
 import search as Search
 from combine import merge_pdfs
 import pandas as pd
@@ -7,7 +8,7 @@ import json
 import os, glob
 from waitress import serve
 
-version = '0.1.0'
+version = '0.2.0'
 
 UPLOAD_FOLDER = ".\\uploads"
 DATABASE_LOCATION = "..\\Eva - Dependencies\\database.csv"
@@ -49,7 +50,6 @@ def about():
 def update_data():
     folders = read_folders(FOLDERS_LOCATION)
     
-    
     if request.method == 'POST':
         folders = request.form['folders'].splitlines()
         write_folders(folders, FOLDERS_LOCATION)
@@ -72,8 +72,9 @@ def combine():
         clear_uploads()
         try:
             files = request.files.getlist("files")
+            password = request.form.get('password')
             names = []
-
+            print("The password is:",password)
             for file in files: # save files to folder
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
                 names.append(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
@@ -81,6 +82,11 @@ def combine():
             names.sort()
 
             merge_pdfs(names, output=os.path.join(app.config['UPLOAD_FOLDER'],'merged.pdf'))
+
+            if password != "":
+                print('The password is not blank')
+                encrypt_file(os.path.join(app.config['UPLOAD_FOLDER'],'merged.pdf'), password, mode = "encrypt")
+                return send_file(os.path.join(app.config['UPLOAD_FOLDER'],'merged_encrypted.pdf'), as_attachment=True)
             return send_file(os.path.join(app.config['UPLOAD_FOLDER'],'merged.pdf'), as_attachment=True)
         except:
             return render_template('combine.html')
@@ -88,6 +94,7 @@ def combine():
         return render_template('combine.html')
 
 if __name__ == '__main__':
+    # Create dependencies that don't exist if needed
     if not os.path.isfile(DATABASE_LOCATION):
         f = pd.DataFrame(columns = Search.COLUMNS)
         f.to_csv(DATABASE_LOCATION)
@@ -99,5 +106,5 @@ if __name__ == '__main__':
     app.run(debug=True)
     # serve(app, host='127.0.0.1', port=5000)
 
-
+ 
     
