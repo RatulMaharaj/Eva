@@ -8,7 +8,7 @@ import json
 import os, glob
 from waitress import serve
 
-version = '0.1.0'
+version = '0.2.0'
 
 UPLOAD_FOLDER = ".\\uploads"
 DATABASE_LOCATION = "..\\Eva - Dependencies\\database.csv"
