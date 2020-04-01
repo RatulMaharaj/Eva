@@ -18,7 +18,7 @@ A prior installation of python 3.7 or above is required. You will then need to f
 
 Open a new cmd terminal and cd into the directory where you will be installing Eva.
  
-Clone the repository
+Clone the repository.
 
 ```
 git clone https://github.com/RatulMaharaj/Eva.git
@@ -48,7 +48,7 @@ Install the required packages.
 pip install -r requirements.txt
 ```
 
-Start the app - will start on a dev server
+Run the app.
 ```
 python app.py
 ```
@@ -58,4 +58,4 @@ Navigate to localhost:5000 when you see that the server is runnning. The flask d
  
 Ratul Maharaj & Simey de Klerk 
  
-20 February 2020.
+20 February 2020
