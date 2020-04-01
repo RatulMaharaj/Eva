@@ -20,5 +20,5 @@ def update(database_location, folders_location):
     df = pd.concat(frames)
 
     conn = sqlite3.connect(database_location)
-    df.to_sql("askEva", conn, if_exists="replace")
+    df.to_sql("ask_eva", conn, if_exists="replace")
     conn.close()

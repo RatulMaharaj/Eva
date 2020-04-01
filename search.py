@@ -17,7 +17,7 @@ def update_data():
     global data
     try:
         conn = sqlite3.connect(database_location)
-        data = pd.read_sql_query("SELECT * FROM askEva", conn)
+        data = pd.read_sql_query('SELECT * FROM ask_eva', conn)
         conn.close()
     except:
         pass # fail silently
