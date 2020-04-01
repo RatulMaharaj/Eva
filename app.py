@@ -11,8 +11,9 @@ from waitress import serve
 version = '0.2.0'
 
 UPLOAD_FOLDER = ".\\uploads"
-DATABASE_LOCATION = "..\\Eva - Dependencies\\database.csv"
-FOLDERS_LOCATION = "..\\Eva - Dependencies\\folders.txt"
+DEP_FOLDER = "..\\Eva - Dependencies\\"
+DATABASE_LOCATION = DEP_FOLDER + "database.csv"
+FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -95,6 +96,9 @@ def combine():
 
 if __name__ == '__main__':
     # Create dependencies that don't exist if needed
+    if not os.path.isdir(DEP_FOLDER):
+        os.mkdir(DEP_FOLDER)
+        
     if not os.path.isfile(DATABASE_LOCATION):
         f = pd.DataFrame(columns = Search.COLUMNS)
         f.to_csv(DATABASE_LOCATION)
