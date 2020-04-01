@@ -4,6 +4,7 @@ from encrypt import encrypt_file
 import search as Search
 from combine import merge_pdfs
 import pandas as pd
+import sqlite3
 import json
 import os, glob
 from waitress import serve
@@ -12,7 +13,6 @@ version = '0.2.0'
 
 UPLOAD_FOLDER = ".\\uploads"
 DEP_FOLDER = "..\\Eva - Dependencies\\"
-# DATABASE_LOCATION = DEP_FOLDER + "database.csv"
 DATABASE_LOCATION = DEP_FOLDER + "database.sqlite3"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 
@@ -101,8 +101,8 @@ if __name__ == '__main__':
         os.mkdir(DEP_FOLDER)
         
     if not os.path.isfile(DATABASE_LOCATION):
-        f = pd.DataFrame(columns = Search.COLUMNS)
-        f.to_csv(DATABASE_LOCATION)
+        conn = sqlite3.connect(DATABASE_LOCATION) # This will create an empty db
+        conn.close()
 
     if not os.path.isfile(FOLDERS_LOCATION):
         f = open(FOLDERS_LOCATION, "w+")
