@@ -1,19 +1,61 @@
 # Eva
 
-## About
+#### ABOUT
 
 Eva is a multi-purpose toolkit whose purpose is to assist it's users with their daily tasks.
 
-## Current Applications
+#### CURRENT APPLICATIONS
 
 Below is a list of the current applications available on Eva: 
 * Ask Eva - A shared drive search application.
 * Eva PDF - An application that can be used to merge and/or encrypt pdf files.
  
- Eva is continuously being tweaked and improved. More applications will be added in the future.
+Eva is continuously being tweaked and improved. More applications will be added in the future.
  
- ## Created By
+#### INSTALLING EVA
+
+A prior installation of python 3.7 or above is required. You will then need to follow the following process:
+
+Open a new cmd terminal and cd into the directory where you will be installing Eva.
  
- Ratul Maharaj & Simey de Klerk 
+Clone the repository
+
+```
+git clone https://github.com/RatulMaharaj/Eva.git
+```
+
+Go into the cloned folder.
+
+```
+cd Eva
+```
+
+Create new virtual environment.
+
+```
+python -m venv venv
+```
+
+Activate the virtual environment.
+
+```
+venv\scripts\activate.bat
+```
+
+Install the required packages.
+
+```
+pip install -r requirements.txt
+```
+
+Start the app - will start on a dev server
+```
+python app.py
+```
+Navigate to localhost:5000 when you see that the server is runnning. The flask development server is used by default, but this can be changed in the app.py file to use waitress as a production server. 
+
+#### CREATED BY
  
- 20 February 2020.
+Ratul Maharaj & Simey de Klerk 
+ 
+20 February 2020.
