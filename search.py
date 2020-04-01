@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import time
 from shlex import split
+import sqlite3
 
 
 COLUMNS = ['name','path'] # The fields we want from the datafile
@@ -15,12 +16,14 @@ def update_data():
     # Import Database
     global data
     try:
-        data = pd.read_csv(database_location, usecols = COLUMNS, low_memory = False) # Read the data into a pandas dataframe
+        conn = sqlite3.connect(database_location)
+        data = pd.read_sql_query("SELECT * FROM askEva", conn)
+        conn.close()
     except:
         pass # fail silently
     
 # Search function
-def searchcsv(search_string):
+def search_db(search_string):
     '''
     This function can be used to search for files saved in the OMART folders.
     '''

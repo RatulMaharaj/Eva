@@ -1,6 +1,6 @@
 import pandas as pd
 from src.all_files_in_folder import all_files_in_folder
-
+import sqlite3
 
 def read_folders(folders_location):
     with open(folders_location, 'r') as f:
@@ -14,8 +14,15 @@ def write_folders(folders, folders_location):
         f.write(text)
 
 def update(database_location, folders_location):
-     # These are the folders we crawl through to collect information
+    # These are the folders we crawl through to collect information
     source_folders = read_folders(folders_location)
     frames = [pd.DataFrame(all_files_in_folder(f)) for f in source_folders]
     df = pd.concat(frames)
-    df.to_csv(database_location, index = False)
+
+    # df.to_csv(database_location, index = False)
+    conn = sqlite3.connect(database_location)
+
+    # Write the new DataFrame to a new SQLite table
+    df.to_sql("askEva", conn, if_exists="replace")
+
+    conn.close()

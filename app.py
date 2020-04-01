@@ -12,7 +12,8 @@ version = '0.2.0'
 
 UPLOAD_FOLDER = ".\\uploads"
 DEP_FOLDER = "..\\Eva - Dependencies\\"
-DATABASE_LOCATION = DEP_FOLDER + "database.csv"
+# DATABASE_LOCATION = DEP_FOLDER + "database.csv"
+DATABASE_LOCATION = DEP_FOLDER + "database.sqlite3"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 
 app = Flask(__name__)
@@ -32,7 +33,7 @@ def search():
     query = request.args.get('q') or ""
     raw = (request.args.get('raw') or "") != ""
     if query:
-        results = Search.searchcsv(query)
+        results = Search.search_db(query)
         hits = len(results)
         if hits == 0:
             results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
