@@ -19,10 +19,6 @@ def update(database_location, folders_location):
     frames = [pd.DataFrame(all_files_in_folder(f)) for f in source_folders]
     df = pd.concat(frames)
 
-    # df.to_csv(database_location, index = False)
     conn = sqlite3.connect(database_location)
-
-    # Write the new DataFrame to a new SQLite table
     df.to_sql("askEva", conn, if_exists="replace")
-
     conn.close()
