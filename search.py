@@ -10,7 +10,7 @@ import sqlite3
 COLUMNS = ['name','path'] # The fields we want from the datafile
 
 database_location = ""
-data = pd.DataFrame(columns = COLUMNS) #initialise an empty dataframe
+data = pd.DataFrame(columns = COLUMNS) # initialise an empty dataframe
 
 def update_data():
     # Import Database
@@ -39,8 +39,13 @@ def search_db(search_string):
     results = filtered
     return results[['name','path']]            
 
-def getmodtime():
+def get_times(database_location):
     modified = os.path.getmtime(database_location)
     year,month,day,hour,minute,second = time.localtime(modified)[:-3]
     modtime =  ("%02d/%02d/%d %02d:%02d:%02d"%(day,month,year,hour,minute,second))
-    return modtime
+
+    conn = sqlite3.connect(database_location)
+    update_time = pd.read_sql_query('SELECT * FROM update_time', conn).loc[0,'update_time']
+    conn.close()
+
+    return (modtime, update_time)

@@ -13,7 +13,7 @@ version = '0.2.0'
 
 UPLOAD_FOLDER = ".\\uploads"
 DEP_FOLDER = "..\\Eva - Dependencies\\"
-DATABASE_LOCATION = DEP_FOLDER + "database.sqlite3"
+DATABASE_LOCATION = DEP_FOLDER + "database.db"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 
 app = Flask(__name__)
@@ -51,16 +51,18 @@ def about():
 @app.route('/settings', methods=['GET', 'POST'])
 def update_data():
     folders = read_folders(FOLDERS_LOCATION)
-    
+
     if request.method == 'POST':
         folders = request.form['folders'].splitlines()
         write_folders(folders, FOLDERS_LOCATION)
-        update(DATABASE_LOCATION, FOLDERS_LOCATION)
+        update(DATABASE_LOCATION, FOLDERS_LOCATION) 
         Search.update_data()
-
+        
     folders_str = '\n'.join(folders)
-    modtime = Search.getmodtime()
-    return render_template('update.html',modtime = modtime, version = version, folders=folders_str)
+    modtime, update_time = Search.get_times(DATABASE_LOCATION)
+    print(modtime,update_time)
+
+    return render_template('update.html',modtime = modtime, version = version, folders=folders_str, update_time=update_time)
 
 
 def clear_uploads():
