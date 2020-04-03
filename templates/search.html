@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  {% extends "template.html" %}
-  <head>
-    <meta charset="utf-8">
-    {% block title %}Search{% endblock %}
-  </head>
-  <body class="searchbody">
+{% extends "template.html" %}
+{% block title %}Search{% endblock %}
     
-    {% block content %}
+{% block content %}
 
-    <div class="searchlogo">
-          <center><h1>Ask Eva</h1></center>
-    </div>
+  <div class="searchlogo">
+        <center><h1>Ask Eva</h1></center>
+  </div>
 
-    <form class="searchbar" action="{{ url_for('search') }}" method="get">
-      <center>
-        <input placeholder="to find the location of the file named..." type="search" autofocus name="q">
-      </center>
-    </form> 
-  
-  {% endblock %}
-  </body>
-</html>
+  <form class="searchbar" action="{{ url_for('search') }}" method="get">
+    <center>
+      <input placeholder="to find the location of the file named..." type="search" autofocus name="q">
+    </center>
+  </form> 
+
+{% endblock %}
