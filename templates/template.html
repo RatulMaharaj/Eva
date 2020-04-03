@@ -17,10 +17,8 @@
 <body>
     {% include 'sidebar.html' %}
     <div id="main">
-        <div class="content_header">
-            {% block content_header %}             
-            {% endblock %}
-        </div>
+        {% block content_header %}             
+        {% endblock %}
 
         <div class="content" >
             <br>
