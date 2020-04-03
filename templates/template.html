@@ -15,52 +15,18 @@
 </head>
  
 <body>
-    <div id='myLogo' style="z-index: 100;" class="logo">
-        <center>
-        <a href="{{ url_for('home') }}"><h2>Eva</h2></a>
-        </center>
-    </div>
-
-    <div id='mySidebar' class='sidebar' onmouseover='toggleSidebar()' onmouseout='toggleSidebar()'>
-        
-        <a href="{{ url_for('home') }}"><span><i class="material-icons">home</i><span class="icon-text">Home</span></a><br>
-        <a href="{{ url_for('search') }}"><i class="material-icons">search</i><span class="icon-text"></span>Search</a></span></a><br>
-        <a href="{{ url_for('combine') }}"><i class="material-icons">picture_as_pdf</i><span class="icon-text"></span>Combine</span></a><br>
-        <a href="{{ url_for('about') }}"><i class="material-icons">info</i><span class="icon-text"></span>About<span></a><br>
-        <a href="{{ url_for('update_data') }}"><i class="material-icons">settings</i><span class="icon-text"></span>Settings</span></a><br>
-        
-    </div>
-    
+    {% include 'sidebar.html' %}
     <div id="main">
         <div class="content_header">
             {% block content_header %}             
             {% endblock %}
         </div>
+
         <div class="content" >
             <br>
             {% block content %}
             {% endblock %}
         </div>
     </div>
-    
-    <script>
-        var mini = true;
-        
-        function toggleSidebar() {
-            if (mini) {
-                console.log("opening sidebar");
-                document.getElementById("mySidebar").style.width = "250px";
-                // document.getElementById("main").style.color = "250px";
-                this.mini = false;
-            } 
-            else {
-                console.log("closing sidebar");
-                document.getElementById("mySidebar").style.width = "85px";
-                // document.getElementById("main").style.marginLeft = "85px";
-                this.mini = true;
-            }
-        }
-        
-    </script>
 </body>
 </html>
