@@ -30,7 +30,7 @@ def search():
     query = request.args.get('q') or ""
     raw = (request.args.get('raw') or "") != ""
     if query:
-        results = Search.search_db(query)
+        results = Search.search_db(query,DATABASE_LOCATION)
         hits = len(results)
         if hits == 0:
             results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]

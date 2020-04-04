@@ -21,7 +21,7 @@ def update_database(database_location):
         pass # fail silently
     
 # Search function
-def search_db(search_string):
+def search_db(search_string, database_location):
     '''
     This function can be used to search for files saved in the OMART folders.
     '''
@@ -29,13 +29,24 @@ def search_db(search_string):
         search_words = split(search_string)
     except: # if shlex split fails (can happen if there's unclosed quotes)
         search_words = search_string.split(' ')
-
-    filtered = data
-    for search_word in search_words:
-        filtered = filtered[filtered['name'].str.contains(search_word, case=False)]
     
-    results = filtered
-    return results[['name','path']]            
+    conn = sqlite3.connect(database_location) # Connect to datbase
+            
+    # Generate query based on search criteria
+    query = f"SELECT name, path FROM ask_eva WHERE name LIKE '%{search_words[0]}%'"
+    if len(search_words)>1:
+        for search_word in search_words[1:]:
+            query += f" AND name LIKE '%{search_word}%'"
+
+    query += ";"
+    
+    # put results into a pandas dataframe
+    c = conn.cursor()
+    c.execute(query)
+    a = c.fetchall()
+    results = pd.DataFrame(a, columns=['name','path'])
+    conn.close()
+    return results          
 
 def get_times(database_location):
     modified = os.path.getmtime(database_location)
