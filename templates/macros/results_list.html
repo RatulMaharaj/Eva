@@ -1,5 +1,12 @@
-{% macro results_list(results, searchcriteria, hits) -%}
-<div style="margin-bottom: 20px;" class="search-results-count">Showing results for {{searchcriteria}} ({{hits}} hits)</div>
+{% macro results_list(results, searchcriteria, hits, returned_hits) -%}
+<div style="margin-bottom: 20px;" class="search-results-count">
+  {% if returned_hits != hits %}
+    Showing {{returned_hits}} of {{hits}} hits for '{{searchcriteria}}'.
+    <a class="showall-link" href="{{ url_for('search') }}?limit=0&q={{searchcriteria}}">Show all</a>
+  {% else %}
+    {{hits}} hits for '{{searchcriteria}}'.
+  {% endif %} 
+</div>
 {% for result in results %}
     {{results_item(result)}}
 {% endfor%}
