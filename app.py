@@ -15,6 +15,8 @@ DEP_FOLDER = "..\\Eva - Dependencies\\"
 DATABASE_LOCATION = DEP_FOLDER + "database.csv"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 
+DEFAULT_SEARCH_RESULT_LIMIT = 100
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -31,15 +33,20 @@ def home():
 def search():
     query = request.args.get('q') or ""
     raw = (request.args.get('raw') or "") != ""
+    limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
+    print({'limit':limit})
     if query:
         results = Search.searchcsv(query)
         hits = len(results)
         if hits == 0:
             results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
-        else:   
+        else:
+            if limit > 0 and hits > limit:
+                results = results.head(limit)
+            returned_hits = len(results)
             results_dict = results.to_dict('records')
         template = 'results.html' if not raw else 'results_raw.html'
-        return render_template(template, results=results_dict, searchcriteria=query, hits=hits)
+        return render_template(template, results=results_dict, searchcriteria=query, hits=hits, returned_hits=returned_hits)
     else:
         return render_template('search.html')
 

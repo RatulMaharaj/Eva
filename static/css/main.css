@@ -302,6 +302,10 @@ h2,h3,h4{
     color: #333;
 }
 
+.showall-link {
+    color: #ed0080;
+}
+
 
 #pwd{
     border-radius: 2px;
