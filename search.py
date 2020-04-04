@@ -8,11 +8,9 @@ import sqlite3
 
 
 COLUMNS = ['name','path'] # The fields we want from the datafile
-
-database_location = ""
 data = pd.DataFrame(columns = COLUMNS) # initialise an empty dataframe
 
-def update_data():
+def update_database(database_location):
     # Import Database
     global data
     try:
