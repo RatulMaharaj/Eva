@@ -9,16 +9,6 @@ import sqlite3
 
 COLUMNS = ['name','path'] # The fields we want from the datafile
 data = pd.DataFrame(columns = COLUMNS) # initialise an empty dataframe
-
-def update_database(database_location):
-    # Import Database
-    global data
-    try:
-        conn = sqlite3.connect(database_location)
-        data = pd.read_sql_query('SELECT * FROM ask_eva', conn)
-        conn.close()
-    except:
-        pass # fail silently
     
 # Search function
 def search_db(search_string, database_location):

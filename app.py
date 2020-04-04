@@ -19,8 +19,6 @@ FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-Search.update_database(DATABASE_LOCATION)
-
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -53,7 +51,6 @@ def update_data():
         folders = request.form['folders'].splitlines()
         write_folders(folders, FOLDERS_LOCATION)
         update(DATABASE_LOCATION, FOLDERS_LOCATION) 
-        Search.update_database(DATABASE_LOCATION)
         
     folders_str = '\n'.join(folders)
     modtime, update_time = Search.get_times(DATABASE_LOCATION)
