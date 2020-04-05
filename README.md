@@ -18,38 +18,25 @@ A prior installation of python 3.7 or above is required. You will then need to f
 
 Open a new cmd terminal and cd into the directory where you will be installing Eva.
  
-Clone the repository.
 
-```
+
+```shell
+# Clone the repository.
 git clone https://github.com/RatulMaharaj/Eva.git
-```
 
-Go into the cloned folder.
-
-```
+# Go into the cloned folder.
 cd Eva
-```
 
-Create new virtual environment.
-
-```
+# Create new virtual environment.
 python -m venv venv
-```
 
-Activate the virtual environment.
-
-```
+# Activate the virtual environment.
 venv\scripts\activate.bat
-```
 
-Install the required packages.
-
-```
+# Install the required packages.
 pip install -r requirements.txt
-```
 
-Run the app.
-```
+# Run the app.
 python app.py
 ```
 Navigate to localhost:5000 when you see that the server is runnning. The flask development server is used by default, but this can be changed in the app.py file to use waitress as a production server. 
