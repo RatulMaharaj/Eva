@@ -25,7 +25,7 @@ Open a new cmd terminal and cd into the directory where you will be installing E
 git clone https://github.com/RatulMaharaj/Eva.git
 
 # Go into the cloned folder.
-cd Eva
+cd eva
 
 # Create new virtual environment.
 python -m venv venv
