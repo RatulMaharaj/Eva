@@ -301,8 +301,12 @@ h2,h3,h4{
     padding-left: 5px;
     color: #333;
 }
+.showall-link{
+    color: #282828;
+    font-weight: bold;
+}
 
-.showall-link {
+.showall-link:hover{
     color: #ed0080;
 }
 

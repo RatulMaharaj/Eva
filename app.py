@@ -34,11 +34,11 @@ def search():
     query = request.args.get('q') or ""
     raw = (request.args.get('raw') or "") != ""
     limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
-    print({'limit':limit})
     if query:
         results = Search.searchcsv(query)
         hits = len(results)
         if hits == 0:
+            returned_hits = 0
             results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
         else:
             if limit > 0 and hits > limit:
