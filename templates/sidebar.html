@@ -1,13 +1,16 @@
-<div id='myLogo' style="z-index: 100;" class="logo">
-    <center>
-        <a href="{{ url_for('home') }}"><h2>Eva</h2></a>
-    </center>
-</div>
+
 
 <div id='mySidebar' class='sidebar' >
-    <a href="{{ url_for('home') }}"><span><i class="material-icons">home</i><span class="icon-text">Home</span></a><br>
-    <a href="{{ url_for('search') }}"><i class="material-icons">search</i><span class="icon-text"></span>Search</a></span></a><br>
-    <a href="{{ url_for('combine') }}"><i class="material-icons">picture_as_pdf</i><span class="icon-text"></span>Combine</span></a><br>
-    <a href="{{ url_for('about') }}"><i class="material-icons">info</i><span class="icon-text"></span>About<span></a><br>
-    <a href="{{ url_for('update_data') }}"><i class="material-icons">settings</i><span class="icon-text"></span>Settings</span></a><br>
+    <div id='myLogo' style="z-index: 100;" class="logo">
+            <a href="{{ url_for('home') }}"><h2>Eva</h2></a>
+    </div>
+    <nav class='nav'>
+        <ul class='nav-list' >
+            <li class='nav-item' ><a href="{{ url_for('home') }}"><i class="material-icons nav-item-icon">home</i><span class="icon-text">Home</span></a></li>
+            <li class='nav-item' ><a href="{{ url_for('search') }}"><i class="material-icons nav-item-icon">search</i><span class="icon-text"></span>Search</a></span></a></li>
+            <li class='nav-item' ><a href="{{ url_for('combine') }}"><i class="material-icons nav-item-icon">picture_as_pdf</i><span class="icon-text"></span>Combine</span></a></li>
+            <li class='nav-item' ><a href="{{ url_for('about') }}"><i class="material-icons nav-item-icon">info</i><span class="icon-text"></span>About<span></a></li>
+            <li class='nav-item' ><a href="{{ url_for('update_data') }}"><i class="material-icons nav-item-icon">settings</i><span class="icon-text"></span>Settings</span></a></li>
+        </ul>
+    </nav>
 </div>
