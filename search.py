@@ -4,9 +4,9 @@ import pandas as pd
 import os
 import time
 from shlex import split
+from src.all_files_in_folder import NAME, LOCATION, ISFOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY
 
-
-COLUMNS = ['name','path'] # The fields we want from the datafile
+COLUMNS = [NAME, LOCATION, ISFOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY] # The fields we want from the datafile
 
 database_location = ""
 data = pd.DataFrame(columns = COLUMNS) #initialise an empty dataframe
@@ -29,12 +29,12 @@ def searchcsv(search_string):
     except: # if shlex split fails (can happen if there's unclosed quotes)
         search_words = search_string.split(' ')
 
-    filtered = data
+    filtered = data[data['is_folder'] == False]
     for search_word in search_words:
         filtered = filtered[filtered['name'].str.contains(search_word, case=False)]
     
     results = filtered
-    return results[['name','path']]            
+    return results            
 
 def getmodtime():
     modified = os.path.getmtime(database_location)

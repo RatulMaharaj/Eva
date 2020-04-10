@@ -1,6 +1,4 @@
-import os, stat
-import pandas as pd
-import sys
+import os, stat, csv ,sys
 from datetime import datetime
 
 LOCATION = 'path'
@@ -14,48 +12,76 @@ READONLY = 'readonly'
 HIDDEN = 'hidden'
 SYSTEM = 'system'
 
-def all_files_in_folder(root_folder, include_stats = False, include_folders = False):
+def all_files_in_folder(path):
+    return walk_scandir_dict(path)
+
+def walk_scandir(path, recursive = True):
     '''
-        returns a list of dicts of all the files (and optionally folders) in a folder and its subfolders
+        return a generator of scandir results (DirEntry results) for a folder and it's subfolders
     '''
-    results = []
-    for root, folders, files in os.walk(root_folder):
-        fullnames   = [{LOCATION: root, NAME: file, ISFOLDER: False} for file in files]
-        if include_folders:
-            fullnames_folders = [{LOCATION: root, NAME: folder, ISFOLDER: True } for folder in folders]
-            fullnames = fullnames + fullnames_folders
-        if include_stats:
-            for fullname in fullnames:
-                stats = os.stat(os.path.join(fullname[LOCATION], fullname[NAME]))
-                fullname[SIZE]  = stats.st_size
-                fullname[ATIME] = datetime.fromtimestamp(stats.st_atime).replace(microsecond = 0)
-                fullname[MTIME] = datetime.fromtimestamp(stats.st_mtime).replace(microsecond = 0)
-                fullname[CTIME] = datetime.fromtimestamp(stats.st_ctime).replace(microsecond = 0)
-                if os.name == 'nt': # Only on Windows
-                    attributes = stats.st_file_attributes
-                    fullname[READONLY] = (stat.FILE_ATTRIBUTE_READONLY & attributes) != 0
-                    fullname[HIDDEN] = (stat.FILE_ATTRIBUTE_HIDDEN & attributes) != 0
-                    fullname[SYSTEM] = (stat.FILE_ATTRIBUTE_SYSTEM & attributes) != 0
-        results.extend(fullnames)
-    return results
+    for de in os.scandir(path):
+        yield de
+        if de.is_dir() and recursive:
+            try:
+                yield from walk_scandir(de.path, recursive = recursive)
+            except PermissionError:
+                pass
+
+def walk_scandir_dict(path, recursive = True):
+    '''
+        return file and folder stats for a folder and its subfolders
+        in a generator of dicts
+    '''
+    for de in walk_scandir(path, recursive):
+        yield direntry_to_dict(de)
+
+def stat_to_dict(stats, results_dict = {}):
+    '''
+        convert a stat object to a simple dict
+        or append it to an existing dict
+    '''
+    
+    results_dict[SIZE]  = stats.st_size
+    results_dict[ATIME] = datetime.fromtimestamp(stats.st_atime).replace(microsecond = 0)
+    results_dict[MTIME] = datetime.fromtimestamp(stats.st_mtime).replace(microsecond = 0)
+    results_dict[CTIME] = datetime.fromtimestamp(stats.st_ctime).replace(microsecond = 0)
+    
+    if os.name == 'nt': # Only on Windows
+        attributes = stats.st_file_attributes
+        results_dict[READONLY] = (stat.FILE_ATTRIBUTE_READONLY & attributes) != 0
+        results_dict[HIDDEN] = (stat.FILE_ATTRIBUTE_HIDDEN & attributes) != 0
+        results_dict[SYSTEM] = (stat.FILE_ATTRIBUTE_SYSTEM & attributes) != 0
+    
+    return results_dict
 
 
-def all_files_in_folder_to_txt(root_folder, text_file = None):
-    files = all_files_in_folder(root_folder)
-    string = '\n'.join([os.path.join(f[LOCATION], f[NAME]) for f in files])
-    if text_file:
-        with open(text_file, 'w', encoding='utf-8') as f:
-            f.write(string)
-    return string
+def direntry_to_dict(de):
+    '''
+        convert a direntry object to a simple dict
+    '''
+    result = {
+        LOCATION: os.path.normpath(os.path.split(de.path)[0]),
+        NAME: de.name,
+        ISFOLDER: de.is_dir(),
+    }
+    stat_to_dict(de.stat(), result)
+    return result
 
 
-def all_files_in_folder_to_csv(root_folder, csv_file = None, include_stats = False, include_folders = False):
-    all_files = all_files_in_folder(root_folder, include_stats)
-    df = pd.DataFrame(all_files)
-    if csv_file:
-        df.to_csv(csv_file, index=False)
-    return df
+def dict_list_to_csv(dict_list, path):
+    '''
+        write a list of dicts to a csv file
+    '''
+    iterable = iter(dict_list)
+    first = next(iterable) # get first entry
+    keys = first.keys() # get keys of 1st entry
+    with open(path, 'w', newline = '\n', encoding='utf-8') as f:
+        dw = csv.DictWriter(f,keys)
+        dw.writeheader()
+        dw.writerow(first) # write the first row
+        dw.writerows(iterable) # write the rest
 
-if __name__ == '__main__':
-    _, root_folder, filename, *rest = sys.argv
-    all_files_in_folder_to_csv(root_folder, filename, include_stats = True)
+def folder_to_csv(source_path, csv_path):
+    the_list = list(walk_scandir_dict(source_path))
+    dict_list_to_csv(the_list, csv_path)
+    return the_list
