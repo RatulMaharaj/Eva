@@ -1,40 +1,34 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  {% extends "template.html" %}
-  <head>
-    <meta charset="utf-8">
-    {% block title %}Combine PDF{% endblock %}
-  </head>
-  <body >
-    {% block content_header %}             
+{% extends "template.html" %}
+
+{% block title %}Combine PDF{% endblock %}
+{% block content_header %}     
+    <div class="content_header">        
       <h2>EVA PDF</h2>
-    {% endblock %}
+    </div>
+{% endblock %}
 
-    {% block content %}
-    <p>This tool can be used to merge and/or encrypt pdf files.</p> 
-    <br>
-    <p>
-      If multiple files are selected, they will be combined in alphanumeric order. Rename the files if they need to be combined in a particular order. 
-    </p>
-    <br>
-    <form action="/combine" method="POST" enctype = "multipart/form-data">
-      <label for="files">Select your file(s):</label>
+{% block content %}
+  <p>This tool can be used to merge and/or encrypt pdf files.</p> 
+  <br>
+  <p>
+    If multiple files are selected, they will be combined in alphanumeric order. Rename the files if they need to be combined in a particular order. 
+  </p>
+  <br>
+  <form action="/combine" method="POST" enctype = "multipart/form-data">
+    <label for="files">Select your file(s):</label>
+    <br><br>
+    <input type="file" id="files" accept="application/pdf" name="files" multiple> <br> <br>
+
+    <div>
+      <label for="password">Enter the password to be used to encrypt the file (This can be left blank):</label>
       <br><br>
-      <input type="file" id="files" accept="application/pdf" name="files" multiple> <br> <br>
+      <input type="password" id="pwd" name="password"><br>
+    </div>
 
-      <div>
-        <label for="password">Enter the password to be used to encrypt the file (This can be left blank):</label>
-        <br><br>
-        <input type="password" id="pwd" name="password"><br>
-      </div>
-
-      <div class="button_container">
-        <center>
-          <input class = "button" type="submit" value="COMBINE">
-        </center>
-      </div>
-    </form>
-    {% endblock %}
-
-  </body>
-</html>
+    <div class="button_container">
+      <center>
+        <input class = "button" type="submit" value="COMBINE">
+      </center>
+    </div>
+  </form>
+{% endblock %}

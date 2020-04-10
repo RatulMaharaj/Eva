@@ -1,60 +1,51 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  {% extends "template.html" %}
-  <head>
-    <meta charset="utf-8">
-    {% block title %}Home{% endblock %}
-  </head>
-  <body class = homebody>
-    {% block content %}
+{% extends "template.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  
+  <div class="home_grid">
+    <div class="home_intro">
     
-    <div class="home_grid">
-      <div class="home_intro">
-      
-        <center>
-          <h2>Hi, I'm Eva!</h2>
-          <br>
-          <p> Choose one of the options below to get started!</p>
-        </center>
-      
-      </div>
-
-      <div class="home_apps">
-        <a href="{{ url_for('search') }}">
-          <div>
-            <center>
-              <h3>Ask Eva</h3>
-              <br>
-              <p>Search shared drives</p>
-            </center>
-          </div>
-        </a>
-
-        <a href="{{ url_for('combine') }}">
-          <div>
-            <center>
-              <h3>Eva PDF</h3>
-              <br>
-              <p>Merge or encrypt pdf files</p>
-            </center>
-          </div>
-        </a>
-        <a href="{{ url_for('about') }}">
-          <div>
-            <center>
-              <h3>About</h3>
-              <br>
-              <p>Learn more about Eva</p>
-            </center>
-          </div>
-        </a>
-
-      </div>
-
-    </div>  
-    {% endblock %}
-
-
+      <center>
+        <h2>Hi, I'm Eva!</h2>
+        <br>
+        <p> Choose one of the options below to get started!</p>
+      </center>
     
-  </body>
-</html>
+    </div>
+
+    <div class="home_apps">
+      <a href="{{ url_for('search') }}">
+        <div>
+          <center>
+            <h3>Ask Eva</h3>
+            <br>
+            <p>Search shared drives</p>
+          </center>
+        </div>
+      </a>
+
+      <a href="{{ url_for('combine') }}">
+        <div>
+          <center>
+            <h3>Eva PDF</h3>
+            <br>
+            <p>Merge or encrypt pdf files</p>
+          </center>
+        </div>
+      </a>
+      <a href="{{ url_for('about') }}">
+        <div>
+          <center>
+            <h3>About</h3>
+            <br>
+            <p>Learn more about Eva</p>
+          </center>
+        </div>
+      </a>
+
+    </div>
+
+  </div>  
+{% endblock %}
