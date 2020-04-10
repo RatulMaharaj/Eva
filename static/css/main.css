@@ -5,14 +5,15 @@
     margin: 0;
 }
 
+body {
+    background-color: #dcddde;
+}
+
 ul {
     list-style: square;
     padding-left: 40px;
 }
 
-body {
-    background-color: #dcddde;
-}
 .logo {
     width: 85px;
     padding: 25px 0px 25px 0px;
@@ -40,6 +41,10 @@ body {
     overflow-x: hidden;
     padding-top: 150px;
     white-space: nowrap;
+}
+
+.sidebar:hover {
+    width: 250px;
 }
 
 .sidebar a {
