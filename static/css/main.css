@@ -1,19 +1,19 @@
-*{
-    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+* {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     text-decoration: none;
-    padding:0;
+    padding: 0;
     margin: 0;
 }
 
-ul{
+ul {
     list-style: square;
     padding-left: 40px;
 }
 
-body{
-    background-color: #DCDDDE;
+body {
+    background-color: #dcddde;
 }
-.logo{
+.logo {
     width: 85px;
     padding: 25px 0px 25px 0px;
     position: fixed;
@@ -21,7 +21,7 @@ body{
 }
 
 .logo h2 {
-    font-family: 'Kalam', cursive;
+    font-family: "Kalam", cursive;
     font-weight: bold;
     font-size: 25px;
     color: #ed0080;
@@ -40,8 +40,8 @@ body{
     overflow-x: hidden;
     padding-top: 150px;
     white-space: nowrap;
-    }
-    
+}
+
 .sidebar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -62,7 +62,8 @@ main .sidebar {
     margin-left: 50px;
 }
 
-.material-icons, .icon-text {
+.material-icons,
+.icon-text {
     vertical-align: middle;
 }
 
@@ -77,7 +78,7 @@ main .sidebar {
 }
 
 .content_header {
-    background-color: #DCDDDE;
+    background-color: #dcddde;
     width: 100%;
     top: 0;
     padding: 25px 5% 25px 5%;
@@ -86,7 +87,7 @@ main .sidebar {
     position: fixed;
 }
 
-.content{
+.content {
     margin-left: 5%;
     margin-right: 5%;
     top: 0;
@@ -97,16 +98,16 @@ main .sidebar {
     font-size: 25px;
 }
 
-.searchlogo{
+.searchlogo {
     padding-top: 100px;
     padding-bottom: 50px;
 }
 
-.searchlogo h1{
+.searchlogo h1 {
     font-size: 90px;
     font-weight: bold;
     color: #282828;
-    font-family: 'Kalam',cursive;
+    font-family: "Kalam", cursive;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -115,7 +116,9 @@ main .sidebar {
     user-select: none;
 }
 
-h2,h3,h4{
+h2,
+h3,
+h4 {
     color: #282828;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -125,7 +128,7 @@ h2,h3,h4{
     user-select: none;
 }
 
-.searchbar input{
+.searchbar input {
     border: 1px solid rgb(255, 255, 255);
     border-radius: 2px;
     height: 45px;
@@ -138,7 +141,7 @@ h2,h3,h4{
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.09);
 }
 
-.button_container{  
+.button_container {
     background-color: #282828;
     height: 45px;
     width: 105px;
@@ -147,7 +150,7 @@ h2,h3,h4{
     border-radius: 2px;
 }
 
-.button{  
+.button {
     font-weight: bold;
     border: none;
     background-color: transparent;
@@ -159,11 +162,11 @@ h2,h3,h4{
     font-size: 15px;
 }
 
-.button_container:hover{
+.button_container:hover {
     background-color: #ed0080;
 }
 
-.search_name{
+.search_name {
     font-size: 15px;
     font-weight: bold;
     padding-bottom: 2vw;
@@ -171,23 +174,23 @@ h2,h3,h4{
     padding-left: 2vw;
 }
 
-.search_path{
+.search_path {
     font-size: 15px;
     padding-bottom: 2vw;
     padding-left: 2vw;
 }
 
-.search_path a{
+.search_path a {
     text-decoration: none;
-    color: #58595B;
+    color: #58595b;
 }
 
-.search_path a:hover{
+.search_path a:hover {
     text-decoration: none;
     color: #ed0080;
 }
 
-.search_result{
+.search_result {
     background-color: #ffffff;
     height: 100%;
     border-radius: 2px;
@@ -197,17 +200,17 @@ h2,h3,h4{
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
 }
 
-.search_result:hover{
+.search_result:hover {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
-.searchresults_heading{
+.searchresults_heading {
     display: inline-block;
     vertical-align: middle;
 }
-.results_searchbar{
+.results_searchbar {
     height: 100%;
     display: inline-block;
     padding-left: 50px;
@@ -226,9 +229,9 @@ h2,h3,h4{
     z-index: 4;
 }
 
-.results_searchbar input:focus{
+.results_searchbar input:focus {
     outline: none;
- }
+}
 
 .home_intro {
     margin-bottom: 50px;
@@ -240,7 +243,7 @@ h2,h3,h4{
     grid-template-rows: repeat(2, 200px);
 }
 
-.home_apps a{
+.home_apps a {
     color: #282828;
     display: grid;
     -ms-display: grid;
@@ -251,14 +254,14 @@ h2,h3,h4{
     -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
     -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
-    margin: 0px 20px 10px 20px ;
+    margin: 0px 20px 10px 20px;
     padding-bottom: 25px;
     transition: 0.3s;
 }
-.home_apps h3{
+.home_apps h3 {
     color: #282828;
 }
-.home_apps a:hover{
+.home_apps a:hover {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
@@ -266,7 +269,7 @@ h2,h3,h4{
     transition: 0.2s;
 }
 
-@keyframes transitionIn{
+@keyframes transitionIn {
     from {
         opacity: 0;
         transform: translateY(-10px);
@@ -278,7 +281,7 @@ h2,h3,h4{
     }
 }
 
-.content{
+.content {
     animation: transitionIn 0.75s;
 }
 
@@ -294,7 +297,7 @@ h2,h3,h4{
 
 .folder-list:focus {
     outline: none;
- }
+}
 
 .search-results-count {
     display: block;
@@ -310,8 +313,7 @@ h2,h3,h4{
     color: #ed0080;
 }
 
-
-#pwd{
+#pwd {
     border-radius: 2px;
     border: none;
     width: 20%;
@@ -320,6 +322,6 @@ h2,h3,h4{
     background-color: #ffffff;
 }
 
-#pwd:focus{
+#pwd:focus {
     outline: none;
 }
