@@ -243,30 +243,30 @@ h4 {
 }
 
 .home_apps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 200px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;    
 }
 
-.home_apps a {
+.home_apps div {
+    display: flex;
     color: #282828;
-    display: grid;
-    -ms-display: grid;
-    grid-template-rows: 1fr;
-    align-items: center;
+    width: 300px;
+    height: 175px;
     background-color: #ffffff;
     border-radius: 2px;
     -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
     -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
-    margin: 0px 20px 10px 20px;
-    padding-bottom: 25px;
+    margin: 0px 20px 50px 20px;
     transition: 0.3s;
+    align-items: center;
+    justify-content: center;
 }
 .home_apps h3 {
-    color: #282828;
+    color: #282828;   
 }
-.home_apps a:hover {
+.home_apps div:hover {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
