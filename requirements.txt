@@ -1,6 +1,10 @@
-flaskwebgui==0.1.6
 Flask==1.1.1
-numpy==1.18.1
-pandas==1.0.1
-PyPDF2==1.26.0
+pyvan==0.0.5
 waitress==1.4.3
+numpy==1.16.4
+pandas==1.0.3
+PyPDF2==1.26.0
+.\combine.py
+.\search.py
+.\update.py
+.\encrypt.py
