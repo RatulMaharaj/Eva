@@ -4,7 +4,3 @@ waitress==1.4.3
 numpy==1.16.4
 pandas==1.0.3
 PyPDF2==1.26.0
-.\combine.py
-.\search.py
-.\update.py
-.\encrypt.py

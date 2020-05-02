@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static' , filename = 'css/main.css') }}">
+    <title>Welcome</title>
+</head>
+<body style="background-color: #282828;">
+    <center>
+        <div id="login">
+            <h2>Eva</h2>
+            <br>
+            <br>
+            <form action="{{ url_for('login') }}"" method="post">
+                <input id="pwd" style="padding: 0; width: 50%;" class="text-center" type="password" placeholder="Enter Password" name="password" value="{{request.form.password }}">
+                <br>
+                <br>
+                <div class="button_container">
+                    <center>
+                        <input class = "button" type="submit" value="Enter">
+                    </center>
+                </div>
+            </form>
+            <br>
+            {% if error %} <p>{{ error }} </p> {% endif %}
+            </div>
+        </center>
+</body>
+</html>
+
+
+      

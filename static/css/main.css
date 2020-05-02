@@ -206,9 +206,9 @@ h4 {
 }
 
 .search_result:hover {
-    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .searchresults_heading {
@@ -267,9 +267,9 @@ h4 {
     color: #282828;   
 }
 .home_apps div:hover {
-    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     transform: translateY(-10px);
     transition: 0.2s;
 }
@@ -324,9 +324,28 @@ h4 {
     width: 20%;
     height: 30px;
     padding: 2px 30px 2px 10px;
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 #pwd:focus {
     outline: none;
+}
+
+.text-center{
+    text-align: center;
+}
+
+#login{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    background-color: #ffffff;
+    width: 390px;
+    margin-top: 150px;
+    padding: 2em 0 3em 0;
+    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }

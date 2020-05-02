@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect, url_for, session
+from flask_session import Session
+from tempfile import mkdtemp
+from functools import wraps
 from update import update, read_folders, write_folders
 from encrypt import encrypt_file
 import search as Search
@@ -20,16 +23,47 @@ DEFAULT_SEARCH_RESULT_LIMIT = 100
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# ui = FlaskUI(app=app,maximized=True)
-
 Search.database_location = DATABASE_LOCATION
 Search.update_data()
 
+# Configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    error = None
+    session.clear() # Forget any user_id
+
+    if request.method == "POST":
+        if request.form.get("password") != "OMART@6H":
+            print(request.form.get('password'))
+            error = "Incorrect Credentials, Please try again"
+            return render_template('login.html', error=error)
+
+        session["user_id"] = 123 # Set a session ID if correct password is entered
+
+        return redirect("/")
+    else:
+        return render_template("login.html")
+
 @app.route('/')
+@login_required
 def home():
     return render_template('home.html')
 
 @app.route('/search')
+@login_required
 def search():
     query = request.args.get('q') or ""
     raw = (request.args.get('raw') or "") != ""
@@ -51,10 +85,12 @@ def search():
         return render_template('search.html')
 
 @app.route('/about')
+@login_required
 def about():
     return render_template('about.html')
 
 @app.route('/settings', methods=['GET', 'POST'])
+@login_required
 def update_data():
     folders = read_folders(FOLDERS_LOCATION)
     
@@ -75,6 +111,7 @@ def clear_uploads():
         os.remove(file)
 
 @app.route('/combine', methods=['GET','POST'])
+@login_required
 def combine():
     if request.method == 'POST':
         clear_uploads()
