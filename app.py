@@ -26,10 +26,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 Search.database_location = DATABASE_LOCATION
 Search.update_data()
 
-# Configure session to use filesystem (instead of signed cookies)
+# # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config['SECRET_KEY'] = '28cad128a4454ddd908075f82aa7ff89'  
 Session(app)
 
 def login_required(f):
@@ -151,8 +152,8 @@ if __name__ == '__main__':
         f = open(FOLDERS_LOCATION, "w+")
         f.close()
 
-    app.run(debug=True)
-    # serve(app, host='127.0.0.1', port=5050)
+    # app.run(debug=True)
+    serve(app, host='0.0.0.0', port=80)
 
  
     
