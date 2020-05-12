@@ -1,68 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Eva
 
-## Available Scripts
+#### ABOUT
 
-In the project directory, you can run:
+Eva is a multi-purpose toolkit whose purpose is to assist it's users with their daily tasks.
 
-### `npm start`
+#### CURRENT APPLICATIONS
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Below is a list of the current applications available on Eva: 
+* Ask Eva - A shared drive search application.
+* Eva PDF - An application that can be used to merge and/or encrypt pdf files.
+ 
+Eva is continuously being tweaked and improved. More applications will be added in the future.
+ 
+#### INSTALLING EVA
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+A prior installation of python 3.7 or above is required. You will then need to follow the following process:
 
-### `npm test`
+Open a new cmd terminal and cd into the directory where you will be installing Eva.
+ 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+```shell
+# Clone the repository.
+git clone https://github.com/RatulMaharaj/Eva.git
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Go into the cloned folder.
+cd eva
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Create new virtual environment.
+python -m venv venv
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Activate the virtual environment.
+venv\scripts\activate.bat
 
-### `npm run eject`
+# Install the required packages.
+pip install -r requirements.txt
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Run the app.
+python app.py
+```
+Navigate to localhost:5000 when you see that the server is runnning. The flask development server is used by default, but this can be changed in the app.py file to use waitress as a production server. 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### CREATED BY
+ 
+Ratul Maharaj & Simey de Klerk 
+ 
+20 February 2020

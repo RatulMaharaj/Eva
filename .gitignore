@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 venv
+dependencies
+uploads
+temp
+
 # testing
 /coverage
 
