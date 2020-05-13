@@ -8,10 +8,9 @@ from src.all_files_in_folder import NAME, LOCATION, ISFOLDER, SIZE, ATIME, MTIME
 
 COLUMNS = [NAME, LOCATION, ISFOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY] # The fields we want from the datafile
 
-database_location = ""
 data = pd.DataFrame(columns = COLUMNS) #initialise an empty dataframe
 
-def update_data():
+def load_data():
     # Import Database
     global data
     try:

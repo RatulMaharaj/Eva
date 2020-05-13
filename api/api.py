@@ -33,6 +33,9 @@ if not os.path.isfile(FOLDERS_LOCATION):
 # Create app instance
 app = Flask(__name__, static_folder="../build",static_url_path="/")
 
+Search.database_location = DATABASE_LOCATION
+Search.load_data()
+
 # Serve built react app
 @app.route('/')
 def index():
@@ -42,3 +45,23 @@ def index():
 @app.route('/api/message')
 def get_current_time():
     return {'message' : "Hello from Flask!" }
+
+@app.route('/api/search')
+def search():
+    query = request.args.get('q') or ""
+    raw = (request.args.get('raw') or "") != ""
+    limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
+    if query:
+        results = Search.searchcsv(query)
+        hits = len(results)
+        if hits == 0:
+            returned_hits = 0
+            results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
+        else:
+            if limit > 0 and hits > limit:
+                results = results.head(limit)
+            returned_hits = len(results)
+            results_dict = results.to_dict('records')
+        return jsonify(results=results_dict, searchcriteria=query, hits=hits, returned_hits=returned_hits)
+    else:
+        return "No valid query parameters used"
