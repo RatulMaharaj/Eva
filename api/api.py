@@ -46,10 +46,10 @@ def index():
 def get_current_time():
     return {'message' : "Hello from Flask!" }
 
-@app.route('/api/search')
+@app.route('/api/search', methods=['GET'])
 def search():
     query = request.args.get('q') or ""
-    raw = (request.args.get('raw') or "") != ""
+    # raw = (request.args.get('raw') or "") != ""
     limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
     if query:
         results = Search.searchcsv(query)
@@ -65,3 +65,17 @@ def search():
         return jsonify(results=results_dict, searchcriteria=query, hits=hits, returned_hits=returned_hits)
     else:
         return "No valid query parameters used"
+
+@app.route('/api/settings', methods=['GET', 'POST'])
+def update_data():
+    folders = read_folders(FOLDERS_LOCATION)
+    
+    if request.method == 'POST':
+        folders = request.form['folders'].splitlines()
+        write_folders(folders, FOLDERS_LOCATION)
+        update(DATABASE_LOCATION, FOLDERS_LOCATION)
+        Search.load_data()
+
+    folders_str = '\n'.join(folders)
+    modtime = Search.getmodtime()
+    return jsonify(modtime = modtime, version = version, folders=folders_str)

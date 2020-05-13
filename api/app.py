@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from update import update, read_folders, write_folders
 # from encrypt import encrypt_file
-import search as Search
+import src.search as Search
 # from combine import merge_pdfs
 import pandas as pd
 import json

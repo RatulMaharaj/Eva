@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./static/css/main.css";
 import Home from "./components/Home"
 import About from "./components/About"
 import Combine from "./components/Combine"
 import Settings from "./components/Settings"
+import Search from "./components/Search"
 
 ReactDOM.render(
   <Router>
@@ -38,14 +39,5 @@ ReactDOM.render(
   document.getElementById("main")
 );
 
-
-function Search() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      <Link to="/">Home</Link>
-    </div>
-  );
-}
 
 

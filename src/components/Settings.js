@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 
 function Settings() {
+  const [response, setResponse] = useState({});
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((res) => res.json())
+      .then((data) => setResponse(data));
+  }, []);
+
+  console.log(response.folders)
   return (
     <div>
       <Sidebar />
@@ -9,7 +18,7 @@ function Settings() {
         <h3>VERSION</h3>
         <br />
 
-        <p>You are currently using Eva version 'api_value'</p>
+        <p>You are currently using Eva version {response.version}</p>
         <br />
         <br />
 
@@ -18,10 +27,13 @@ function Settings() {
         <h4>LAST UPDATED</h4>
         <br />
 
-        <p>This application uses a static database to look up the locations of files.</p>
+        <p>
+          This application uses a static database to look up the locations of
+          files.
+        </p>
         <br />
         <p>
-          The database was last updated on: <strong>'api_value'</strong>
+          The database was last updated on: <strong>{response.modtime}</strong>
         </p>
         <br />
         <br />
@@ -34,11 +46,9 @@ function Settings() {
         </p>
         <br />
 
-        <form action="" method="POST">
+        <form action="/api/settings" method="POST">
           <div class="IndexTheseFolders">
-            <textarea class="folder-list" name="folders">
-              'api_value'
-            </textarea>
+            <textarea class="folder-list" name="folders" placeholder={response.folders}></textarea>
           </div>
           <div class="button_container">
             <center>
