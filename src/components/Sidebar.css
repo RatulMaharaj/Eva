@@ -1,0 +1,62 @@
+/* Sidebar */
+
+.sidebar {
+    height: 100%;
+    width: 85px;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    background-color: #282828;
+    transition: 0.5s;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.sidebar:hover {
+    width: 250px;
+}
+
+.nav {
+    margin-top: 60px;
+}
+
+.nav-item {
+    padding: 8px 8px 8px 32px;
+    margin-bottom: 18px;
+    font-size: 18px;
+    color: #808285;
+}
+
+.nav-item:hover {
+    color: #ed0080;
+}
+
+.nav-item-icon,
+.icon-text {
+    vertical-align: middle;
+}
+
+.nav-item-icon {
+    padding-bottom: 3px;
+    margin-right: 30px;
+}
+
+/* Logo */
+
+.logo {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
+    padding: 25px 0px 25px 0px;
+    z-index: 2;
+}
+
+.logo h2 {
+    font-family: "Kalam", cursive;
+    font-weight: bold;
+    font-size: 25px;
+    color: #ed0080;
+    opacity: 100%;
+}

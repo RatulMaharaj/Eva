@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
+import Update from "./Update"
 
 function Settings() {
   const [response, setResponse] = useState({});
@@ -10,7 +11,6 @@ function Settings() {
       .then((data) => setResponse(data));
   }, []);
 
-  console.log(response.folders)
   return (
     <div>
       <Sidebar />
@@ -38,29 +38,7 @@ function Settings() {
         <br />
         <br />
 
-        <h4>UPDATE NOW</h4>
-        <br />
-        <p>
-          Please enter the paths of the folders you would like to be indexed.
-          Each path should be on a new line.
-        </p>
-        <br />
-
-        <form action="/api/settings" method="POST">
-          <div class="IndexTheseFolders">
-            <textarea class="folder-list" name="folders" placeholder={response.folders}></textarea>
-          </div>
-          <div class="button_container">
-            <center>
-              <input class="button" type="submit" value="UPDATE" />
-            </center>
-          </div>
-        </form>
-
-        <br />
-        <br />
-        <br />
-        <br />
+        <Update folders={response.folders}/>      
       </div>
     </div>
   );

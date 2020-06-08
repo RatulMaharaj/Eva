@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
+import "./Search.css"
 
 function Search() {
   const [response, setResponse] = useState({
     hits: 0,
     results: [],
     returned_hits: 0,
-    searchcriteria: "",
+    searchcriteria: ""
   });
 
+  // custom hook to handle input changes
+  const [input, setInput] = useState({q:''})
+  const handleInputChange = (e) => setInput({
+    ...input,
+    [e.currentTarget.name]: e.currentTarget.value
+  })
+
+
   useEffect(() => {
-    fetch("/api/search?q=omf")
+    fetch(`/api/search?q=${input.q}`)
       .then((res) => res.json())
       .then((data) => setResponse(data));
-  }, []);
-
-  const results = response.results;
+  }, [input]);
+  
+  // need to add a debouncer to input in the useEffect Hook
 
   return (
     <div>
@@ -25,20 +34,21 @@ function Search() {
           <h2>SEARCH RESULTS</h2>
         </div>
         <div className="results_searchbar">
-          <form id="search-form" action="/api/search" method="get">
+          <form id="search-form" action="/search">
             <input
               id="search-box"
-              autofocus
-              placeholder="Search again"
+              autoFocus
+              placeholder="Search for a file"
               type="search"
               name="q"
-              value="Placeholder"
+              defaultValue={response.searchcriteria}
+              onChange={handleInputChange}
             />
           </form>
         </div>
       </div>
       <div className="content">
-        {results.map((result) => {
+        {response.results.map((result) => {
           return (
             <div class="search-content-section">
               <div class="search_result">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./Sidebar.css"
 
 function sidebar() {
     return (
@@ -20,11 +21,11 @@ function sidebar() {
                         <i className="material-icons nav-item-icon">search</i><span className="icon-text">Search</span>
                     </Link>
                 </li>
-                <li className='nav-item' >
+                {/* <li className='nav-item' >
                     <Link to="combine">
                         <i className="material-icons nav-item-icon">picture_as_pdf</i><span className="icon-text">Combine</span>
                     </Link>
-                </li>
+                </li> */}
                 <li className='nav-item' >
                     <Link to="about">
                         <i className="material-icons nav-item-icon">info</i><span className="icon-text">About</span>

@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask, render_template, request, send_file, jsonify
+from flask import Flask, render_template, request, send_file, redirect, jsonify
 from src.update import update, read_folders, write_folders
 import src.search as Search
 import pandas as pd
@@ -41,11 +41,7 @@ Search.load_data()
 def index():
     return app.send_static_file('index.html')
 
-# Api endpoints
-@app.route('/api/message')
-def get_current_time():
-    return {'message' : "Hello from Flask!" }
-
+# api endpoints
 @app.route('/api/search', methods=['GET'])
 def search():
     query = request.args.get('q') or ""
@@ -68,14 +64,17 @@ def search():
 
 @app.route('/api/settings', methods=['GET', 'POST'])
 def update_data():
-    folders = read_folders(FOLDERS_LOCATION)
-    
     if request.method == 'POST':
-        folders = request.form['folders'].splitlines()
-        write_folders(folders, FOLDERS_LOCATION)
-        update(DATABASE_LOCATION, FOLDERS_LOCATION)
-        Search.load_data()
+        data = request.get_json()
+        folders = data['folders']
+        # write_folders(folders, FOLDERS_LOCATION)
+        # update(DATABASE_LOCATION, FOLDERS_LOCATION)
+        # Search.load_data()
 
+        return jsonify(message=folders)
+
+    folders = read_folders(FOLDERS_LOCATION)
     folders_str = '\n'.join(folders)
     modtime = Search.getmodtime()
+
     return jsonify(modtime = modtime, version = version, folders=folders_str)
