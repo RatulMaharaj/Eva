@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import Notification from "./Notification"
 import "./Home.css"
 
 function Home() {
   return (
     <div>
+      {/* <Notification message={"Update Successful"}/> */}
       <Sidebar />
       <div className="content">
         <div className="home_grid">
