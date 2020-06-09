@@ -66,12 +66,13 @@ def search():
 def update_data():
     if request.method == 'POST':
         data = request.get_json()
-        folders = data['folders']
-        # write_folders(folders, FOLDERS_LOCATION)
-        # update(DATABASE_LOCATION, FOLDERS_LOCATION)
-        # Search.load_data()
-
-        return jsonify(message=folders)
+        print(data)
+        folders = data['folders'].splitlines()
+        print(folders)
+        write_folders(folders, FOLDERS_LOCATION)
+        update(DATABASE_LOCATION, FOLDERS_LOCATION)
+        Search.load_data()        
+        return jsonify(message="Update Successful")
 
     folders = read_folders(FOLDERS_LOCATION)
     folders_str = '\n'.join(folders)

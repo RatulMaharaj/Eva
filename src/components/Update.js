@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
+import Loader from "react-spinners/PulseLoader";
 
 function Update(props) {
-  const [sendRequest, setSendRequest] = useState(false);
   const [folders, setFolders] = useState(props.folders);
-  console.log(sendRequest)
+  const [isUpdating, setIsUpdating] = useState(localStorage.getItem('isUpdating')==='yes');
+  
+  console.log(folders)
+
+  function handleClick(){
+    localStorage.setItem('isUpdating', 'yes')
+    setIsUpdating(true)
+  }
 
   useEffect(() => {
-    if (sendRequest === true) {
-      console.log("Sending post request")
+    if (localStorage.getItem('isUpdating') === 'yes') {
+      console.log("Sending post request")      
+      const data = { 'folders': folders };
 
-      const data = { folders: 'Hello world' };
-      
       fetch("api/settings", {
         method: "POST",
         headers: {
@@ -21,37 +27,48 @@ function Update(props) {
         .then((response) => response.json())
         .then((data) => {
           console.log("Success:", data);
+          setIsUpdating(false)
+          localStorage.setItem("isUpdating", 'no')
         })
         .catch((error) => {
           console.error("Error:", error);
+          setIsUpdating(false)
+          localStorage.setItem("isUpdating", 'no')
         });
-        setSendRequest(false);
+        
       }
-  }, [sendRequest]);
+  }, [isUpdating]);
 
   return (
     <>
-      <h4>UPDATE NOW</h4>
+    <div style={{display:`flex`}}>
+      <h4 style={{marginRight:`1em`}}>UPDATE NOW</h4>
+        <Loader
+          size={8}
+          margin={2}
+          loading={isUpdating}
+        />
+      </div>
       <br />
       <p>
         Please enter the paths of the folders you would like to be indexed. Each
         path should be on a new line.
       </p>
-      <br />
-
+      <br />    
       <form>
         <div className="IndexTheseFolders">
           <textarea
             className="folder-list"
             id="folders"
-            defaultValue={folders}
+            defaultValue={props.folders}
             onChange={(event) => setFolders(event.target.value)}
-          ></textarea>
+          >{props.folders}</textarea>
         </div>
       </form>
-      <button className="button" onClick={(event) => setSendRequest(true)}>
+      <button className="button" onClick={(event) => handleClick()}>
         UPDATE
       </button>
+      
       <br />
       <br />
       <br />
