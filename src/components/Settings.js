@@ -4,11 +4,19 @@ import Update from "./Update"
 
 function Settings() {
   const [response, setResponse] = useState({});
+  const [folders, setFolders] = useState("");
+  const [version, setVersion] = useState("");
+  const [modTime, setModTime] = useState("");
 
   useEffect(() => {
     fetch("/api/settings")
       .then((res) => res.json())
-      .then((data) => setResponse(data));
+      .then((data) => {
+        setResponse(data)
+        setFolders(data.folders)
+        setVersion(data.version)
+        setModTime(data.modTime)
+      });
   }, []);
 
   return (
@@ -18,7 +26,7 @@ function Settings() {
         <h3>VERSION</h3>
         <br />
 
-        <p>You are currently using Eva version {response.version}</p>
+        <p>You are currently using Eva version {version}</p>
         <br />
         <br />
 
@@ -33,12 +41,12 @@ function Settings() {
         </p>
         <br />
         <p>
-          The database was last updated on: <strong>{response.modtime}</strong>
+          The database was last updated on: <strong>{modTime}</strong>
         </p>
         <br />
         <br />
 
-        <Update folders={response.folders}/>      
+        <Update folders={folders} setFolders={setFolders} />      
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Loader from "react-spinners/PulseLoader";
+import Spinner from "react-spinners/PulseLoader";
+
 
 function Update(props) {
-  const [folders, setFolders] = useState(props.folders);
+  const {folders, setFolders} = props
+  // const [folders, setFolders] = useState("");
   const [isUpdating, setIsUpdating] = useState(localStorage.getItem('isUpdating')==='yes');
   
   console.log(folders)
@@ -43,7 +45,7 @@ function Update(props) {
     <>
     <div style={{display:`flex`}}>
       <h4 style={{marginRight:`1em`}}>UPDATE NOW</h4>
-        <Loader
+        <Spinner
           size={8}
           margin={2}
           loading={isUpdating}
@@ -62,7 +64,8 @@ function Update(props) {
             id="folders"
             defaultValue={props.folders}
             onChange={(event) => setFolders(event.target.value)}
-          >{props.folders}</textarea>
+          >
+          </textarea>
         </div>
       </form>
       <button className="button" onClick={(event) => handleClick()}>
