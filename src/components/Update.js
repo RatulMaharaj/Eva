@@ -3,19 +3,15 @@ import Spinner from "react-spinners/PulseLoader";
 
 
 function Update(props) {
-  const {folders, setFolders} = props
-  // const [folders, setFolders] = useState("");
-  const [isUpdating, setIsUpdating] = useState(localStorage.getItem('isUpdating')==='yes');
-  
-  console.log(folders)
+  const {folders, setFolders, isUpdating, setIsUpdating} = props
+  const [postRequest, setPostRequest] = useState(false);
 
   function handleClick(){
-    localStorage.setItem('isUpdating', 'yes')
-    setIsUpdating(true)
+    setPostRequest(true)
   }
 
   useEffect(() => {
-    if (localStorage.getItem('isUpdating') === 'yes') {
+    if (postRequest === true) {
       console.log("Sending post request")      
       const data = { 'folders': folders };
 
@@ -29,17 +25,17 @@ function Update(props) {
         .then((response) => response.json())
         .then((data) => {
           console.log("Success:", data);
-          setIsUpdating(false)
-          localStorage.setItem("isUpdating", 'no')
+          setPostRequest(false)
+          setIsUpdating('no')
         })
         .catch((error) => {
           console.error("Error:", error);
-          setIsUpdating(false)
-          localStorage.setItem("isUpdating", 'no')
+          setPostRequest(false)
+          setIsUpdating('no')
         });
         
       }
-  }, [isUpdating]);
+  }, [postRequest, isUpdating]);
 
   return (
     <>
@@ -48,7 +44,7 @@ function Update(props) {
         <Spinner
           size={8}
           margin={2}
-          loading={isUpdating}
+          loading={postRequest || isUpdating === 'yes'}
         />
       </div>
       <br />

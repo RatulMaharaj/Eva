@@ -3,19 +3,19 @@ import Sidebar from "./Sidebar";
 import Update from "./Update"
 
 function Settings() {
-  const [response, setResponse] = useState({});
   const [folders, setFolders] = useState("");
   const [version, setVersion] = useState("");
   const [modTime, setModTime] = useState("");
+  const [isUpdating, setIsUpdating] = useState("");
 
   useEffect(() => {
     fetch("/api/settings")
       .then((res) => res.json())
       .then((data) => {
-        setResponse(data)
         setFolders(data.folders)
         setVersion(data.version)
         setModTime(data.modTime)
+        setIsUpdating(data.isUpdating)
       });
   }, []);
 
@@ -46,7 +46,7 @@ function Settings() {
         <br />
         <br />
 
-        <Update folders={folders} setFolders={setFolders} />      
+        <Update folders={folders} setFolders={setFolders} isUpdating={isUpdating} setIsUpdating={setIsUpdating} />      
       </div>
     </div>
   );

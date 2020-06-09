@@ -16,6 +16,7 @@ DEP_FOLDER = "..\\dependencies\\"
 DATABASE_LOCATION = DEP_FOLDER + "database.csv"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 DEFAULT_SEARCH_RESULT_LIMIT = 100
+IS_UPDATING = 'no'
 
 # Create dependencies that don't exist if needed
 
@@ -65,17 +66,18 @@ def search():
 @app.route('/api/settings', methods=['GET', 'POST'])
 def update_data():
     if request.method == 'POST':
+        global IS_UPDATING 
+        IS_UPDATING = 'yes'
         data = request.get_json()
-        print(data)
         folders = data['folders'].splitlines()
-        print(folders)
         write_folders(folders, FOLDERS_LOCATION)
         update(DATABASE_LOCATION, FOLDERS_LOCATION)
-        Search.load_data()        
-        return jsonify(message="Update Successful")
+        Search.load_data()
+        IS_UPDATING = 'no'        
+        return jsonify(message="update successful")
 
     folders = read_folders(FOLDERS_LOCATION)
     folders_str = '\n'.join(folders)
     modtime = Search.getmodtime()
 
-    return jsonify(modtime = modtime, version = version, folders=folders_str)
+    return jsonify(modtime = modtime, version = version, folders=folders_str, isUpdating=IS_UPDATING)
