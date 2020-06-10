@@ -8,15 +8,19 @@ function Settings() {
   const [modTime, setModTime] = useState("");
   const [isUpdating, setIsUpdating] = useState("");
 
-  useEffect(() => {
+  const getRequest = () => {
     fetch("/api/settings")
-      .then((res) => res.json())
-      .then((data) => {
-        setFolders(data.folders)
-        setVersion(data.version)
-        setModTime(data.modTime)
-        setIsUpdating(data.isUpdating)
-      });
+    .then((res) => res.json())
+    .then((data) => {
+      setFolders(data.folders)
+      setVersion(data.version)
+      setModTime(data.modTime)
+      setIsUpdating(data.isUpdating)
+    })
+  }
+  
+  useEffect(() => {
+    getRequest()
   }, []);
 
   return (

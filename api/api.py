@@ -45,10 +45,14 @@ def index():
 # api endpoints
 @app.route('/api/search', methods=['GET'])
 def search():
-    query = request.args.get('q') or ""
+    query = request.args.get('q')
     # raw = (request.args.get('raw') or "") != ""
     limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
-    if query:
+    if query == "":
+        results_dict = [{'name':'Search for a file', 'path':'Use the search box above to find a file on the share drives'}]
+        return jsonify(results=results_dict, searchcriteria=query, hits=0, returned_hits=0)
+    
+    elif query:
         results = Search.searchcsv(query)
         hits = len(results)
         if hits == 0:

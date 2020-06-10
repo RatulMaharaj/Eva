@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
-import "./Search.css"
+import "./Search.css";
 
 function Search() {
   const [response, setResponse] = useState({
     hits: 0,
     results: [],
     returned_hits: 0,
-    searchcriteria: ""
+    searchcriteria: "",
   });
 
   // custom hook to handle input changes
-  const [input, setInput] = useState({q:''})
-  const handleInputChange = (e) => setInput({
-    ...input,
-    [e.currentTarget.name]: e.currentTarget.value
-  })
+  const [getResults, setGetResults] = useState(false);
+  const [input, setInput] = useState({ q: "" });
 
+  const handleInputChange = (e) => {
+    setInput({
+      ...input,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setGetResults(true);
+  };
 
   useEffect(() => {
     fetch(`/api/search?q=${input.q}`)
       .then((res) => res.json())
       .then((data) => setResponse(data));
-  }, [input]);
-  
-  // need to add a debouncer to input in the useEffect Hook
+  }, [input, getResults]);
 
   return (
     <div>
@@ -34,7 +40,7 @@ function Search() {
           <h2>SEARCH RESULTS</h2>
         </div>
         <div className="results_searchbar">
-          <form id="search-form" action="/search">
+          <form id="search-form" onSubmit={handleSubmit}>
             <input
               id="search-box"
               autoFocus

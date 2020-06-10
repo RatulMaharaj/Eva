@@ -42,9 +42,9 @@ function Update(props) {
     <div style={{display:`flex`}}>
       <h4 style={{marginRight:`1em`}}>UPDATE NOW</h4>
         <Spinner
-          size={8}
-          margin={2}
-          loading={postRequest || isUpdating === 'yes'}
+        size={8}
+        margin={2}
+        loading={postRequest || isUpdating === 'yes'}
         />
       </div>
       <br />
