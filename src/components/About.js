@@ -1,10 +1,8 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import Layout from "./Layout";
 
 function About() {
   return (
-    <div>
-      <Sidebar />
       <div className="content">
         <h3>ABOUT</h3>
         <br />
@@ -44,7 +42,6 @@ function About() {
         <br />
         <p>20 February 2020</p>
       </div>
-    </div>
   );
 }
 

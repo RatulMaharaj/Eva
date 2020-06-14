@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
 import Notification from "./Notification"
 import "./Home.css"
+import Layout from "./Layout";
 
 function Home() {
   return (
-    <div>
+    <Layout>
       {/* <Notification message={"Update Successful"}/> */}
-      <Sidebar />
       <div className="content">
         <div className="home_grid">
           <div className="home_intro">
@@ -46,7 +45,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
