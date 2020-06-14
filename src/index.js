@@ -7,6 +7,7 @@ import About from "./components/About"
 import Combine from "./components/Combine"
 import Settings from "./components/Settings"
 import Search from "./components/Search"
+import Browse from "./components/Browse"
 
 ReactDOM.render(
   <Router>
@@ -31,6 +32,10 @@ ReactDOM.render(
 
         <Route path="/settings">
           <Settings />
+        </Route>
+
+        <Route path="/browse">
+          <Browse />
         </Route>
 
       </Switch>
