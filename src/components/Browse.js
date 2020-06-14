@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useLocation, useParams} from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faFolder, faFile,
@@ -15,6 +15,7 @@ import {
 
 import "./iconColors.css"
 import "./Browse.css"
+import Locationbar from "./Browse/Locationbar";
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
@@ -25,7 +26,7 @@ function useQuery() {
         object[key] = val
     }
     return object
-  }
+}
 
 function Browse() {
     const [path, setPath] = useState("D:\\downloads");
@@ -39,60 +40,51 @@ function Browse() {
 
     return (
         <div className="area">
-            <div className="locationbar">
-                <form className="location-form">
-                    <div className="location-icon-wrapper">
-                        <FontAwesomeIcon icon={faFolder} className="location-icon" />
-                    </div>
-                    <input type="search" className="location-inputbox" value={path} />
-                </form>
-            </div>
+            <Locationbar path={path} setPath={setPath} />
             <div className="results-area">
                 <ul className="results-list">
                     {items.map(item => (<FsItem item={item} setPath={setPath} />
                     ))}
                 </ul>
-                <pre>
-                    {JSON.stringify(useLocation(),null,2)}
-                </pre>
-                <pre>
-                    {JSON.stringify(useQuery(),null,2)}
-                </pre>
-                <pre>{JSON.stringify(items, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(useLocation(), null, 2)}</pre> */}
+                {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
+                {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
             </div>
         </div>
     );
 }
 
-function FsItem({ item, setPath=() => {} }) {
+function FsItem({ item, setPath = () => { } }) {
     const { name, is_folder, size_bytes, path } = item
     const icon = is_folder ? faFolder : faFile;
-    const href = is_folder ? "/browse?path=D:\\Downloads" : ""
-
-    const onClick = (e) => {
-        e.preventDefault()
-        setPath(path + '\\' + name)
+    let href = "", onClick = () => { };
+    if (is_folder) {
+        href = "/browse?path=D:\\Downloads"
+        onClick = (e) => {
+            e.preventDefault()
+            setPath(path + '\\' + name)
+        }
     }
 
     return (<li className="item">
-        <OptionalA href={href} className="item" onClick={onClick} >
+        <OptionalA href={href} className="item-link" onClick={onClick} >
             <div className="item-icon-wrapper">
                 <FontAwesomeIcon icon={icon} fixedWidth className="item-icon" />
             </div>
             {name}
         </OptionalA>
-        </li>)
+    </li>)
 }
 
-function OptionalA({children, href="", ...props}) {
+function OptionalA({ children, href = "", ...props }) {
     if (href) {
         return <a href={href} {...props}>
             {children}
-        </a>    
+        </a>
     } else {
         return <span {...props}> {children}</span>
     }
-        
+
 }
 
 export default Browse;
