@@ -67,6 +67,12 @@ def search():
     else:
         return "No valid query parameters used"
 
+@app.route('/api/browse')
+def browse():
+    path = request.args.get('path')
+    results = Search.get_path(path).to_dict('records') if path else []
+    return jsonify(path=path, results = results)
+
 @app.route('/api/settings', methods=['GET', 'POST'])
 def update_data():
     if request.method == 'POST':
@@ -85,8 +91,6 @@ def update_data():
     modtime = Search.getmodtime()
 
     return jsonify(modtime = modtime, version = version, folders=folders_str, isUpdating=IS_UPDATING)
-
-
 
 if __name__ == '__main__':
     # Create dependencies that don't exist if needed

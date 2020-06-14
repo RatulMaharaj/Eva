@@ -33,7 +33,10 @@ def searchcsv(search_string):
         filtered = filtered[filtered['name'].str.contains(search_word, case=False)]
     
     results = filtered
-    return results            
+    return results
+
+def get_path(path):
+    return data[data['path'].str.lower() == path.lower()].sort_values([ISFOLDER, NAME], ascending = [False, True])            
 
 def getmodtime():
     modified = os.path.getmtime(database_location)
