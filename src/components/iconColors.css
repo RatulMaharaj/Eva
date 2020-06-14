@@ -1,0 +1,31 @@
+.fa-folder {
+    color: gold;
+}
+
+.fa-file {
+    color: silver;
+}
+
+.fa-file-word {
+    color: navy;
+}
+
+.fa-file-excel {
+    color: darkgreen;
+}
+
+.fa-file-csv {
+    color: darkgreen;
+}
+
+.fa-file-powerpoint {
+    color: tomato;
+}
+
+.fa-file-pdf {
+    color: firebrick;
+}
+
+.fa-file-archive {
+    color: #333;
+}
