@@ -6,6 +6,10 @@
     color: silver;
 }
 
+.fa-file-alt {
+    color: silver;
+}
+
 .fa-file-word {
     color: navy;
 }
@@ -28,4 +32,12 @@
 
 .fa-file-archive {
     color: #333;
+}
+
+.fa-book {
+    color: darkolivegreen;
+}
+
+.fa-file-video {
+    color: darkslateblue;
 }

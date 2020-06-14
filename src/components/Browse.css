@@ -2,18 +2,6 @@
     font-family: "Segoe UI";
 }
 
-
-.icon {
-display: inline-block;
-width: 1em;
-transition: 0.2s;
-/*   background:hotpink; */
-}
-
-.icon:hover {
-transform: scale(1.2);
-}
-
 .area {
     background: white;
     min-width: 480px;
@@ -23,29 +11,5 @@ transform: scale(1.2);
 
 .results-list {
     padding: 0.25rem;
-}
-
-.item {
-    display: flex;
-    font-size: 14px;
-    margin-bottom: 2px;;
-    padding: 2px;
-}
-
-.item-link {
-    display: flex;
-}
-
-.item:hover {
-    outline: 1px dashed hotpink;
-}
-
-.item-icon-wrapper {
-    min-width: 2rem;
-    /* background: blue */
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    margin-top:3px;
 }
   
