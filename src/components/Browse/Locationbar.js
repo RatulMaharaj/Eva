@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 import './Locationbar.css'
+
+function upPath(path) {
+    return path.slice(0, path.lastIndexOf('\\'))
+}
 
 function Locationbar({ path = "", setPath = () => { } }) {
     const [currentPath, setCurrentPath] = useState(path);
@@ -18,7 +22,15 @@ function Locationbar({ path = "", setPath = () => { } }) {
             setCurrentPath(path);
         }
     };
+
+    const up = () => {
+        setPath(upPath(path))
+    }
+
     return <div className="locationbar">
+        <button className="up-button" onClick={up}>
+            <FontAwesomeIcon icon={faArrowUp} />
+        </button>
         <form className="location-form" onSubmit={onSubmit}>
             <div className="location-icon-wrapper">
                 <FontAwesomeIcon icon={faFolder} className="location-icon" />
