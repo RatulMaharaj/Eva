@@ -85,3 +85,21 @@ def update_data():
     modtime = Search.getmodtime()
 
     return jsonify(modtime = modtime, version = version, folders=folders_str, isUpdating=IS_UPDATING)
+
+
+
+if __name__ == '__main__':
+    # Create dependencies that don't exist if needed
+    if not os.path.isdir(DEP_FOLDER):
+        os.mkdir(DEP_FOLDER)
+        
+    if not os.path.isfile(DATABASE_LOCATION):
+        f = pd.DataFrame(columns = Search.COLUMNS)
+        f.to_csv(DATABASE_LOCATION)
+
+    if not os.path.isfile(FOLDERS_LOCATION):
+        f = open(FOLDERS_LOCATION, "w+")
+        f.close()
+
+    app.run(debug=True)
+    # serve(app, host='127.0.0.1', port=5050)
