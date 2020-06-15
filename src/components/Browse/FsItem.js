@@ -15,7 +15,7 @@ function FsItem({ item, setPath = () => { } }) {
         href = "/browse?path=D:\\Downloads";
         onClick = (e) => {
             e.preventDefault();
-            setPath(path + '\\' + name);
+            setPath(path ? (path + '\\' + name) : name);
         };
     }
     else {
