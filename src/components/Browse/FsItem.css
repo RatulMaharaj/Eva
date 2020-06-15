@@ -25,10 +25,24 @@
 }
 
 .item-icon-wrapper {
-    min-width: 2rem;
-    /* background: blue */
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: start;
+    
+    min-width: 2rem;
     margin-top:3px;
+}
+
+.hidden {
+    opacity: 0.4;
+}
+
+.system-icon {
+    position: absolute;
+    font-size: 0.5rem;
+    bottom: 0;
+    right: 0.5rem;
+    opacity: 0.5;
 }
