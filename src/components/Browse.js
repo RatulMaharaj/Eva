@@ -7,6 +7,13 @@ import FsItem from "./Browse/FsItem";
 import "./iconColors.css"
 import "./Browse.css"
 
+function sortFiles(a,b) {
+    if(a.hidden !== b.hidden) {
+        return a.hidden ? 1 : -1 
+    }
+    else return 0
+}
+
 // A custom hook that builds on useLocation to parse
 // the query string for you.
 function useQuery() {
@@ -25,7 +32,7 @@ function Browse() {
     useEffect(() => {
         fetch(`/api/browse?path=${path}`)
             .then(res => res.json())
-            .then(results => setItems(results.results))
+            .then(results => setItems(results.results.sort(sortFiles)))
     }, [path])
 
     return (
