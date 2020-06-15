@@ -28,9 +28,9 @@
     display: flex;
 }
 
-.item:hover {
+/* .item:hover {
     outline: 1px dashed hotpink;
-}
+} */
 
 .item-icon-wrapper {
     position: relative;
@@ -53,4 +53,12 @@
     bottom: 0;
     right: 0.5rem;
     opacity: 0.5;
+}
+
+.live-link {
+    transition: 0.2s ease-in-out;
+}
+
+.live-link:hover {
+    background: #ff69b433;
 }

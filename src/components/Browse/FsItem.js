@@ -23,7 +23,7 @@ function FsItem({ item, setPath = () => { } }) {
         size = <span className="size">{filesize(size_bytes, { round: 1 })}</span>
     }
 
-const modified = modified_time ? <span className="mod-time">{formatDistanceToNow(new Date(modified_time)) + ' ago'}</span> : ''
+    const modified = modified_time ? <span className="mod-time">{formatDistanceToNow(new Date(modified_time)) + ' ago'}</span> : ''
 
     const className = [
         'item',
@@ -33,26 +33,26 @@ const modified = modified_time ? <span className="mod-time">{formatDistanceToNow
     ].join(' ')
 
     return (<li className={className}>
-        <OptionalA href={href} className="item-link" onClick={onClick}>
+        <OptionalA href={href} className="item-link" linkClassName="live-link" onClick={onClick}>
             <div className="item-icon-wrapper">
                 <FontAwesomeIcon icon={icon} fixedWidth className="item-icon" />
                 {system ? <FontAwesomeIcon icon={faCog} className="system-icon" /> : ""}
             </div>
             <span className="name">{name}</span>
-            {size}
-            {modified}
         </OptionalA>
+        {size}
+        {modified}
     </li>);
 }
 
-function OptionalA({ children, href = "", ...props }) {
+function OptionalA({ children, href = "", className = "", linkClassName = "", ...props }) {
     if (href) {
-        return <a href={href} {...props}>
+        return <a href={href} className={className + " " + linkClassName} {...props}>
             {children}
         </a>;
     }
     else {
-        return <span {...props}> {children}</span>;
+        return <span className={className} {...props}> {children}</span>;
     }
 }
 
