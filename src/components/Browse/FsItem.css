@@ -16,6 +16,14 @@
     margin-top:2px;
 }
 
+.mod-time {
+    color: #bbb;
+    font-size: 12px;
+    margin-top:2px;
+
+    margin-left: 1rem;
+}
+
 .item-link {
     display: flex;
 }
