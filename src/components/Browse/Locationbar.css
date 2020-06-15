@@ -26,6 +26,12 @@
     margin: unset;
     padding: unset;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.up-button:hover {
+    color: hotpink;
+    background: #ff69b433;
 }
 
 .location-icon-wrapper {
