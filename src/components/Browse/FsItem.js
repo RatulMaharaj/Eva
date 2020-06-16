@@ -9,7 +9,7 @@ import getIcon from "./icon.js"
 import './FsItem.css'
 
 function FsItem({ item, setPath = () => { } }) {
-    const { name, is_folder, size_bytes, path, hidden, read_only, system, modified_time } = item;
+    const { name, is_folder, size_bytes, path, hidden, read_only, system, modified_time, num_files, num_subfolders, folder_size_bytes } = item;
     const icon = is_folder ? faFolder : getIcon(name);
     let href = "", onClick = () => { }, size = "";
     if (is_folder) {
@@ -18,6 +18,7 @@ function FsItem({ item, setPath = () => { } }) {
             e.preventDefault();
             setPath(path ? (path + '\\' + name) : name);
         };
+        size = size = <span className="size">{filesize(folder_size_bytes, { round: 1 })} ({num_files} files, {num_subfolders} folders)</span> 
     }
     else {
         size = <span className="size">{filesize(size_bytes, { round: 1 })}</span>

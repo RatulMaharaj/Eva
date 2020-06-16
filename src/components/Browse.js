@@ -78,7 +78,7 @@ function Browse() {
                 <ul className="results-list">
                     {(path==="") ? roots.map(root => {
                         const [path,name] = splitname(root)
-                        return <FsItem item={{name:root, path:"", is_folder: true}} setPath={setPathWithHist} />
+                        return <FsItem item={{name:root, path:"", is_folder: true, num_files:0, num_subfolders:0, folder_size_bytes: 0}} setPath={setPathWithHist} />
                         }) : ''}
                     {items.map(item => (<FsItem item={item} setPath={setPathWithHist} />
                     ))}
