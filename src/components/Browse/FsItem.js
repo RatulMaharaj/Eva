@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolder, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faCog, faFile, faChartPie } from '@fortawesome/free-solid-svg-icons';
 import { formatDistanceToNow, parse } from 'date-fns'
 import filesize from "filesize"
 
@@ -18,7 +18,7 @@ function FsItem({ item, setPath = () => { } }) {
             e.preventDefault();
             setPath(path ? (path + '\\' + name) : name);
         };
-        size = size = <span className="size">{filesize(folder_size_bytes, { round: 1 })} ({num_files} files, {num_subfolders} folders)</span> 
+        size = size = <span className="size">{filesize(folder_size_bytes, { round: 1 })} ({num_files} <FontAwesomeIcon icon={faFile} className="tiny-icon" /> {num_subfolders} <FontAwesomeIcon icon={faFolder} className="tiny-icon" />)</span> 
     }
     else {
         size = <span className="size">{filesize(size_bytes, { round: 1 })}</span>

@@ -62,3 +62,8 @@
 .live-link:hover {
     background: #ff69b433;
 }
+
+.tiny-icon {
+    color: #e8e8e8 !important;
+    font-size: 90%;
+}
