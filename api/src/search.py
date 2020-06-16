@@ -4,9 +4,9 @@ import pandas as pd
 import os
 import time
 from shlex import split
-from src.all_files_in_folder import NAME, LOCATION, ISFOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY
+from src.index_folder import NAME, LOCATION, IS_FOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY, NUM_FILES, NUM_FOLDERS, FOLDER_SIZE
 
-COLUMNS = [NAME, LOCATION, ISFOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY] # The fields we want from the datafile
+COLUMNS = [NAME, LOCATION, IS_FOLDER, SIZE, ATIME, MTIME, CTIME, HIDDEN, SYSTEM, READONLY, NUM_FILES, NUM_FOLDERS, FOLDER_SIZE] # The fields we want from the datafile
 
 data = pd.DataFrame(columns = COLUMNS) #initialise an empty dataframe
 
