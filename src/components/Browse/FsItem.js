@@ -1,12 +1,26 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faCog, faFile, faChartPie } from '@fortawesome/free-solid-svg-icons';
-import { formatDistanceToNow, parse } from 'date-fns'
+import { isToday, isThisMonth, isThisYear, format as formatDate } from 'date-fns'
 import filesize from "filesize"
 
 import getIcon from "./icon.js"
 
 import './FsItem.css'
+
+const fmt = d => {
+    let format = ''
+    if (isToday(d)) {
+      format = 'HH:mm'
+    } else if (isThisMonth(d)) {
+      format = 'd MMM HH:mm'
+    } else if (isThisYear(d)) {
+      format = 'd MMM'
+    } else {
+      format = 'd MMM yyyy'
+    }
+    return formatDate(d,format)
+  }
 
 function FsItem({ item, setPath = () => { } }) {
     const { name, is_folder, size_bytes, path, hidden, read_only, system, modified_time, num_files, num_subfolders, folder_size_bytes } = item;
@@ -24,7 +38,7 @@ function FsItem({ item, setPath = () => { } }) {
         size = <span className="size">{filesize(size_bytes, { round: 1 })}</span>
     }
 
-    const modified = modified_time ? <span className="mod-time">{formatDistanceToNow(new Date(modified_time)) + ' ago'}</span> : ''
+    const modified = modified_time ? <span className="mod-time">{fmt(new Date(modified_time))}</span> : ''
 
     const className = [
         'item',
