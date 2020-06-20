@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { QueryParamProvider } from 'use-query-params';
 import "./static/css/main.css";
 import Home from "./components/Home"
 import About from "./components/About"
@@ -14,35 +15,38 @@ import Layout from "./components/Layout";
 function App() {
   return (
     <Router>
-      <Layout>
-        <Switch>
+      <QueryParamProvider ReactRouterRoute={Route}>
 
-          <Route exact path="/">
-            <Home />
-          </Route>
+        <Layout>
+          <Switch>
 
-          <Route path="/about">
-            <About />
-          </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
 
-          <Route path="/search">
-            <Search />
-          </Route>
+            <Route path="/about">
+              <About />
+            </Route>
 
-          <Route path="/combine">
-            <Combine />
-          </Route>
+            <Route path="/search">
+              <Search />
+            </Route>
 
-          <Route path="/settings">
-            <Settings />
-          </Route>
+            <Route path="/combine">
+              <Combine />
+            </Route>
 
-          <Route path="/browse">
-            <Browse />
-          </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
 
-        </Switch>
-      </Layout>
+            <Route path="/browse">
+              <Browse />
+            </Route>
+
+          </Switch>
+        </Layout>
+      </QueryParamProvider>
     </Router>
   )
 }
