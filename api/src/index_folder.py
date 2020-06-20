@@ -1,9 +1,11 @@
 import os, stat
 from datetime import datetime
+from pathlib import Path
 
 LOCATION = 'path'
 NAME = 'name'
 IS_FOLDER = 'is_folder'
+DEPTH = 'path_depth'
 SIZE = 'size_bytes'
 ATIME = 'accessed_time'
 MTIME = 'modified_time'
@@ -21,14 +23,14 @@ def index_folder(path):
         return a generator of scandir results for all the files and folders in a folder, including total size, filecount and foldercount for each folder
     '''
 
-    if isinstance(path, dict):
-        root_dict = path
-    else:
-        root_dict = direntry_to_dict(direntry_for_one_folder(path))
-
+    root_dict = path if isinstance(path, dict) else dict_for_one_folder(path)
     root_dict[FOLDER_SIZE] = root_dict[NUM_FILES] = root_dict[NUM_FOLDERS] = 0
-    root_str = os.path.join(root_dict[LOCATION],root_dict[NAME])
+    root_location = root_dict[LOCATION]
+    root_location = root_location + (os.path.sep if os.path.sep not in root_location and root_location != '' else '')
 
+    root_str = os.path.join(root_location,root_dict[NAME])
+    if '/' not in root_str and '\\' not in root_str: 
+        root_str = root_str + '\\'
     for dir_entry in os.scandir(root_str):
         entry_dict = direntry_to_dict(dir_entry)
         if entry_dict[IS_FOLDER]: #If the child is a folder
@@ -54,9 +56,10 @@ def direntry_to_dict(de):
         convert a direntry object to a simple dict
     '''
     result = {
-        LOCATION: os.path.normpath(os.path.split(de.path)[0]),
+        LOCATION: os.path.normpath(os.path.split(de.path)[0]).rstrip('\\'),
         NAME: de.name,
         IS_FOLDER: de.is_dir(),
+        DEPTH: len(Path(de.path).parents),
     }
     stat_to_dict(de.stat(), result)
     return result
@@ -82,11 +85,26 @@ def stat_to_dict(stats, results_dict = {}):
     return results_dict
 
 
-def direntry_for_one_folder(path):
+def dict_for_one_folder(path):
     '''
         returns a single DirEntry object for one path
     '''
+    if Path(path).anchor == path:
+        return {
+            LOCATION: '',
+            NAME: path,
+            IS_FOLDER: True,
+            DEPTH: len(Path(path).parents),
+            SIZE: 0,
+            ATIME: datetime.fromisoformat('1900-01-01 00:00').replace(microsecond = 0),
+            MTIME: datetime.fromisoformat('1900-01-01 00:00').replace(microsecond = 0),
+            CTIME: datetime.fromisoformat('1900-01-01 00:00').replace(microsecond = 0),
+            READONLY: False,
+            HIDDEN: False,
+            SYSTEM: False,
+        }
+
     base, name = os.path.split(path)
     for entry in os.scandir(base):
         if entry.name == name:
-            return entry
+            return direntry_to_dict(entry)
