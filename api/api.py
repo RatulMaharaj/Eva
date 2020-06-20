@@ -6,6 +6,7 @@ import pandas as pd
 import json
 import os, glob
 from waitress import serve
+import subprocess
 
 version = '0.3.0'
 
@@ -91,6 +92,13 @@ def update_data():
     modtime = Search.getmodtime()
 
     return jsonify(modtime = modtime, version = version, folders=folders_str, isUpdating=IS_UPDATING)
+
+
+@app.route('/api/open')
+def open():
+    path = request.args.get('path')
+    subprocess.Popen(["explorer", path])
+    return 'success'
 
 if __name__ == '__main__':
     # Create dependencies that don't exist if needed

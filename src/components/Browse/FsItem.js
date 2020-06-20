@@ -25,12 +25,13 @@ const fmt = d => {
 function FsItem({ item, setPath = () => { } }) {
     const { name, is_folder, size_bytes, path, hidden, read_only, system, modified_time, num_files, num_subfolders, folder_size_bytes } = item;
     const icon = is_folder ? faFolder : getIcon(name);
+    const fullName = path ? (path + '\\' + name) : name
     let href = "", onClick = () => { }, size = "";
     if (is_folder) {
         href = "/browse?path=D:\\Downloads";
         onClick = (e) => {
             e.preventDefault();
-            setPath(path ? (path + '\\' + name) : name);
+            setPath(fullName);
         };
         size = size = <span className="size">{filesize(folder_size_bytes, { round: 1 })} ({num_files} <FontAwesomeIcon icon={faFile} className="tiny-icon" /> {num_subfolders} <FontAwesomeIcon icon={faFolder} className="tiny-icon" />)</span> 
     }
@@ -57,6 +58,7 @@ function FsItem({ item, setPath = () => { } }) {
         </OptionalA>
         {size}
         {modified}
+        <span onClick={() => fetch(`/api/open?path=${fullName}`)}>Open</span>
     </li>);
 }
 
