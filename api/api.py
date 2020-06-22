@@ -51,6 +51,7 @@ def search():
     limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
     if query == "":
         results_dict = [{'name':'Search for a file', 'path':'Use the search box above to find a file on the share drives'}]
+        results_dict = []
         return jsonify(results=results_dict, searchcriteria=query, hits=0, returned_hits=0)
     
     elif query:
@@ -58,7 +59,8 @@ def search():
         hits = len(results)
         if hits == 0:
             returned_hits = 0
-            results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
+            # results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
+            results_dict = []
         else:
             if limit > 0 and hits > limit:
                 results = results.head(limit)
