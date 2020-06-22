@@ -30,7 +30,7 @@ function App() {
             </Route>
 
             <Route path="/search">
-              <Search />
+              <S2 />
             </Route>
 
             <Route path="/combine">
@@ -45,9 +45,9 @@ function App() {
               <Browse />
             </Route>
 
-            <Route path="/s2">
+            {/* <Route path="/s2">
               <S2 />
-            </Route>
+            </Route> */}
 
           </Switch>
         </Layout>
