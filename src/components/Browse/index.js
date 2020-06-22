@@ -7,6 +7,11 @@ import FsItem from "./FsItem";
 import "../iconColors.css"
 import "./Browse.css"
 
+
+function upPath(path) {
+    return path.slice(0, path.lastIndexOf('\\'))
+}
+
 function sortFiles(a, b) {
     if (a.hidden !== b.hidden) { return a.hidden ? 1 : -1 }
     else { return 0 }
@@ -45,6 +50,18 @@ function Browse() {
     const [path, setPath] = useQueryParam("path", StringParam);
     const items = useItems(path)
     useEffect(()=> {if(!path) {setPath("")}},[path, setPath])
+
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            console.log(e)
+            if (e.altKey && e.key === "ArrowUp") {
+                    setPath(upPath(path))
+            }
+        }
+        document.addEventListener("keydown",onKeyDown)
+
+        return (() => document.removeEventListener("keydown", onKeyDown))
+    });
 
     return (
         <div className="area">
