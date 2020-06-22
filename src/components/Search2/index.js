@@ -12,19 +12,6 @@ function sortFiles(a, b) {
     else { return 0 }
 }
 
-function Roots({setPath}) {
-    const [roots, setRoots] = useState([])
-    useEffect(() => {
-        cachedFetch('./api/settings')
-        .then(res => res.json())
-        .then(x => setRoots(x.folders.split('\n')))
-    }, [])
-
-    return roots.map(root => {
-        return <ResultItem key={root} item={{ name: root, path: "", is_folder: true, num_files: 0, num_subfolders: 0, folder_size_bytes: 0 }} setPath={setPath} />
-    })
-}
-
 function useResults(results, initialResults = []) {
     const [items, setItems] = useState(initialResults)
     useEffect(() => {
@@ -52,8 +39,7 @@ function Browse() {
             {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
             <div className="results-area">
                 <ul className="results-list">
-                    {(query === "") ? <Roots setPath={setQuery}/> : ''}
-                    {items.map(item => <ResultItem key={item.name} item={item} setPath={setQuery} />)}
+                    {items.map((item, i) => <ResultItem key={i} item={item} setPath={setQuery} />)}
                 </ul>
                 {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
             </div>
