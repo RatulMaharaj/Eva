@@ -1,0 +1,84 @@
+.locationbar {
+    position:sticky;
+    top:0;
+    display:flex;
+    align-items: center;
+    font-size: 16px;
+    border-bottom: 0.5px solid #ddd;
+    background: white;
+    padding-left: 0.5rem;
+    z-index: 5;
+}
+
+.location-form {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    margin: 0.5rem;
+}
+
+.up-button {
+    background: unset;
+    height: 36px;
+    width: 36px;
+    border-radius: 100%;
+    color: silver;
+    margin: unset;
+    padding: unset;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-right: 8px;
+    /* margin-left: 8px; */
+}
+
+.up-button:hover {
+    color: hotpink;
+    background: #ff69b433;
+}
+
+.location-icon-wrapper {
+    position: absolute;
+    top:0;
+    bottom:0;
+    padding-left:1rem;
+    padding-top: 1px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-icon {
+    color: darkgray;
+}
+
+.location-inputbox:hover + * .location-icon, .location-inputbox:focus + * .location-icon  {
+    color: hotpink;
+}
+
+.location-inputbox {
+    --border-color: #FFF0;
+    font-size: 1rem;
+    padding: 6px;
+    padding-left: 42px;
+    flex-grow: 1;
+    border: 2px solid var(--border-color);
+    border-radius: 32px;
+    background: #eeeefa;
+    color: #000b;
+    transition: ease-in-out;
+    transition-duration: 0.2s;
+}
+
+.location-inputbox:hover, .location-inputbox:focus  {
+    box-shadow: 0px 1px 3px 1px #0002;
+    color: black;
+}
+
+.location-inputbox:focus {
+    --border-color: hotpink;
+    background: white;
+    /* border: 2px solid goldenrod; */
+    outline: none;
+
+}

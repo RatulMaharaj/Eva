@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQueryParam, StringParam } from 'use-query-params';
-import cachedFetch from "../utils/cachedFetch";
-import Locationbar from "./Browse/Locationbar";
-import FsItem from "./Browse/FsItem";
+import cachedFetch from "../../utils/cachedFetch";
+import Searchbar from "./Searchbar";
+import ResultItem from "./ResultItem";
 
-import "./iconColors.css"
-import "./Browse.css"
+import "../iconColors.css"
+import "./index.css"
 
 function sortFiles(a, b) {
     if (a.hidden !== b.hidden) { return a.hidden ? 1 : -1 }
@@ -21,39 +21,39 @@ function Roots({setPath}) {
     }, [])
 
     return roots.map(root => {
-        return <FsItem key={root} item={{ name: root, path: "", is_folder: true, num_files: 0, num_subfolders: 0, folder_size_bytes: 0 }} setPath={setPath} />
+        return <ResultItem key={root} item={{ name: root, path: "", is_folder: true, num_files: 0, num_subfolders: 0, folder_size_bytes: 0 }} setPath={setPath} />
     })
 }
 
-function useItems(path, initialItems = []) {
-    const [items, setItems] = useState(initialItems)
+function useResults(results, initialResults = []) {
+    const [items, setItems] = useState(initialResults)
     useEffect(() => {
-        const url = `/api/browse?path=${path}`
+        const url = `/api/search?q=${results}`
         cachedFetch(url)
             .then(res => res.json())
             .then(({results}) => {
                 // results.filter(item => item.is_folder).forEach(({path, name}) => cachedFetch(`/api/browse?path=${path ? (path + '\\' + name) : name}`))
                 setItems(results.sort(sortFiles))
             })
-    }, [path])
+    }, [results])
 
     return items
 }
 
 function Browse() {
 
-    const [path, setPath] = useQueryParam("path", StringParam);
-    const items = useItems(path)
-    useEffect(()=> {if(!path) {setPath("")}},[path, setPath])
+    const [query, setQuery] = useQueryParam("q", StringParam);
+    const items = useResults(query)
+    useEffect(()=> {if(!query) {setQuery("")}},[query, setQuery])
 
     return (
         <div className="area">
-            <Locationbar path={path} setPath={setPath} />
+            <Searchbar path={query} setPath={setQuery} />
             {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
             <div className="results-area">
                 <ul className="results-list">
-                    {(path === "") ? <Roots setPath={setPath}/> : ''}
-                    {items.map(item => <FsItem key={item.name} item={item} setPath={setPath} />)}
+                    {(query === "") ? <Roots setPath={setQuery}/> : ''}
+                    {items.map(item => <ResultItem key={item.name} item={item} setPath={setQuery} />)}
                 </ul>
                 {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
             </div>

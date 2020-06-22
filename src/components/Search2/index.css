@@ -1,0 +1,16 @@
+* {
+    font-family: "Segoe UI";
+}
+
+.area {
+    background: white;
+    min-width: 480px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.results-list {
+    padding: 0.25rem;
+    margin: 1rem 1rem;
+}
+  

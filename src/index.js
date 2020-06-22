@@ -10,6 +10,7 @@ import Settings from "./components/Settings"
 import Search from "./components/Search"
 import Browse from "./components/Browse"
 import Layout from "./components/Layout";
+import S2 from "./components/Search2";
 
 
 function App() {
@@ -42,6 +43,10 @@ function App() {
 
             <Route path="/browse">
               <Browse />
+            </Route>
+
+            <Route path="/s2">
+              <S2 />
             </Route>
 
           </Switch>
