@@ -2,8 +2,10 @@
     font-family: "Segoe UI";
 }
 
-.area {
-    background: white;
+.search-area {
+    background: rgb(236, 233, 230);
+    background: #FBFBFD;
+
     min-width: 480px;
     height: 100vh;
     overflow-y: scroll;

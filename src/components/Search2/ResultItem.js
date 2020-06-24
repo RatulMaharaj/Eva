@@ -1,12 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useClipboard from "react-use-clipboard";
-import { faFolder, faCog, faFile, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { faFolder, faCog, faFile } from '@fortawesome/free-solid-svg-icons';
 import { isToday, isThisMonth, isThisYear, format as formatDate } from 'date-fns'
+
+import { CopyButton, OpenButton } from "../Buttons";
 import filesize from "filesize"
 
-import getIcon from "./icon.js"
+import getIcon from "../icon.js"
 
 import './ResultItem.css'
 
@@ -30,9 +30,6 @@ function ResultItem({ item, setPath = () => { } }) {
     const fullName = path ? (path + '\\' + name) : name
     let href = "", onClick = () => { }, size = "";
 
-    const [fullNameCopied, copyFullname] = useClipboard(fullName);
-    const [pathCopied, copyPath] = useClipboard(path);
-
     if (is_folder) {
         href = "/browse?path=D:\\Downloads";
         onClick = (e) => {
@@ -48,7 +45,7 @@ function ResultItem({ item, setPath = () => { } }) {
     const modified = modified_time ? <span className="mod-time">{fmt(new Date(modified_time))}</span> : ''
 
     const className = [
-        'item',
+        'result-item',
         read_only ? 'read-only' : '',
         hidden ? 'hidden' : '',
         system ? 'system' : '',
@@ -56,7 +53,7 @@ function ResultItem({ item, setPath = () => { } }) {
 
     return (<li className={className}>
         <div className="item-icon-wrapper">
-            <FontAwesomeIcon icon={icon} fixedWidth className="item-icon" />
+            <FontAwesomeIcon icon={icon} fixedWidth className="result-item-icon" />
             {system ? <FontAwesomeIcon icon={faCog} className="system-icon" /> : ""}
         </div>
         <div>
@@ -64,15 +61,15 @@ function ResultItem({ item, setPath = () => { } }) {
                 <OptionalA href={href} className="item-link" linkClassName="live-link" onClick={onClick}>
                     <span className="name">{name}</span>
                 </OptionalA>
-                <button className="open-button" ><FontAwesomeIcon icon={faExternalLinkAlt} fixedWidth onClick={() => fetch(`/api/open?path=${fullName}`)} /></button>
-                <button className="open-button" onClick={copyFullname}><FontAwesomeIcon icon={faCopy} fixedWidth  /></button>
+                <OpenButton location={fullName} />
+                <CopyButton text={fullName} />
                 {size}
                 {modified}
             </div>
             <span className="path">
                 {path}
-                <button className="open-button" ><FontAwesomeIcon icon={faExternalLinkAlt} fixedWidth onClick={() => fetch(`/api/open?path=${path}`)} /></button>
-                <button className="open-button" onClick={copyPath}><FontAwesomeIcon icon={faCopy} fixedWidth  /></button> 
+                <OpenButton location={path} />
+                <CopyButton text={path} />
             </span>
         </div>
     </li>);

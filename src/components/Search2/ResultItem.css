@@ -1,17 +1,20 @@
-.item {
+.result-item {
     /* display:block; */
     display: flex;
     /* flex-direction: column; */
     align-items: flex-start;
     font-size: 16px;
-    margin-bottom: 2px;;
+    margin-bottom: 8px;;
     padding: 8px;
-    
+
+    /* background: white; */
+
+    /* border-bottom: 1px solid #0001; */
 }
 
-.item-icon {
+.result-item-icon {
     /* font-size: 1.5em; */
-    margin-right: 0.25em;
+    /* margin-right: 0.25em; */
 }
 
 .name-row {
@@ -33,7 +36,8 @@
 
 .path {
     color: #bbb;
-    font-weight: 300;
+    /* font-weight: 300; */
+    /* font-size: 14px; */
 }
 
 .mod-time {

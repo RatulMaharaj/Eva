@@ -4,9 +4,10 @@ import { faFolder, faCog, faFile, faChartPie } from '@fortawesome/free-solid-svg
 import { isToday, isThisMonth, isThisYear, format as formatDate } from 'date-fns'
 import filesize from "filesize"
 
-import getIcon from "./icon.js"
+import getIcon from "../icon.js"
 
 import './FsItem.css'
+import { OpenButton, CopyButton } from "../Buttons.js";
 
 const fmt = d => {
     let format = ''
@@ -42,7 +43,7 @@ function FsItem({ item, setPath = () => { } }) {
     const modified = modified_time ? <span className="mod-time">{fmt(new Date(modified_time))}</span> : ''
 
     const className = [
-        'item',
+        'filesystem-item',
         read_only ? 'read-only' : '',
         hidden ? 'hidden' : '',
         system ? 'system' : '',
@@ -56,9 +57,10 @@ function FsItem({ item, setPath = () => { } }) {
             </div>
             <span className="name">{name}</span>
         </OptionalA>
+        <OpenButton location={fullName}/>
+        <CopyButton text={fullName}/>
         {size}
         {modified}
-        <span onClick={() => fetch(`/api/open?path=${fullName}`)}>Open</span>
     </li>);
 }
 

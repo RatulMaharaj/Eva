@@ -34,7 +34,7 @@ function Browse() {
     useEffect(()=> {if(!query) {setQuery("")}},[query, setQuery])
 
     return (
-        <div className="area">
+        <div className="search-area">
             <Searchbar path={query} setPath={setQuery} />
             {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
             <div className="results-area">

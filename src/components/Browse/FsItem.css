@@ -1,7 +1,6 @@
-.item {
+.filesystem-item {
     display: flex;
     font-size: 14px;
-    margin-bottom: 2px;;
     padding: 2px;
     align-items: center;
 }
