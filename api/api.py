@@ -76,6 +76,16 @@ def browse():
     results = Search.get_path(path).to_dict('records') if path else []
     return jsonify(path=path, results = results)
 
+@app.route('/api/data')
+def data():
+    offset = request.args.get('offset') or 0
+    limit = request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT
+    results = Search.data.head(limit).to_dict('records')
+    num_rows = len(Search.data)
+    return jsonify(num_rows=num_rows, results = results)
+    
+
+
 @app.route('/api/settings', methods=['GET', 'POST'])
 def update_data():
     if request.method == 'POST':
