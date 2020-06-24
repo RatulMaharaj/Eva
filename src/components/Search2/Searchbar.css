@@ -4,10 +4,12 @@
     display:flex;
     align-items: center;
     font-size: 16px;
-    border-bottom: 0.5px solid #ddd;
     background: white;
     padding-left: 0.5rem;
     z-index: 5;
+    
+    /* border-bottom: 0.5px solid #ddd; */
+    box-shadow: 0 2px 4px 0px #0001;
 }
 
 .location-form {

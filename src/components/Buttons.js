@@ -10,7 +10,7 @@ export function CopyButton({ text, className = "open-button", icon = faCopy }) {
         <FontAwesomeIcon icon={icon} />
     </button>);
 }
-export function OpenButton({ path: location, className = "open-button", icon = faExternalLinkAlt }) {
+export function OpenButton({ location, className = "open-button", icon = faExternalLinkAlt }) {
     return <button className={className} onClick={() => fetch(`/api/open?path=${location}`)}>
         <FontAwesomeIcon icon={icon} />
     </button>;

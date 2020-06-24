@@ -45,9 +45,9 @@ function App() {
               <Browse />
             </Route>
 
-            {/* <Route path="/s2">
-              <S2 />
-            </Route> */}
+            <Route path="/search_prev">
+              <Search />
+            </Route>
 
           </Switch>
         </Layout>

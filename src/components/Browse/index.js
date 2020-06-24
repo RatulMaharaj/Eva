@@ -64,7 +64,7 @@ function Browse() {
     });
 
     return (
-        <div className="area">
+        <div className="browse-area">
             <Locationbar path={path} setPath={setPath} />
             {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
             <div className="results-area">
