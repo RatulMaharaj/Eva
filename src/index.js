@@ -11,6 +11,7 @@ import Search from "./components/Search"
 import Browse from "./components/Browse"
 import Layout from "./components/Layout";
 import S2 from "./components/Search2";
+import SelectPage from "./components/Select";
 
 
 function App() {
@@ -47,6 +48,10 @@ function App() {
 
             <Route path="/search_prev">
               <Search />
+            </Route>
+
+            <Route path="/select">
+              <SelectPage />
             </Route>
 
           </Switch>
