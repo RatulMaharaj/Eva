@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useQueryParam, StringParam } from 'use-query-params';
-import cachedFetch from "../../utils/cachedFetch";
 import Searchbar from "./Searchbar";
 import ResultItem from "./ResultItem";
 
@@ -12,17 +11,37 @@ function sortFiles(a, b) {
     else { return 0 }
 }
 
-function useResults(results, initialResults = []) {
+function cached(f, cache = {}, keyFn = x => x) {
+    const cachedFn = x => {
+        const key = keyFn(x)
+        const cachedResult = cache[key]
+        if (cachedResult === undefined) {
+            const result = f(x)
+            return (cache[key] = result)
+        } else {
+            return cachedResult
+        }
+    }
+    return cachedFn
+}
+
+const cachedFetch = cached(fetch)
+
+function useResults(query, initialResults = []) {
     const [items, setItems] = useState(initialResults)
     useEffect(() => {
-        const url = `/api/search?q=${results}`
+        if (!query) {
+            setItems([])
+            return
+        }
+        const url = `/api/search?q=${query}`
         cachedFetch(url)
             .then(res => res.json())
             .then(({results}) => {
                 // results.filter(item => item.is_folder).forEach(({path, name}) => cachedFetch(`/api/browse?path=${path ? (path + '\\' + name) : name}`))
                 setItems(results.sort(sortFiles))
             })
-    }, [results])
+    }, [query])
 
     return items
 }
@@ -31,7 +50,7 @@ function Browse() {
 
     const [query, setQuery] = useQueryParam("q", StringParam);
     const items = useResults(query)
-    useEffect(()=> {if(!query) {setQuery("")}},[query, setQuery])
+    useEffect(()=> {if(!query) {setQuery(undefined)}},[query, setQuery])
 
     return (
         <div className="search-area">
