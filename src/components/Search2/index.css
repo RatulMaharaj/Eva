@@ -4,6 +4,7 @@
 
 .search-area {
     background: #f1f4f7;
+    background:white;
     min-width: 480px;
     height: 100vh;
     overflow-y: scroll;
