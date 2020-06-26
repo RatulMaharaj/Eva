@@ -29,6 +29,8 @@
     padding-right: 1rem;
     /* font-weight: 500; */
     color: #333;
+    color: #457b9d;
+    font-weight: 500;
 }
 
 .size {
@@ -38,7 +40,7 @@
 }
 
 .path {
-    color: #bbb;
+    color: #999;
     /* font-weight: 300; */
     /* font-size: 14px; */
 }
