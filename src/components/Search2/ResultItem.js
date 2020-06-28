@@ -1,14 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faCog, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faClone, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 import { isToday, isThisMonth, isThisYear, format as formatDate } from 'date-fns'
-
-import { CopyButton, OpenButton } from "../Buttons";
+import useClipboard from "react-use-clipboard";
 import filesize from "filesize"
 
 import getIcon from "../icon.js"
 
 import './ResultItem.css'
+
+const openExternal = path => fetch(`/api/open?path=${path}`)
 
 const fmt = d => {
     let format = ''
@@ -30,19 +32,22 @@ function ResultItem({ item, setPath = () => { } }) {
     const fullName = path ? (path + '\\' + name) : name
     let href = "", onClick = () => { }, size = "";
 
+    const [isCopiedFullName, copyFullName] = useClipboard(fullName);
+    const [isCopiedPath, copyPath] = useClipboard(path);
+
     if (is_folder) {
         href = "/browse?path=D:\\Downloads";
         onClick = (e) => {
             e.preventDefault();
             setPath(fullName);
         };
-        size = size = <span className="size">{filesize(folder_size_bytes, { round: 1 })} ({num_files} <FontAwesomeIcon icon={faFile} className="tiny-icon" /> {num_subfolders} <FontAwesomeIcon icon={faFolder} className="tiny-icon" />)</span>
+        size = size = <span className="result-size">{filesize(folder_size_bytes, { round: 1 })} ({num_files} <FontAwesomeIcon icon={faFile} className="tiny-icon" /> {num_subfolders} <FontAwesomeIcon icon={faFolder} className="tiny-icon" />)</span>
     }
     else {
-        size = (size != null) ? <span className="size">{filesize(size_bytes, { round: 1 })}</span> : ''
+        size = (size != null) ? <span className="result-size">{filesize(size_bytes, { round: 1 })}</span> : ''
     }
 
-    const modified = modified_time ? <span className="mod-time">{fmt(new Date(modified_time))}</span> : ''
+    const modified = modified_time ? <span className="result-mod-time">{fmt(new Date(modified_time))}</span> : ''
 
     const className = [
         'result-item',
@@ -58,32 +63,24 @@ function ResultItem({ item, setPath = () => { } }) {
         </div>
         <div>
             <div className="name-row">
-                <OptionalA href={href} className="item-link" linkClassName="live-link" onClick={onClick}>
-                    <span className="name">{name}</span>
-                </OptionalA>
-                <OpenButton location={fullName} />
-                <CopyButton text={fullName} />
+                <span className="name clickable hover-underline" onClick={() => openExternal(fullName)} >{name}</span>
+                <button className="copy-button clickable" onClick={copyFullName}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
+                {/* <OpenButton location={fullName} /> */}
+                {/* <CopyButton text={fullName} /> */}
+            </div>
+            <div className="name-row">
+                <a href={`/browse?path=${path}`} className="copy-button clickable" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFolderOpen} />{/*Name*/}</a>
+                <div className="path clickable hover-underline" onClick={() => openExternal(path)} >
+                    {path}
+                </div>
+                <button className="copy-button clickable" onClick={copyPath}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
+            </div>
+            <span>
                 {size}
                 {modified}
-            </div>
-            <span className="path">
-                {path}
-                <OpenButton location={path} />
-                <CopyButton text={path} />
             </span>
         </div>
     </li>);
-}
-
-function OptionalA({ children, href = "", className = "", linkClassName = "", ...props }) {
-    if (href) {
-        return <a href={href} className={className + " " + linkClassName} {...props}>
-            {children}
-        </a>;
-    }
-    else {
-        return <span className={className} {...props}> {children}</span>;
-    }
 }
 
 export default ResultItem;

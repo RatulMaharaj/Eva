@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQueryParam, StringParam } from 'use-query-params';
+import cachedFetch from "../../utils/cachedFetch"
 import Searchbar from "./Searchbar";
 import ResultItem from "./ResultItem";
 
@@ -25,7 +26,7 @@ function cached(f, cache = {}, keyFn = x => x) {
     return cachedFn
 }
 
-const cachedFetch = cached(fetch)
+// const cachedFetch = cached(fetch)
 
 function useResults(query, initialResults = []) {
     const [items, setItems] = useState(initialResults)

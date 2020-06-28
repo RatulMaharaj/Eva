@@ -13,7 +13,9 @@ import {
     faPlayCircle,
     faBook,
     faFile,
-    faEnvelope
+    faEnvelope,
+    faMusic,
+    faFileAudio
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -28,6 +30,7 @@ const TYPE_MAP = {
     'file-code': ['py','css', 'js', 'ipynb'],
     'file-image': ['jpg', 'gif', 'png', 'bmp', 'webp'],
     'file-video': ['avi','mp4', 'm4v'],
+    'file-audio': ['mp3', 'wav', 'ogg'],
     'file-play': ['exe'],
     'file-book': ['epub', 'mobi', 'azw'],
     'file-email': ['msg'],
@@ -48,6 +51,7 @@ const FA_MAP = {
     'file': faFile,
     'file-book': faBook,
     'file-email': faEnvelope,
+    'file-audio': faFileAudio,
 }
 
 const EXT_MAP = get_ext_map(TYPE_MAP)
