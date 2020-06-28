@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.name {
+.result-item .name {
     padding-right: 1rem;
     /* font-weight: 500; */
     color: #333;
@@ -132,17 +132,12 @@
 
 .copy-button {
     display:flex;
-    /* height: 1.5em; */
-    /* width: 1.5em; */
-    /* font-size: 12px; */
-    /* display: none; */
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
     color: #ccc;
     background:white;
-    /* padding: 2px 4px; */
-    /* border: 1px solid #999; */
     border-radius: 4px;
-    /* color: white;;
-    background: #999; */
     margin-right: 0.5rem;
 }
 
