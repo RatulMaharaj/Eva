@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faCog, faFile } from '@fortawesome/free-solid-svg-icons';
 import { faClone, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
@@ -9,6 +9,7 @@ import filesize from "filesize"
 import getIcon from "../icon.js"
 
 import './ResultItem.css'
+import useEventListener from "../MultiSelect/utils/useEventListener.js";
 
 const openExternal = path => fetch(`/api/open?path=${path}`)
 
@@ -26,17 +27,43 @@ const fmt = d => {
     return formatDate(d, format)
 }
 
-function ResultItem({ item, setPath = () => { } }) {
+function ResultItem({ item, setPath = () => { }, active = false }) {
     const { name, is_folder, size_bytes, path, hidden, read_only, system, modified_time, num_files, num_subfolders, folder_size_bytes } = item;
     const icon = is_folder ? faFolder : getIcon(name);
     const fullName = path ? (path + '\\' + name) : name
     let href = "", onClick = () => { }, size = "";
 
+    const browseButton = useRef(null)
+
     const [isCopiedFullName, copyFullName] = useClipboard(fullName);
     const [isCopiedPath, copyPath] = useClipboard(path);
 
+    useEventListener('keydown', e => {
+        if (!active) return;
+        const { key, shiftKey, ctrlKey, altKey } = e;
+        const keyWithModifiers = (ctrlKey ? 'CTRL+' : '') + (altKey ? 'ALT+' : '') + (shiftKey ? 'SHIFT+' : '') + key
+        switch (keyWithModifiers) {
+            case "CTRL+Enter":
+                openExternal(fullName)
+                break;
+            case "CTRL+SHIFT+Enter":
+                openExternal(path)
+                break;
+            case "CTRL+b":
+                browseButton.current.click()
+                break;
+            case "CTRL+c":
+                copyFullName()
+                break;
+            case "CTRL+SHIFT+C":
+                copyPath()
+                break;
+            default:
+                break;
+        }
+    })
+
     if (is_folder) {
-        href = "/browse?path=D:\\Downloads";
         onClick = (e) => {
             e.preventDefault();
             setPath(fullName);
@@ -54,6 +81,7 @@ function ResultItem({ item, setPath = () => { } }) {
         read_only ? 'read-only' : '',
         hidden ? 'hidden' : '',
         system ? 'system' : '',
+        active ? 'active' : '',
     ].join(' ')
 
     return (<li className={className}>
@@ -65,11 +93,9 @@ function ResultItem({ item, setPath = () => { } }) {
             <div className="name-row">
                 <span className="name clickable hover-underline" onClick={() => openExternal(fullName)} >{name}</span>
                 <button className="copy-button clickable" onClick={copyFullName}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
-                {/* <OpenButton location={fullName} /> */}
-                {/* <CopyButton text={fullName} /> */}
             </div>
             <div className="name-row">
-                <a href={`/browse?path=${path}`} className="copy-button clickable" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFolderOpen} />{/*Name*/}</a>
+                <a ref={browseButton} href={`/browse?path=${path}`} className="copy-button clickable" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFolderOpen} />{/*Name*/}</a>
                 <div className="path clickable hover-underline" onClick={() => openExternal(path)} >
                     {path}
                 </div>

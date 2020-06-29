@@ -1,8 +1,7 @@
 .result-item {
+    position: relative;
     box-sizing: border-box;
-    /* display:block; */
     display: flex;
-    /* flex-direction: column; */
     align-items: flex-start;
     font-size: 14px;
     margin-bottom: 0.75em;   
@@ -14,6 +13,23 @@
 
     /* cursor: pointer; */
     /* border: 1px solid #0001; */
+}
+
+.result-item.active {
+    /* border-left: 4px solid blue; */
+}
+
+.selected .result-item::before {
+    content: "";
+    color: 0000;
+    position: absolute;
+    width: 4px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    background: steelblue;
+
+    /* border-left: 4px solid steelblue; */
 }
 
 .result-item:hover {

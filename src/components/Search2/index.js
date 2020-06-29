@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useQueryParam, StringParam } from 'use-query-params';
 import cachedFetch from "../../utils/cachedFetch"
 import Searchbar from "./Searchbar";
 import ResultItem from "./ResultItem";
+import MultiSelectList from "../MultiSelect/MultiList"
 
 import "../iconColors.css"
 import "./index.css"
@@ -47,19 +48,31 @@ function useResults(query, initialResults = []) {
     return items
 }
 
-function Browse() {
+function Search() {
 
     const [query, setQuery] = useQueryParam("q", StringParam);
     const items = useResults(query)
+    const [focus, setFocus] = useState(-1)
+    const focusRef = useRef(null)
     useEffect(()=> {if(!query) {setQuery(undefined)}},[query, setQuery])
 
+    useEffect(() => {
+        const actives = document.querySelectorAll('.results-list .selected')
+        if (actives.length < 1) return;
+        actives[0].scrollIntoView({behavior:'smooth',block:'start'})
+        // console.log(focusRef.current)
+        // focusRef.current && focusRef.current.scrollIntoView()
+    },[focus])
+    
     return (
         <div className="search-area">
             <Searchbar path={query} setPath={setQuery} />
             {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
             <div className="results-area">
                 <ul className="results-list">
-                    {items.map((item, i) => <ResultItem key={i} item={item} setPath={setQuery} />)}
+                    <MultiSelectList onFocusChange={setFocus}>
+                    {items.map((item, i) => <ResultItem key={i} item={item} setPath={setQuery} active={i === focus} />)}
+                    </MultiSelectList>
                 </ul>
                 {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
             </div>
@@ -67,4 +80,4 @@ function Browse() {
     );
 }
 
-export default Browse;
+export default Search;
