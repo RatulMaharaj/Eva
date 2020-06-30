@@ -34,6 +34,7 @@ function ResultItem({ item, setPath = () => { }, active = false }) {
     let href = "", onClick = () => { }, size = "";
 
     const browseButton = useRef(null)
+    const browseButtonNewTab = useRef(null)
 
     const [isCopiedFullName, copyFullName] = useClipboard(fullName);
     const [isCopiedPath, copyPath] = useClipboard(path);
@@ -51,6 +52,9 @@ function ResultItem({ item, setPath = () => { }, active = false }) {
                 break;
             case "CTRL+b":
                 browseButton.current.click()
+                break;
+            case "CTRL+SHIFT+B":
+                browseButtonNewTab.current.click()
                 break;
             case "CTRL+c":
                 copyFullName()
@@ -95,7 +99,8 @@ function ResultItem({ item, setPath = () => { }, active = false }) {
                 <button className="copy-button clickable" onClick={copyFullName}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
             </div>
             <div className="name-row">
-                <a ref={browseButton} href={`/browse?path=${path}`} className="copy-button clickable" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFolderOpen} />{/*Name*/}</a>
+                <a ref={browseButton} href={`/browse?path=${path}`} className="copy-button clickable"><FontAwesomeIcon icon={faFolderOpen} /></a>
+                <a ref={browseButtonNewTab} href={`/browse?path=${path}`} style={{display:'none'}} target="_blank" rel="noopener noreferrer">browse in a new tab</a>
                 <div className="path clickable hover-underline" onClick={() => openExternal(path)} >
                     {path}
                 </div>
