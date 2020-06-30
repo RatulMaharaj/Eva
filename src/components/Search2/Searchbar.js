@@ -10,6 +10,8 @@ function Locationbar({ path = "", setPath = () => { } }) {
     useEffect(() => { setCurrentPath(path); }, [path]);
     const inputRef = useRef(null)
 
+    useEffect(()=> inputRef.current.focus(),[])
+
     useEventListener('keydown',e => {
         // console.log(e)
         if((e.key === 's') && (e.altKey)) {
@@ -31,7 +33,7 @@ function Locationbar({ path = "", setPath = () => { } }) {
 
     return <div className="locationbar">
         <form className="location-form" onSubmit={onSubmit}>
-            <input ref={inputRef} type="search" className="location-inputbox" value={currentPath} onChange={onChange} onKeyDown={onKeyDown} />
+            <input ref={inputRef} type="search" className="location-inputbox" value={currentPath} onChange={onChange} onKeyDown={onKeyDown} onLoad={() => inputRef.current.focus()} />
             <div className="location-icon-wrapper">
                 <FontAwesomeIcon icon={faSearch} className="location-icon" />
             </div>
