@@ -59,7 +59,7 @@ function Search() {
     useEffect(() => {
         const actives = document.querySelectorAll('.results-list .selected')
         if (actives.length < 1) return;
-        actives[0].scrollIntoView({behavior:'smooth',block:'start'})
+        actives[0].scrollIntoView({behavior:'smooth', block:'nearest'})
         // console.log(focusRef.current)
         // focusRef.current && focusRef.current.scrollIntoView()
     },[focus])
