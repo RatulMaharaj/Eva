@@ -3,6 +3,7 @@ import { useQueryParam, StringParam } from 'use-query-params';
 import cachedFetch from "../../utils/cachedFetch";
 import Locationbar from "./Locationbar";
 import FsItem from "./FsItem";
+import MultiSelectList from "../MultiSelect/MultiList"
 
 import "../iconColors.css"
 import "./Browse.css"
@@ -49,6 +50,7 @@ function Browse() {
 
     const [path, setPath] = useQueryParam("path", StringParam);
     const items = useItems(path)
+    const [focus, setFocus] = useState(-1)
     useEffect(()=> {if(!path) {setPath("")}},[path, setPath])
 
     useEffect(() => {
@@ -69,8 +71,10 @@ function Browse() {
             {/* <pre>{JSON.stringify(useQuery(), null, 2)}</pre> */}
             <div className="results-area">
                 <ul className="results-list">
-                    {(path === "") ? <Roots setPath={setPath}/> : ''}
-                    {items.map(item => <FsItem key={item.name} item={item} setPath={setPath} />)}
+                    {(path === "") ? <Roots setPath={setPath} focus={focus} /> : ''}
+                    <MultiSelectList onFocusChange={setFocus}>
+                    {items.map((item,i) => <FsItem key={item.name} item={item} setPath={setPath} active={i === focus} />)}
+                    </MultiSelectList>
                 </ul>
                 {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
             </div>
