@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 import './Locationbar.css'
+import useEventListener from "../MultiSelect/utils/useEventListener";
 
 function upPath(path) {
     return path.slice(0, path.lastIndexOf('\\'))
@@ -11,6 +12,19 @@ function upPath(path) {
 function Locationbar({ path = "", setPath = () => { } }) {
     const [currentPath, setCurrentPath] = useState(path);
     useEffect(() => { setCurrentPath(path); }, [path]);
+
+    
+    const inputRef = useRef(null)
+
+    useEffect(()=> inputRef.current.focus(),[])
+
+    useEventListener('keydown',e => {
+        // console.log(e)
+        if((e.key === 'l') && (e.altKey)) {
+            inputRef.current.focus()
+        }
+    },document)
+
     const onChange = e => setCurrentPath(e.target.value);
     const onSubmit = e => {
         e.preventDefault();
@@ -22,6 +36,7 @@ function Locationbar({ path = "", setPath = () => { } }) {
             setCurrentPath(path);
         }
     };
+
 
     const up = () => {
         setPath(upPath(path))
@@ -35,7 +50,7 @@ function Locationbar({ path = "", setPath = () => { } }) {
             <div className="location-icon-wrapper">
                 <FontAwesomeIcon icon={faFolder} className="location-icon" />
             </div>
-            <input type="search" className="location-inputbox" value={currentPath} onChange={onChange} onKeyDown={onKeyDown} />
+            <input ref={inputRef} type="search" className="location-inputbox" value={currentPath} onChange={onChange} onKeyDown={onKeyDown} />
         </form>
     </div>;
 }
