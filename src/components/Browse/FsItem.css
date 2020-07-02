@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.active.filesystem-item {
+    background: rgba(238, 116, 177, 0.4);
+}
+
 .name {
     padding-right: 1rem;
 }
