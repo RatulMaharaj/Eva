@@ -27,14 +27,6 @@ function Home() {
                 </center>
               </div>
             </Link>
-            <Link to="combine">
-              <div>
-                <center>
-                  <h3>Eva PDF</h3>
-                  <p>Merge or encrypt pdf files</p>
-                </center>
-              </div>
-            </Link>
             <Link to="about">
               <div>
                 <center>
