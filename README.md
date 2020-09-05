@@ -21,20 +21,27 @@ Open a new cmd terminal and cd into the directory where you will be installing E
 
 
 ```shell
-# Clone the repository.
-git clone https://github.com/RatulMaharaj/Eva.git
+# Clone the branch of this repository.
+git clone -b Eva-react https://github.com/RatulMaharaj/Eva.git
 
 # Go into the cloned folder.
-cd eva
+cd Eva-react
 
-# Create new virtual environment.
+# Install node dependencies
+npm install
+
+# Go into api folder
+cd api
+
+# Create new virtual environment in the api folder.
 python -m venv venv
 
 # Activate the virtual environment.
-venv\scripts\activate.bat
+venv\scripts\activate.bat # windows (cmd)
+source ./venv/bin/activate # mac or linux
 
 # Install the required packages.
-pip install -r requirements.txt
+pip install -r requirements.txt 
 
 # Run the app.
 python app.py
