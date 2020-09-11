@@ -66,8 +66,7 @@ def direntry_to_dict(de):
 
 def stat_to_dict(stats, results_dict={}):
     """
-    convert a stat object to a simple dict
-    or append it to an existing dict
+    convert a stat object to a simple dict or append it to an existing dict
     """
 
     results_dict[SIZE] = stats.st_size
@@ -88,6 +87,10 @@ def direntry_for_one_folder(path):
     """
     returns a single DirEntry object for one path
     """
+
+    if path[-1] == "/":  # Fix for unix paths
+        path = path[:-1]
+
     base, name = os.path.split(path)
     for entry in os.scandir(base):
         if entry.name == name:
