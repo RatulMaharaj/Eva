@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import Notification from "./Notification"
+// import Notification from "./Notification"
 import "./Home.css"
 
 function Home() {
