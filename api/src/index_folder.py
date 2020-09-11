@@ -55,6 +55,7 @@ def direntry_to_dict(de):
     """
     convert a direntry object to a simple dict
     """
+
     result = {
         LOCATION: os.path.normpath(os.path.split(de.path)[0]),
         NAME: de.name,
@@ -89,9 +90,9 @@ def direntry_for_one_folder(path):
     """
 
     if path[-1] == "/":  # Fix for unix paths
-        path = path[:-1]
-
-    base, name = os.path.split(path)
+        base, name = os.path.split(path[:-1])
+    else:
+        base, name = os.path.split(path)
     for entry in os.scandir(base):
         if entry.name == name:
             return entry
