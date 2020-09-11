@@ -16,30 +16,50 @@ Eva is continuously being tweaked and improved. More applications will be added 
 
 A prior installation of python 3.7 or above is required. You will then need to follow the following process:
 
-Open a new cmd terminal and cd into the directory where you will be installing Eva.
- 
-
+Open a new terminal and cd into the directory where you will be installing Eva.
 
 ```shell
-# Clone the repository.
-git clone https://github.com/RatulMaharaj/Eva.git
+# Clone the branch of this repository.
+git clone -b Eva-react https://github.com/RatulMaharaj/Eva.git
 
 # Go into the cloned folder.
-cd eva
+cd Eva-react
 
-# Create new virtual environment.
+# Install node dependencies
+npm install
+
+# Go into api folder
+cd api
+
+# Create new virtual environment in the api folder.
 python -m venv venv
 
 # Activate the virtual environment.
-venv\scripts\activate.bat
+venv\scripts\activate.bat # windows (cmd)
+source ./venv/bin/activate # mac or linux
 
 # Install the required packages.
-pip install -r requirements.txt
+pip install -r requirements.txt 
 
-# Run the app.
-python app.py
 ```
-Navigate to localhost:5000 when you see that the server is runnning. The flask development server is used by default, but this can be changed in the app.py file to use waitress as a production server. 
+# Starting the development version of the app
+
+You need two terminal windows to run the development version of the app, one for the backend flask server and another for the react front end. 
+
+## Backend
+
+```shell
+npm run start-api
+```
+
+## Frontend
+In a new terminal window:
+
+```shell
+npm start
+```
+
+Navigate to localhost:3000 in your browser.
 
 #### CREATED BY
  
