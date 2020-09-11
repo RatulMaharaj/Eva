@@ -20,7 +20,7 @@ function Search() {
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setGetResults(true);
@@ -29,7 +29,8 @@ function Search() {
   useEffect(() => {
     fetch(`/api/search?q=${input.q}`)
       .then((res) => res.json())
-      .then((data) => setResponse(data));
+      .then((data) => setResponse(data))
+      .catch((error) => console.log(error));
   }, [input, getResults]);
 
   return (
@@ -56,10 +57,10 @@ function Search() {
       <div className="content">
         {response.results.map((result) => {
           return (
-            <div class="search-content-section">
-              <div class="search_result">
-                <div class="search_name">{result.name}</div>
-                <div class="search_path">
+            <div key={result.name} className="search-content-section">
+              <div className="search_result">
+                <div className="search_name">{result.name}</div>
+                <div className="search_path">
                   <a href="{{result.path}}" id="filepath">
                     {result.path}
                   </a>
