@@ -11,7 +11,7 @@ version = "0.3.0"
 
 # Set app parameters
 if platform.system() == "Darwin":
-    DEP_FOLDER = "../dependencies/"  # macOS
+    DEP_FOLDER = "../dependencies/"  # unix
 else:
     DEP_FOLDER = "..\\dependencies\\"  # Windows
 

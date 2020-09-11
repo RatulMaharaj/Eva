@@ -1,5 +1,4 @@
 # Importing the required libraries
-import numpy as np
 import pandas as pd
 import os
 import time
@@ -46,8 +45,8 @@ def load_data():
         data = pd.read_csv(
             database_location, usecols=COLUMNS, low_memory=False
         )  # Read the data into a pandas dataframe
-    except:
-        pass  # fail silently
+    except Exception as e:
+        print("data load failed", e)  # fail silently
 
 
 # Search function

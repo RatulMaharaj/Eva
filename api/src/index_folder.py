@@ -80,6 +80,10 @@ def stat_to_dict(stats, results_dict={}):
         results_dict[READONLY] = (stat.FILE_ATTRIBUTE_READONLY & attributes) != 0
         results_dict[HIDDEN] = (stat.FILE_ATTRIBUTE_HIDDEN & attributes) != 0
         results_dict[SYSTEM] = (stat.FILE_ATTRIBUTE_SYSTEM & attributes) != 0
+    else:
+        results_dict[READONLY] = ''
+        results_dict[HIDDEN] = ''
+        results_dict[SYSTEM] = ''
 
     return results_dict
 
