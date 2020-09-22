@@ -10,35 +10,6 @@ COLUMNS = get_cols()
 data = pd.DataFrame(columns=COLUMNS)  # initialise an empty dataframe
 
 
-# def load_data():
-#     # Import Database
-#     global data
-#     try:
-#         data = pd.read_csv(
-#             database_location, usecols=COLUMNS, low_memory=False
-#         )  # Read the data into a pandas dataframe
-#     except Exception as e:
-#         print("data load failed", e)  # fail silently
-
-
-# # Search function
-# def searchcsv(search_string):
-#     """
-#     This function can be used to search for files saved in the OMART folders.
-#     """
-#     try:
-#         search_words = split(search_string)
-#     except:  # if shlex split fails (can happen if there's unclosed quotes)
-#         search_words = search_string.split(" ")
-
-#     filtered = data[data["is_folder"] == False]
-#     for search_word in search_words:
-#         filtered = filtered[filtered["name"].str.contains(search_word, case=False)]
-
-#     results = filtered
-#     return results
-
-
 def getmodtime(database_location):
     modified = os.path.getmtime(database_location)
     year, month, day, hour, minute, second = time.localtime(modified)[:-3]
@@ -77,15 +48,15 @@ def search_db(search_string, database_location):
     return results
 
 
-def get_times(database_location):
-    modified = os.path.getmtime(database_location)
-    year, month, day, hour, minute, second = time.localtime(modified)[:-3]
-    modtime = "%02d/%02d/%d %02d:%02d:%02d" % (day, month, year, hour, minute, second)
+# def get_times(database_location):
+#     modified = os.path.getmtime(database_location)
+#     year, month, day, hour, minute, second = time.localtime(modified)[:-3]
+#     modtime = "%02d/%02d/%d %02d:%02d:%02d" % (day, month, year, hour, minute, second)
 
-    conn = sqlite3.connect(database_location)
-    update_time = pd.read_sql_query("SELECT * FROM update_time", conn).loc[
-        0, "update_time"
-    ]
-    conn.close()
+#     conn = sqlite3.connect(database_location)
+#     update_time = pd.read_sql_query("SELECT * FROM update_time", conn).loc[
+#         0, "update_time"
+#     ]
+#     conn.close()
 
-    return (modtime, update_time)
+#     return (modtime, update_time)
