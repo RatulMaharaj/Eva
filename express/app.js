@@ -1,11 +1,13 @@
 var search = require('./src/search.js')
 var folders = require('./src/folders.js')
 var update = require('./src/update.js')
-const fs = require('fs');
+const fs = require('fs')
+const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser');
 
 const app = express()
+app.use(express.static(path.join(__dirname, '../build')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = 5000
@@ -28,7 +30,7 @@ fs.openSync(FOLDERS_LOCATION, 'a')
 var IS_UPDATING = "no"
 
 app.get('/', (req, res) => {
-  res.send('Hello from node!')
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
 
