@@ -15,7 +15,7 @@ if platform.system() == "Darwin":
 else:
     DEP_FOLDER = "..\\dependencies\\"  # Windows
 
-DATABASE_LOCATION = DEP_FOLDER + "database.csv"
+DATABASE_LOCATION = DEP_FOLDER + "database.db"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 DEFAULT_SEARCH_RESULT_LIMIT = 100
 IS_UPDATING = "no"
