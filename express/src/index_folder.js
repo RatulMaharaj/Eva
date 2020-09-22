@@ -4,7 +4,6 @@ const path = require("path");
 
 module.exports.get_stats = function get_stats(folders) {
     var paths = []
-
     folders.forEach(folder => {
         // get file paths
         const results_path = new fdir()

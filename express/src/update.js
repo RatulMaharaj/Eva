@@ -1,22 +1,10 @@
-const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
-const LineReaderSync = require("line-reader-sync")
 var index_folder = require('./index_folder.js')
 
-function get_folders(folder_location) {
-    // array of folders to index
-    const folders = new LineReaderSync(folder_location).toLines()
-    return folders
-}
 
-function set_folders(folder_location, lines) {
-    fs.writeFile(folder_location, lines.join('\n'), 'ascii', () => {});
-}
-
-function update(database_location, folder_location) {
-
+module.exports.update = function update(database_location, folders) {
     // data we want to store
-    const data = index_folder.get_stats(get_folders(folder_location))
+    const data = index_folder.get_stats(folders)
 
     // connect to the database
     let db = new sqlite3.Database(database_location, sqlite3.OPEN_READWRITE)
