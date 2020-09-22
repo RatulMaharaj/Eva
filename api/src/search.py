@@ -2,55 +2,54 @@
 import pandas as pd
 import os
 import time
+import sqlite3
 from shlex import split
-from src.index_folder import (
-    NAME,
-    LOCATION,
-    IS_FOLDER,
-    SIZE,
-    ATIME,
-    MTIME,
-    CTIME,
-    HIDDEN,
-    SYSTEM,
-    READONLY,
-    NUM_FILES,
-    NUM_FOLDERS,
-    FOLDER_SIZE,
-)
+from src.index_folder import get_cols  # The fields we want from the datafile
 
-COLUMNS = [
-    NAME,
-    LOCATION,
-    IS_FOLDER,
-    SIZE,
-    ATIME,
-    MTIME,
-    CTIME,
-    HIDDEN,
-    SYSTEM,
-    READONLY,
-    NUM_FILES,
-    NUM_FOLDERS,
-    FOLDER_SIZE,
-]  # The fields we want from the datafile
+COLUMNS = get_cols()
+data = pd.DataFrame(columns=COLUMNS)  # initialise an empty dataframe
+
+
+# def load_data():
+#     # Import Database
+#     global data
+#     try:
+#         data = pd.read_csv(
+#             database_location, usecols=COLUMNS, low_memory=False
+#         )  # Read the data into a pandas dataframe
+#     except Exception as e:
+#         print("data load failed", e)  # fail silently
+
+
+# # Search function
+# def searchcsv(search_string):
+#     """
+#     This function can be used to search for files saved in the OMART folders.
+#     """
+#     try:
+#         search_words = split(search_string)
+#     except:  # if shlex split fails (can happen if there's unclosed quotes)
+#         search_words = search_string.split(" ")
+
+#     filtered = data[data["is_folder"] == False]
+#     for search_word in search_words:
+#         filtered = filtered[filtered["name"].str.contains(search_word, case=False)]
+
+#     results = filtered
+#     return results
+
+
+def getmodtime(database_location):
+    modified = os.path.getmtime(database_location)
+    year, month, day, hour, minute, second = time.localtime(modified)[:-3]
+    modtime = "%02d/%02d/%d %02d:%02d:%02d" % (day, month, year, hour, minute, second)
+    return modtime
+
 
 data = pd.DataFrame(columns=COLUMNS)  # initialise an empty dataframe
 
 
-def load_data():
-    # Import Database
-    global data
-    try:
-        data = pd.read_csv(
-            database_location, usecols=COLUMNS, low_memory=False
-        )  # Read the data into a pandas dataframe
-    except Exception as e:
-        print("data load failed", e)  # fail silently
-
-
-# Search function
-def searchcsv(search_string):
+def search_db(search_string, database_location):
     """
     This function can be used to search for files saved in the OMART folders.
     """
@@ -59,16 +58,34 @@ def searchcsv(search_string):
     except:  # if shlex split fails (can happen if there's unclosed quotes)
         search_words = search_string.split(" ")
 
-    filtered = data[data["is_folder"] == False]
-    for search_word in search_words:
-        filtered = filtered[filtered["name"].str.contains(search_word, case=False)]
+    conn = sqlite3.connect(database_location)  # Connect to datbase
 
-    results = filtered
+    # Generate query based on search criteria
+    query = f"SELECT name, path FROM ask_eva WHERE name LIKE '%{search_words[0]}%'"
+    if len(search_words) > 1:
+        for search_word in search_words[1:]:
+            query += f" AND name LIKE '%{search_word}%'"
+
+    query += ";"
+
+    # put results into a pandas dataframe
+    c = conn.cursor()
+    c.execute(query)
+    a = c.fetchall()
+    results = pd.DataFrame(a, columns=['name', 'path'])
+    conn.close()
     return results
 
 
-def getmodtime():
+def get_times(database_location):
     modified = os.path.getmtime(database_location)
     year, month, day, hour, minute, second = time.localtime(modified)[:-3]
     modtime = "%02d/%02d/%d %02d:%02d:%02d" % (day, month, year, hour, minute, second)
-    return modtime
+
+    conn = sqlite3.connect(database_location)
+    update_time = pd.read_sql_query("SELECT * FROM update_time", conn).loc[
+        0, "update_time"
+    ]
+    conn.close()
+
+    return (modtime, update_time)

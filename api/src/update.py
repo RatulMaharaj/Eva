@@ -1,6 +1,6 @@
 import pandas as pd
 import sqlite3
-import datetime as datetime
+from datetime import datetime
 from .index_folder import index_folder
 
 
