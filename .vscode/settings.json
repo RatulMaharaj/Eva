@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Database",
+            "database": "${workspaceFolder:Eva}/dependencies/database.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
