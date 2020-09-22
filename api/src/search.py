@@ -48,15 +48,15 @@ def search_db(search_string, database_location):
     return results
 
 
-# def get_times(database_location):
-#     modified = os.path.getmtime(database_location)
-#     year, month, day, hour, minute, second = time.localtime(modified)[:-3]
-#     modtime = "%02d/%02d/%d %02d:%02d:%02d" % (day, month, year, hour, minute, second)
+def get_times(database_location):
+    modified = os.path.getmtime(database_location)
+    year, month, day, hour, minute, second = time.localtime(modified)[:-3]
+    modtime = "%02d/%02d/%d %02d:%02d:%02d" % (day, month, year, hour, minute, second)
 
-#     conn = sqlite3.connect(database_location)
-#     update_time = pd.read_sql_query("SELECT * FROM update_time", conn).loc[
-#         0, "update_time"
-#     ]
-#     conn.close()
+    conn = sqlite3.connect(database_location)
+    update_time = pd.read_sql_query("SELECT * FROM update_time", conn).loc[
+        0, "update_time"
+    ]
+    conn.close()
 
-#     return (modtime, update_time)
+    return (modtime, update_time)

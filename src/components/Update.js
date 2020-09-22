@@ -35,7 +35,7 @@ function Update(props) {
         });
         
       }
-  }, [postRequest, isUpdating]);
+  }, [folders, setFolders, postRequest, isUpdating, setIsUpdating]);
 
   return (
     <>

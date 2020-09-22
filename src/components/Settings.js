@@ -6,6 +6,7 @@ function Settings() {
   const [folders, setFolders] = useState("");
   const [version, setVersion] = useState("");
   const [modTime, setModTime] = useState("");
+  const [updateTime, setUpdateTime] = useState("");
   const [isUpdating, setIsUpdating] = useState("");
 
   const getRequest = () => {
@@ -14,7 +15,8 @@ function Settings() {
     .then((data) => {
       setFolders(data.folders)
       setVersion(data.version)
-      setModTime(data.modTime)
+      setModTime(data.modtime)
+      setUpdateTime(data.updatetime)
       setIsUpdating(data.isUpdating)
     })
   }
@@ -45,7 +47,7 @@ function Settings() {
         </p>
         <br />
         <p>
-          The database was last updated on: <strong>{modTime}</strong>
+          The database was last updated on: <strong>{modTime}</strong> and took <strong>{updateTime}</strong> to update.
         </p>
         <br />
         <br />

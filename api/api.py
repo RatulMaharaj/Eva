@@ -99,14 +99,13 @@ def update_data():
         folders = data["folders"].splitlines()
         write_folders(folders, FOLDERS_LOCATION)
         update(DATABASE_LOCATION, FOLDERS_LOCATION)
-        # Search.load_data()
         IS_UPDATING = "no"
         return jsonify(message="update successful")
 
     folders = read_folders(FOLDERS_LOCATION)
     folders_str = "\n".join(folders)
-    modtime = Search.getmodtime(DATABASE_LOCATION)
+    modtime, update_time = Search.get_times(DATABASE_LOCATION)
 
     return jsonify(
-        modtime=modtime, version=version, folders=folders_str, isUpdating=IS_UPDATING
+        modtime=modtime, updatetime=update_time, version=version, folders=folders_str, isUpdating=IS_UPDATING
     )
