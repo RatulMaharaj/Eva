@@ -5,6 +5,12 @@
             "driver": "SQLite",
             "name": "Database",
             "database": "${workspaceFolder:Eva}/dependencies/database.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Test",
+            "database": "${workspaceFolder:Eva}/dependencies/test.db"
         }
     ],
     "sqltools.useNodeRuntime": true
