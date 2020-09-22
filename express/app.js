@@ -2,7 +2,7 @@ var search = require('./src/search.js')
 
 const express = require('express')
 const app = express()
-const port = 8000
+const port = 5000
 
 app.get('/', (req, res) => {
   res.send('Hello from node!')
@@ -14,14 +14,14 @@ app.get('/api/search', (req, res) => {
 
   search.search_db(searchcriteria, '../dependencies/database.db')
     .then((data) => {
-      if (data.length === 0) {
+      if (data.length === 0 || searchcriteria === '') {
         res.send({
-          'hits': data.length,
+          'hits': 0,
           'results': [{
             'name': 'No files were found!',
             'path': 'Please adjust your search criteria and try again.'
           }],
-          'returned_hits': data.length,
+          'returned_hits': 0,
           'searchcriteria': searchcriteria
         })
       }
