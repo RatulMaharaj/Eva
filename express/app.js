@@ -1,6 +1,7 @@
 var search = require('./src/search.js')
 var folders = require('./src/folders.js')
 var update = require('./src/update.js')
+const fs = require('fs');
 const express = require('express')
 const bodyParser = require('body-parser');
 
@@ -20,6 +21,9 @@ if (process.platform === 'darwin') {
 
 const DATABASE_LOCATION = DEP_FOLDER + "database.db"
 const FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
+fs.openSync(DATABASE_LOCATION, 'a')
+fs.openSync(FOLDERS_LOCATION, 'a')
+
 // const DEFAULT_SEARCH_RESULT_LIMIT = 100
 var IS_UPDATING = "no"
 
@@ -61,8 +65,8 @@ app.get('/api/settings', (req, res) => {
   const folders_str = folders.get_folders(FOLDERS_LOCATION).join('\n')
 
   res.send({
-    'modtime': 'NOT READY YET',
-    'updatetime': 'NOT READY YET',
+    'modtime': 'FEATURE NOT AVAILABLE YET',
+    'updatetime': 'FEATURE NOT AVAILABLE YET',
     'version': version,
     'folders': folders_str,
     'isUpdating': IS_UPDATING,
@@ -77,12 +81,12 @@ app.post('/api/settings', (req, res) => {
   update.update(DATABASE_LOCATION, req.body.folders.split('\n'))
 
   const folders_str = folders.get_folders(FOLDERS_LOCATION).join('\n')
-  
+
   console.log('Update Complete!')
 
   res.send({
-    'modtime': 'NOT READY YET',
-    'updatetime': 'NOT READY YET',
+    'modtime': 'FEATURE NOT AVAILABLE YET',
+    'updatetime': 'FEATURE NOT AVAILABLE YET',
     'version': version,
     'folders': folders_str,
     'isUpdating': IS_UPDATING,
