@@ -12,10 +12,27 @@ CTIME = "created_time"
 READONLY = "readonly"
 HIDDEN = "hidden"
 SYSTEM = "system"
-
 FOLDER_SIZE = "folder_size_bytes"
 NUM_FILES = "num_files"
 NUM_FOLDERS = "num_subfolders"
+
+
+def get_cols():
+    return [
+        NAME,
+        LOCATION,
+        IS_FOLDER,
+        SIZE,
+        ATIME,
+        MTIME,
+        CTIME,
+        HIDDEN,
+        SYSTEM,
+        READONLY,
+        NUM_FILES,
+        NUM_FOLDERS,
+        FOLDER_SIZE,
+    ]
 
 
 def index_folder(path):
@@ -81,9 +98,9 @@ def stat_to_dict(stats, results_dict={}):
         results_dict[HIDDEN] = (stat.FILE_ATTRIBUTE_HIDDEN & attributes) != 0
         results_dict[SYSTEM] = (stat.FILE_ATTRIBUTE_SYSTEM & attributes) != 0
     else:
-        results_dict[READONLY] = 'not available'
-        results_dict[HIDDEN] = 'not available'
-        results_dict[SYSTEM] = 'not available'
+        results_dict[READONLY] = "not available"
+        results_dict[HIDDEN] = "not available"
+        results_dict[SYSTEM] = "not available"
 
     return results_dict
 

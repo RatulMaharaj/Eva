@@ -57,7 +57,7 @@ function Search() {
       <div className="content">
         {response.results.map((result) => {
           return (
-            <div key={result.name} className="search-content-section">
+            <div className="search-content-section">
               <div className="search_result">
                 <div className="search_name">{result.name}</div>
                 <div className="search_path">

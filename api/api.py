@@ -4,6 +4,7 @@ import src.search as Search
 import pandas as pd
 import os
 import platform
+import sqlite3
 # import json
 # from waitress import serve
 
@@ -15,7 +16,7 @@ if platform.system() == "Darwin":
 else:
     DEP_FOLDER = "..\\dependencies\\"  # Windows
 
-DATABASE_LOCATION = DEP_FOLDER + "database.csv"
+DATABASE_LOCATION = DEP_FOLDER + "database.db"
 FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
 DEFAULT_SEARCH_RESULT_LIMIT = 100
 IS_UPDATING = "no"
@@ -25,8 +26,8 @@ IS_UPDATING = "no"
 if not os.path.isdir(DEP_FOLDER):
     os.mkdir(DEP_FOLDER)
 if not os.path.isfile(DATABASE_LOCATION):
-    f = pd.DataFrame(columns=Search.COLUMNS)
-    f.to_csv(DATABASE_LOCATION)
+    conn = sqlite3.connect(DATABASE_LOCATION)  # This will create an empty db
+    conn.close()
 if not os.path.isfile(FOLDERS_LOCATION):
     f = open(FOLDERS_LOCATION, "w+")
     f.close()
@@ -34,8 +35,8 @@ if not os.path.isfile(FOLDERS_LOCATION):
 # Create app instance
 app = Flask(__name__, static_folder="../build", static_url_path="/")
 
-Search.database_location = DATABASE_LOCATION
-Search.load_data()
+# Search.database_location = DATABASE_LOCATION
+# Search.load_data()
 
 
 # Serve built react app
@@ -64,7 +65,7 @@ def search():
         )
 
     elif query:
-        results = Search.searchcsv(query)
+        results = Search.search_db(query, DATABASE_LOCATION)
         hits = len(results)
         if hits == 0:
             returned_hits = 0
@@ -98,14 +99,13 @@ def update_data():
         folders = data["folders"].splitlines()
         write_folders(folders, FOLDERS_LOCATION)
         update(DATABASE_LOCATION, FOLDERS_LOCATION)
-        Search.load_data()
         IS_UPDATING = "no"
         return jsonify(message="update successful")
 
     folders = read_folders(FOLDERS_LOCATION)
     folders_str = "\n".join(folders)
-    modtime = Search.getmodtime()
+    modtime, update_time = Search.get_times(DATABASE_LOCATION)
 
     return jsonify(
-        modtime=modtime, version=version, folders=folders_str, isUpdating=IS_UPDATING
+        modtime=modtime, updatetime=update_time, version=version, folders=folders_str, isUpdating=IS_UPDATING
     )
