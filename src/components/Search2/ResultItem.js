@@ -31,7 +31,7 @@ function ResultItem({ item, setPath = () => { }, active = false }) {
     const { name, is_folder, size_bytes, path, hidden, read_only, system, modified_time, num_files, num_subfolders, folder_size_bytes } = item;
     const icon = is_folder ? faFolder : getIcon(name);
     const fullName = path ? (path + '\\' + name) : name
-    let href = "", onClick = () => { }, size = "";
+    let onClick = () => { }, size = "";
 
     const browseButton = useRef(null)
     const browseButtonNewTab = useRef(null)
@@ -95,16 +95,16 @@ function ResultItem({ item, setPath = () => { }, active = false }) {
         </div>
         <div>
             <div className="name-row">
-                <span className="name clickable hover-underline" onClick={() => openExternal(fullName)} >{name}</span>
+                <span className="name clickable hover-underline hover-pink" onClick={() => openExternal(fullName)} >{name}</span>
                 <button className="copy-button clickable" onClick={copyFullName}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
             </div>
             <div className="name-row">
-                <a ref={browseButton} href={`/browse?path=${path}`} className="copy-button clickable"><FontAwesomeIcon icon={faFolderOpen} /></a>
+                <a ref={browseButton} href={`/browse?path=${path}`} className="copy-button clickable hover-pink"><FontAwesomeIcon icon={faFolderOpen} /></a>
                 <a ref={browseButtonNewTab} href={`/browse?path=${path}`} style={{display:'none'}} target="_blank" rel="noopener noreferrer">browse in a new tab</a>
-                <div className="path clickable hover-underline" onClick={() => openExternal(path)} >
+                <div className="path clickable hover-pink" onClick={() => openExternal(path)} >
                     {path}
                 </div>
-                <button className="copy-button clickable" onClick={copyPath}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
+                <button className="copy-button clickable hover-pink" onClick={copyPath}><FontAwesomeIcon icon={faClone} />{/*Name*/}</button>
             </div>
             <span>
                 {size}
