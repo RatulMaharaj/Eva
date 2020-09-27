@@ -19,7 +19,7 @@ def load_data():
         pass # fail silently
     
 # Search function
-def searchcsv(search_string):
+def searchcsv(search_string, within = ''):
     '''
     This function can be used to search for files saved in the OMART folders.
     '''
@@ -29,6 +29,8 @@ def searchcsv(search_string):
         search_words = search_string.split(' ')
 
     filtered = data[data['is_folder'] == False]
+    if within:
+        filtered = filtered[filtered['path'].str.lower().startswith(within)]
     for search_word in search_words:
         filtered = filtered[filtered['name'].str.contains(search_word, case=False)]
     
