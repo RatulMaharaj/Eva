@@ -59,7 +59,7 @@ function ResultItem({ item, setPath = () => { }, active = false }) {
             case "CTRL+c":
                 copyFullName()
                 break;
-            case "CTRL+SHIFT+C":
+            case "CTRL+ALT+C":
                 copyPath()
                 break;
             default:
