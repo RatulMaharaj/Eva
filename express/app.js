@@ -5,12 +5,20 @@ const fs = require('fs')
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser');
+const ipfilter = require('express-ipfilter').IpFilter
+// const IpDeniedError = require('express-ipfilter').IpDeniedError
 
 const app = express()
+
+// Whitelist the following IPs
+const ips = ['::ffff:127.0.0.1']
+
+app.use(ipfilter(ips, { mode: 'allow' }))
 app.use(express.static(path.join(__dirname, '../build')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const port = 5000
+
+const port = 80
 
 const version = '0.4.0'
 
@@ -95,7 +103,6 @@ app.post('/api/settings', (req, res) => {
   })
 })
 
-
 app.listen(port, () => {
-  console.log(`Eva Express server listening at http://localhost:${port}`)
+  console.log(`Eva Express server listening at http://0.0.0.0:${port}`)
 })

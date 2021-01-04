@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "concurrently": "^5.3.0",
+    "express-ipfilter": "^1.1.2",
     "fdir": "^4.1.0",
     "line-reader-sync": "^0.1.0",
     "react": "^16.13.1",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"cd express && node app.js\"",
-    "start-api": "cd express && node app.js",
+    "serve": "cd express && node app.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
