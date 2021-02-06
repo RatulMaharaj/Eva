@@ -16,7 +16,12 @@
 }
 
 .result-item.active {
+    outline: 1px dotted #4682b4;
     /* border-left: 4px solid blue; */
+}
+
+.selected .result-item {
+    background: #4682b420;
 }
 
 .selected .result-item::before {
@@ -27,7 +32,7 @@
     top:0;
     bottom: 0;
     left: 0;
-    background: steelblue;
+    background: #4682b4;
 
     /* border-left: 4px solid steelblue; */
 }

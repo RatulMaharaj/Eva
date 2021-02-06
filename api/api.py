@@ -50,7 +50,6 @@ def search():
     # raw = (request.args.get('raw') or "") != ""
     limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
     if query == "":
-        results_dict = [{'name':'Search for a file', 'path':'Use the search box above to find a file on the share drives'}]
         results_dict = []
         return jsonify(results=results_dict, searchcriteria=query, hits=0, returned_hits=0)
     
@@ -59,7 +58,6 @@ def search():
         hits = len(results)
         if hits == 0:
             returned_hits = 0
-            # results_dict = [{'name':'No files were found!', 'path':'Please adjust your search criteria and try again.'}]
             results_dict = []
         else:
             if limit > 0 and hits > limit:
@@ -78,11 +76,11 @@ def browse():
 
 @app.route('/api/data')
 def data():
-    offset = request.args.get('offset') or 0
-    limit = request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT
-    results = Search.data.head(limit).to_dict('records')
+    offset = int(request.args.get('offset') or 0)
+    limit = int(request.args.get('limit') or DEFAULT_SEARCH_RESULT_LIMIT)
+    results = Search.data[offset:].head(limit).to_dict('records')
     num_rows = len(Search.data)
-    return jsonify(num_rows=num_rows, results = results)
+    return jsonify(num_rows=num_rows, num_results = limit, results = results)
     
 
 
