@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask, render_template, request, send_file, redirect, jsonify
+from flask import Flask, render_template, request, send_file, redirect, jsonify, abort
 from src.update import update, read_folders, write_folders
 import src.search as Search
 import pandas as pd
@@ -13,9 +13,9 @@ version = '0.3.0'
 # Set app parameters
 
 # UPLOAD_FOLDER = ".\\uploads"
-DEP_FOLDER = "..\\dependencies\\"
-DATABASE_LOCATION = DEP_FOLDER + "database.csv"
-FOLDERS_LOCATION = DEP_FOLDER + "folders.txt"
+DEP_FOLDER = "..\\dependencies"
+DATABASE_LOCATION = DEP_FOLDER + "\\" + "database.csv"
+FOLDERS_LOCATION = DEP_FOLDER + "\\" + "folders.txt"
 DEFAULT_SEARCH_RESULT_LIMIT = 100
 IS_UPDATING = 'no'
 
@@ -82,7 +82,12 @@ def data():
     num_rows = len(Search.data)
     return jsonify(num_rows=num_rows, num_results = limit, results = results)
     
-
+@app.route('/api/export')
+def export():
+    try: 
+        return send_file(DATABASE_LOCATION, as_attachment = True)
+    except FileNotFoundError:
+        abort(404)
 
 @app.route('/api/settings', methods=['GET', 'POST'])
 def update_data():
