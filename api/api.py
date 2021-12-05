@@ -5,10 +5,11 @@ import pandas as pd
 import os
 import platform
 import sqlite3
+
 # import json
 # from waitress import serve
 
-version = "0.3.0"
+version = "1.0.0"
 
 # Set app parameters
 if platform.system() == "Darwin":
@@ -46,6 +47,14 @@ def index():
 
 
 # api endpoints
+
+
+@app.route("/api/os", methods=["GET"])
+def os():
+    if platform.system() == "Darwin":
+        return jsonify(os="macos")
+    else:
+        return jsonify(os="windows")
 
 
 @app.route("/api/search", methods=["GET"])
@@ -107,5 +116,9 @@ def update_data():
     modtime, update_time = Search.get_times(DATABASE_LOCATION)
 
     return jsonify(
-        modtime=modtime, updatetime=update_time, version=version, folders=folders_str, isUpdating=IS_UPDATING
+        modtime=modtime,
+        updatetime=update_time,
+        version=version,
+        folders=folders_str,
+        isUpdating=IS_UPDATING,
     )

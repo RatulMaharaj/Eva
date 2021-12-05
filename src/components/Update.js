@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Spinner from "react-spinners/PulseLoader";
 
-
 function Update(props) {
-  const {folders, setFolders, isUpdating, setIsUpdating} = props
+  const { folders, setFolders, isUpdating, setIsUpdating } = props;
   const [postRequest, setPostRequest] = useState(false);
 
-  function handleClick(){
-    setPostRequest(true)
+  function handleClick() {
+    setPostRequest(true);
   }
 
   useEffect(() => {
     if (postRequest === true) {
-      console.log("Sending post request")      
-      const data = { 'folders': folders };
+      console.log("Sending post request");
+      const data = { folders: folders };
 
       fetch("api/settings", {
         method: "POST",
@@ -25,26 +24,25 @@ function Update(props) {
         .then((response) => response.json())
         .then((data) => {
           console.log("Success:", data);
-          setPostRequest(false)
-          setIsUpdating('no')
+          setPostRequest(false);
+          setIsUpdating("no");
         })
         .catch((error) => {
           console.error("Error:", error);
-          setPostRequest(false)
-          setIsUpdating('no')
+          setPostRequest(false);
+          setIsUpdating("no");
         });
-        
-      }
+    }
   }, [folders, setFolders, postRequest, isUpdating, setIsUpdating]);
 
   return (
     <>
-    <div style={{display:`flex`}}>
-      <h4 style={{marginRight:`1em`}}>UPDATE NOW</h4>
+      <div style={{ display: `flex` }}>
+        <h4 style={{ marginRight: `1em` }}>Update Now</h4>
         <Spinner
-        size={8}
-        margin={2}
-        loading={postRequest || isUpdating === 'yes'}
+          size={8}
+          margin={2}
+          loading={postRequest || isUpdating === "yes"}
         />
       </div>
       <br />
@@ -52,7 +50,7 @@ function Update(props) {
         Please enter the paths of the folders you would like to be indexed. Each
         path should be on a new line.
       </p>
-      <br />    
+      <br />
       <form>
         <div className="IndexTheseFolders">
           <textarea
@@ -60,15 +58,12 @@ function Update(props) {
             id="folders"
             defaultValue={props.folders}
             onChange={(event) => setFolders(event.target.value)}
-          >
-          </textarea>
+          ></textarea>
         </div>
       </form>
       <button className="button" onClick={(event) => handleClick()}>
-        UPDATE
+        Update Now
       </button>
-      
-      <br />
       <br />
       <br />
       <br />
