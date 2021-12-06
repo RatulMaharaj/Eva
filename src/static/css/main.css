@@ -87,6 +87,7 @@ button {
   display: inline-block;
   padding: 1em;
   font-size: 15px;
+  font-weight: 400;
   opacity: 1;
 }
 

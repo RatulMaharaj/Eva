@@ -14,7 +14,7 @@ function Logo() {
       <span
         style={{
           fontFamily: "Century Gothic",
-          fontWeight: "light",
+          fontWeight: `700`,
           fontSize: `11px`,
           color: `var(--light-grey)`,
           margin: `0 0.65em`,
