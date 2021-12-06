@@ -25,7 +25,7 @@ function Logo() {
       <span
         style={{
           fontFamily: "Century Gothic",
-          fontWeight: "light",
+          fontWeight: "700",
           fontSize: `25px`,
           letterSpacing: `1.5px`,
           color: "#50B848",
@@ -36,7 +36,7 @@ function Logo() {
       <span
         style={{
           fontFamily: "Century Gothic",
-          fontWeight: "light",
+          fontWeight: "700",
           fontSize: `25px`,
           letterSpacing: `1.5px`,
           color: "#F37024",
@@ -47,7 +47,7 @@ function Logo() {
       <span
         style={{
           fontFamily: "Century Gothic",
-          fontWeight: "light",
+          fontWeight: "700",
           fontSize: `25px`,
           letterSpacing: `1.5px`,
           color: "#ED0E81",
@@ -58,7 +58,7 @@ function Logo() {
       <span
         style={{
           fontFamily: "Century Gothic",
-          fontWeight: "light",
+          fontWeight: "700",
           fontSize: `25px`,
           letterSpacing: `1.5px`,
           color: "#099678",
@@ -69,7 +69,7 @@ function Logo() {
       <span
         style={{
           fontFamily: "Century Gothic",
-          fontWeight: "light",
+          fontWeight: "700",
           fontSize: `25px`,
           letterSpacing: `1.5px`,
           color: "#0CC1E9",
