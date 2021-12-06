@@ -70,6 +70,7 @@ h4 {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-weight: 400 !important;
 }
 
 button {
@@ -137,4 +138,5 @@ p {
 
 strong {
   color: var(--orange);
+  font-weight: 400 !important;
 }
